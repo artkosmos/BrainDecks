@@ -1,3 +1,17 @@
+.label {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 3px;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--color-light-100);
+
+  &:has(.root[data-disabled]) {
+    color: var(--color-dark-100);
+  }
+}
+
 .root {
   cursor: pointer;
 
@@ -35,8 +49,8 @@
   align-items: center;
   justify-content: center;
 
-  width: 35px;
-  height: 35px;
+  width: 36px;
+  height: 36px;
 
   background-color: rgb(var(--color-dark-100) 0);
   border-radius: 100%;

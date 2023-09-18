@@ -8,7 +8,7 @@ const meta = {
   parameters: {
     layout: 'centered',
   },
-  argTypes: {},
+  decorators: [],
 } satisfies Meta<typeof Checkbox>
 
 export default meta
@@ -17,32 +17,7 @@ type Story = StoryObj<typeof meta>
 export const AdaptiveCheckbox: Story = {
   args: {
     checked: false,
-    disabled: true,
-  },
-}
-
-export const Default: Story = {
-  args: {
-    checked: false,
-  },
-}
-
-export const DefaultChecked: Story = {
-  args: {
-    checked: true,
-  },
-}
-
-export const Disabled: Story = {
-  args: {
-    checked: false,
-    disabled: true,
-  },
-}
-
-export const DisabledChecked: Story = {
-  args: {
-    ...Disabled.args,
-    checked: true,
+    disabled: false,
+    label: 'Checkbox',
   },
 }
