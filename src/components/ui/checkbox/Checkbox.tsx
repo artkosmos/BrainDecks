@@ -5,8 +5,9 @@ import * as Label from '@radix-ui/react-label'
 
 import style from './Checkbox.module.scss'
 
-type Props = ComponentPropsWithoutRef<typeof CheckboxRadix.Root> & {
+type Props = Omit<ComponentPropsWithoutRef<typeof CheckboxRadix.Root>, 'onChange'> & {
   label?: string
+  onChange?: (checked: boolean) => void
 }
 
 export const Checkbox = ({ checked, disabled, label, onChange, ...restProps }: Props) => {
@@ -18,6 +19,7 @@ export const Checkbox = ({ checked, disabled, label, onChange, ...restProps }: P
           className={style.root}
           checked={checked}
           disabled={disabled}
+          onCheckedChange={onChange}
           {...restProps}
         >
           <CheckboxRadix.Indicator className={style.indicator}>

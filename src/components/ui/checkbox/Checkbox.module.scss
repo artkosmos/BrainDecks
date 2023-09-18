@@ -40,6 +40,10 @@
   &[data-disabled] svg path {
     fill: var(--color-dark-100);
   }
+
+  &[data-disabled] svg rect {
+    fill: var(--color-light-700);
+  }
 }
 
 .checkboxWrapper {
