@@ -14,25 +14,31 @@ type Options = {
 
 type Props = {
   options: Options[]
-  typographyColor: any
-  typographyStyle: any
 }
 
 export const RadioGroup = (
   props: Props & Omit<ComponentPropsWithoutRef<typeof Radio.Root>, keyof Props>
 ) => {
-  const { color, className, options, onClick, ...rest } = props
+  const { disabled, className, options, onValueChange, ...rest } = props
 
   return (
-    <Radio.Root className={style.root} {...rest}>
+    <Radio.Root
+      onValueChange={onValueChange}
+      defaultValue={'none'}
+      className={style.root}
+      disabled={disabled}
+      {...rest}
+    >
       {options.map((item, index) => (
         <Label key={index} className={style.label}>
-          <Typography variant={'body2'} color={'light'}>
+          <Typography variant={'body2'} color={!disabled ? 'light' : 'grey'}>
             {item.label}
           </Typography>
-          <Radio.Item value={item.value} className={style.item}>
-            <Radio.Indicator className={style.indicator} />
-          </Radio.Item>
+          <div className={style.radioItemWrapper}>
+            <Radio.Item value={item.value} className={style.item}>
+              <Radio.Indicator className={style.indicator} />
+            </Radio.Item>
+          </div>
         </Label>
       ))}
     </Radio.Root>
