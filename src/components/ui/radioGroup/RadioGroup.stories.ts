@@ -14,8 +14,14 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
+const options = [
+  { label: 'First', value: 'first' },
+  { label: 'Second', value: 'second' },
+  { label: 'None', value: 'none' },
+]
+
 export const Radio: Story = {
   args: {
-    checked: true,
+    options,
   },
 }
