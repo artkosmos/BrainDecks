@@ -2,25 +2,22 @@ import * as Tabs from '@radix-ui/react-tabs'
 
 import s from './tabSwitcher.module.scss'
 
-
 export type TabType = {
-    id: string,
-    title: string,
-    titleClassname?: string,
-    disabledTab?: boolean,
-    defaultTab?: boolean,
+    id: string
+    title: string
+    titleClassname?: string
+    disabledTab?: boolean
+    defaultTab?: boolean
 }
 
 export type TabSwitcherProps = {
-    orientation?: 'vertical' | 'horizontal',
-    tabs: TabType[],
-    setActiveTab?: (id: string) => void,
+    orientation?: 'vertical' | 'horizontal'
+    tabs: TabType[]
+    setActiveTab?: (id: string) => void
 }
 
-export const TabSwitcher = (
-    props: TabSwitcherProps
-) => {
-    const {orientation = 'horizontal', tabs, setActiveTab } = props
+export const TabSwitcher = (props: TabSwitcherProps) => {
+    const {orientation = 'horizontal', tabs, setActiveTab} = props
 
     const defaultTab = tabs.find(tab => tab.defaultTab)
 
