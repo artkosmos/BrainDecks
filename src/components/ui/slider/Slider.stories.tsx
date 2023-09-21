@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Slider } from '@/components/ui/slider/Slider.tsx'
+import { Slider } from '@/components/ui/slider'
 
 const meta = {
   title: 'Components/Slider',
