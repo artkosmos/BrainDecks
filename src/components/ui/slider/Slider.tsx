@@ -13,11 +13,14 @@ export const Slider = (
 ) => {
   const { min, max, onValueChange, value, ...rest } = props
 
+  const value1 = value?.length ? value[0] : min
+  const value2 = value?.length ? value[1] : max
+
   return (
     <div className={s.sliderWrapper}>
       <div className={s.rectangle}>
-        <Typography variant={'body1'} color={'light'}>
-          {min}
+        <Typography variant={'body1'} color={'grey'}>
+          {value1}
         </Typography>
       </div>
       <SliderRadix.Root
@@ -35,8 +38,8 @@ export const Slider = (
         <SliderRadix.Thumb className={s.thumb} />
       </SliderRadix.Root>
       <div className={s.rectangle}>
-        <Typography variant={'body1'} color={'light'}>
-          {max}
+        <Typography variant={'body1'} color={'grey'}>
+          {value2}
         </Typography>
       </div>
     </div>
