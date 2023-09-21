@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { Slider } from '@/components/ui/slider/Slider.tsx'
@@ -10,11 +12,6 @@ const meta = {
     layout: 'centered',
   },
   argTypes: {
-    orientation: {
-      options: ['horizontal', 'vertical'],
-      control: { type: 'radio' },
-      description: 'Let you change direction of slider.',
-    },
     max: {
       description: 'The maximum value for the range.',
     },
@@ -37,7 +34,7 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const AdaptiveSlider: Story = {
+export const SliderWithControl: Story = {
   args: {
     min: 0,
     max: 15,
@@ -45,6 +42,18 @@ export const AdaptiveSlider: Story = {
     step: 1,
     minStepsBetweenThumbs: 1,
     disabled: false,
-    orientation: 'horizontal',
   },
+}
+
+export const SliderWithAdaptiveInfoValues: Story = {
+  render: () => <Slider1 />,
+}
+
+const Slider1 = () => {
+  const [values, setValues] = useState<number[]>([2, 10])
+
+  let minRange = 0
+  let maxRange = 15
+
+  return <Slider min={minRange} max={maxRange} value={values} onValueChange={setValues} />
 }
