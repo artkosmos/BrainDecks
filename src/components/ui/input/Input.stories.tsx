@@ -1,8 +1,10 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons'
-import { Input } from './Input'
 import { ChangeEvent, useState } from 'react'
+
+import { faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import type { Meta, StoryObj } from '@storybook/react'
+
+import { Input } from './Input'
 
 const meta = {
   title: 'Components/Input',
@@ -15,13 +17,6 @@ const meta = {
 
 export default meta
 type Story = StoryObj<typeof meta>
-
-// export const Primary: Story = {
-//   args: {
-//     // primary: true,
-//     label: 'Input',
-//   },
-// }
 
 export const DisabledInput: Story = {
   args: {
@@ -46,4 +41,9 @@ export const inputWithIcons = () => {
   // <FontAwesomeIcon icon={faEyeSlash} />  rightside input icon
 
   return <Input leftSideIcon={searchIcon} rightSideIcon={rightSideIcon} />
+}
+export const inputWithError = () => {
+  let error = 'error'
+
+  return <Input error={error} />
 }

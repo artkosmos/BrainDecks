@@ -8,11 +8,13 @@
   color: white;
 }
 
-input{
-  border: 1px solid #4C4C4C;
+input {
+  border: 1px solid #4c4c4c;
   border-radius: 2px;
-  color:white;
+  color: white;
   background-color: transparent;
+  height: 36px;
+  width: 284px;
 }
 
 .inputIcon input {
@@ -21,14 +23,28 @@ input{
 
 .searchIcon {
   position: absolute;
-  top: 50%;
-  left: 5px;
+  top: 30%;
+  left: 7px;
   transform: translateY(-50%);
 }
 
 .rightSideIcon {
   position: absolute;
-  top: 50%;
-  right: 5px;
+  top: 30%;
+  right: 7px;
   transform: translateY(-50%);
+}
+
+.error {
+  width: 10px;
+  height: 24px;
+  top: 60px;
+  color: #f23d61;
+}
+
+.errorInput {
+  border: 1px solid #f23d61;
+  border-radius: 2px;
+  color: #f23d61;
+  background-color: transparent;
 }

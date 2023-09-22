@@ -7,12 +7,13 @@ import s from './Input.module.scss'
 type AdditionalTypeToInput = {
   leftSideIcon?: JSX.Element
   rightSideIcon?: JSX.Element
+  error?: string
 }
 
 type InputPropsType = ComponentPropsWithoutRef<'input'> & AdditionalTypeToInput
 
 export const Input = (props: InputPropsType) => {
-  let { leftSideIcon, rightSideIcon, disabled, value, onChange } = props
+  let { error, leftSideIcon, rightSideIcon, disabled, value, onChange } = props
 
   return (
     <div className={leftSideIcon ? s.inputIcon : s.defaultInputWithoutIcon}>
@@ -23,9 +24,10 @@ export const Input = (props: InputPropsType) => {
         disabled={disabled}
         value={value}
         onChange={onChange}
-        className={s.input}
+        className={error ? s.errorInput : s.input}
       />
       {rightSideIcon && <span className={s.rightSideIcon}>{rightSideIcon}</span>}
+      {error !== '' && <div className={s.error}>{error}</div>}
     </div>
   )
 }
