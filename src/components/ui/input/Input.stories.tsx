@@ -33,7 +33,7 @@ export const DefaultInput = () => {
   return <Input value={inputValue} onChange={onChangeInputValueHandler} />
 }
 
-const inputWithIcons = () => {
+export const inputWithIcons = () => {
   let searchIcon = <FontAwesomeIcon icon={faMagnifyingGlass} style={{ color: '#ffffff' }} />
   let rightSideIcon = <FontAwesomeIcon icon={faXmark} style={{ color: '#ffffff' }} />
 
@@ -42,7 +42,7 @@ const inputWithIcons = () => {
 
   return <Input leftSideIcon={searchIcon} rightSideIcon={rightSideIcon} />
 }
-const inputWithError = () => {
+export const inputWithError = () => {
   let error = 'error'
 
   return <Input error={error} />
