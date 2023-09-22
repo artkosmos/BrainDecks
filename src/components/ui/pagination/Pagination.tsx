@@ -1,9 +1,10 @@
 import s from './Pagination.module.scss'
 
+import { Typography } from '@/components/ui/typography'
 import { usePagination } from '@/hooks'
 
 type Props = {
-  siblingCount: number
+  siblingCount?: number
   totalCount: number
   currentPage: number
   pageSize: number
@@ -19,51 +20,54 @@ export const Pagination = (props: Props) => {
     return null
   }
 
-  const onNext = () => {
+  const nextPageHandler = () => {
     onChange(currentPage + 1)
   }
 
-  const onPrevious = () => {
+  const previousPageHandler = () => {
     onChange(currentPage - 1)
   }
 
-  // const getCurrenPageHandler = (event: MouseEventHandler<HTMLLIElement>) => {}
+  const lastPage = paginationRange[paginationRange.length - 1]
 
-  let lastPage = paginationRange[paginationRange.length - 1]
+  const paginationContainerClassName = `${s.paginationContainer} ${className ? s[className] : ''}`
+
+  const paginationLeftArrowClassName = `${s.paginationArrow} ${currentPage === 1 && s.disabled}`
+
+  const paginationRightArrowClassName = `${s.paginationArrow} ${
+    currentPage === lastPage && s.disabled
+  }`
+
+  const mappedPages = paginationRange.map((page, index) => {
+    const paginationItemClassName = `${s.paginationItem} ${page === currentPage && s.selected}`
+
+    const typographyColor = page === currentPage ? 'dark' : 'light'
+
+    if (page === 'DOTS') {
+      return (
+        <li key={index} className={s.dots}>
+          &#8230;
+        </li>
+      )
+    }
+
+    return (
+      <li key={index} className={paginationItemClassName} onClick={() => onChange(Number(page))}>
+        <Typography variant={'body2'} color={typographyColor}>
+          {page}
+        </Typography>
+      </li>
+    )
+  })
 
   return (
-    <ul className={`${s.paginationContainer} ${className ? s[className] : ''}`}>
-      <li
-        className={`${s.paginationArrow} ${currentPage === 1 && s.disabled}`}
-        onClick={onPrevious}
-      >
-        <div className={s.leftArrow} />
+    <ul className={paginationContainerClassName}>
+      <li className={paginationLeftArrowClassName} onClick={previousPageHandler}>
+        <div className={`${s.arrow} ${s.leftArrow}`} />
       </li>
-      {paginationRange.map((pageNumber, index) => {
-        // If the pageItem is a DOT, render the DOTS unicode character
-        if (pageNumber === 'DOTS') {
-          return (
-            <li key={index} className={s.dots}>
-              &#8230;
-            </li>
-          )
-        }
-
-        return (
-          <li
-            key={index}
-            className={`${s.paginationItem} ${pageNumber === currentPage && s.selected}`}
-            onClick={() => onChange(Number(pageNumber))}
-          >
-            {pageNumber}
-          </li>
-        )
-      })}
-      <li
-        className={`${s.paginationArrow} ${currentPage === lastPage && s.disabled}`}
-        onClick={onNext}
-      >
-        <div className={s.rightArrow} />
+      {mappedPages}
+      <li className={paginationRightArrowClassName} onClick={nextPageHandler}>
+        <div className={`${s.arrow} ${s.rightArrow}`} />
       </li>
     </ul>
   )

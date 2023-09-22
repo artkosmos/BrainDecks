@@ -35,6 +35,7 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
+// @ts-ignore
 export const CustomPaginationWithState: Story = {
   render: () => <RenderPagination />,
 }
@@ -42,5 +43,10 @@ export const CustomPaginationWithState: Story = {
 const RenderPagination = () => {
   const [page, setPage] = useState<number>(1)
 
-  return <Pagination totalCount={50} currentPage={page} pageSize={5} onChange={setPage} />
+  const totalCount = 50
+  const pageSize = 5
+
+  return (
+    <Pagination totalCount={totalCount} currentPage={page} pageSize={pageSize} onChange={setPage} />
+  )
 }
