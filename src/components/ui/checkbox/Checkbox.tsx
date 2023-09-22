@@ -3,7 +3,7 @@ import { ComponentPropsWithoutRef } from 'react'
 import * as CheckboxRadix from '@radix-ui/react-checkbox'
 import * as Label from '@radix-ui/react-label'
 
-import style from './Checkbox.module.scss'
+import s from './Checkbox.module.scss'
 
 type Props = Omit<ComponentPropsWithoutRef<typeof CheckboxRadix.Root>, 'onChange'> & {
   label?: string
@@ -12,17 +12,17 @@ type Props = Omit<ComponentPropsWithoutRef<typeof CheckboxRadix.Root>, 'onChange
 
 export const Checkbox = ({ checked, disabled, label, onChange, ...restProps }: Props) => {
   return (
-    <Label.Root className={style.label}>
+    <Label.Root className={s.label}>
       {label}
-      <div className={style.checkboxWrapper}>
+      <div className={s.checkboxWrapper}>
         <CheckboxRadix.Root
-          className={style.root}
+          className={s.root}
           checked={checked}
           disabled={disabled}
           onCheckedChange={onChange}
           {...restProps}
         >
-          <CheckboxRadix.Indicator className={style.indicator}>
+          <CheckboxRadix.Indicator className={s.indicator}>
             {checked && (
               <svg
                 xmlns="http://www.w3.org/2000/svg"

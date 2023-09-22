@@ -1,6 +1,6 @@
 import { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react'
 
-import style from './Typography.module.scss'
+import s from './Typography.module.scss'
 
 type Elements = keyof typeof ELEMENTS
 type Colors = 'violet' | 'light' | 'grey' | 'error' | 'dark'
@@ -23,7 +23,7 @@ export const Typography = <T extends ElementType = 'p'>(
   return (
     <Element
       onClick={onClick}
-      className={`${style.element} ${className ? style.className : ''}`}
+      className={`${s.element} ${className ? s.className : ''}`}
       data-state={variant}
       data-color={color}
       {...rest}
