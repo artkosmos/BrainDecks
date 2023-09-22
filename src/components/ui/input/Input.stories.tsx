@@ -37,8 +37,8 @@ export const inputWithIcons = () => {
   let searchIcon = <FontAwesomeIcon icon={faMagnifyingGlass} style={{ color: '#ffffff' }} />
   let rightSideIcon = <FontAwesomeIcon icon={faXmark} style={{ color: '#ffffff' }} />
 
-  // <FontAwesomeIcon icon={faEye} /> rightside input icon
-  // <FontAwesomeIcon icon={faEyeSlash} />  rightside input icon
+  // <FontAwesomeIcon icon={faEye} /> right side input icon eye
+  // <FontAwesomeIcon icon={faEyeSlash} />  right side input icon eye locked
 
   return <Input leftSideIcon={searchIcon} rightSideIcon={rightSideIcon} />
 }
