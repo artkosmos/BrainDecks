@@ -31,7 +31,7 @@ export const RadioGroup = (
     >
       {options.map((item, index) => (
         <Label key={index} className={s.label}>
-          <Typography variant={'body2'} color={!disabled ? 'light' : 'grey'}>
+          <Typography variant={'body2'} className={!disabled ? s.textColor : s.disabledTextColor}>
             {item.label}
           </Typography>
           <div className={s.radioItemWrapper}>
