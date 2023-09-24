@@ -7,10 +7,12 @@ export function App() {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: '100px',
+        // marginTop: '100px',
+        width: '100vh',
+        height: '100vh',
       }}
     >
-      <Selector />
+      <Selector label={'Select'} />
     </div>
   )
 }

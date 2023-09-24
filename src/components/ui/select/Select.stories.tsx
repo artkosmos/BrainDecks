@@ -14,13 +14,11 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const AuthorisedUser: Story = {
+export const DisabledSelect: Story = {
   args: {
-    isAuth: true,
+    disable: true,
   },
 }
-// export const NotAuthorisedUser: Story = {
-//   args: {
-//     isAuth: false,
-//   },
-// }
+export const SelectWithLabel = () => {
+  return <Selector label={'select'} />
+}
