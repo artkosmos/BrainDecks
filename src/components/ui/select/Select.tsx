@@ -7,6 +7,8 @@ import { SelectItemProps } from '@radix-ui/react-select'
 import s from './Select.module.scss'
 
 type SelectPropsType = {
+  selectName?: string
+  selectData?: string[]
   disable?: boolean
   label?: string
 }
