@@ -2,7 +2,14 @@ import { Selector } from '@/components/ui/select'
 
 export function App() {
   return (
-    <div>
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: '100px',
+      }}
+    >
       <Selector />
     </div>
   )

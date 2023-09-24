@@ -1,6 +1,6 @@
-import { forwardRef } from 'react'
+import { forwardRef, useState } from 'react'
 
-import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons'
+import { ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons'
 import * as Select from '@radix-ui/react-select'
 import { SelectItemProps } from '@radix-ui/react-select'
 import './Select.css'
@@ -10,30 +10,29 @@ const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
     return (
       <Select.Item className={`SelectItem ${className}`} {...props} ref={forwardedRef}>
         <Select.ItemText>{children}</Select.ItemText>
-        <Select.ItemIndicator className="SelectItemIndicator">
-          <CheckIcon />
-        </Select.ItemIndicator>
       </Select.Item>
     )
   }
 )
 
 export const Selector = () => {
+  const [open, setOpen] = useState(false)
+
   return (
-    <Select.Root>
+    <Select.Root open={open} onOpenChange={setOpen}>
       <Select.Trigger className="SelectTrigger" aria-label="Food">
         <Select.Value placeholder="Select a fruit…" />
         <Select.Icon className="SelectIcon">
-          <ChevronDownIcon />
+          {open ? <ChevronUpIcon /> : <ChevronDownIcon />}
         </Select.Icon>
       </Select.Trigger>
       <Select.Portal>
-        <Select.Content className="SelectContent">
+        <Select.Content className="SelectContent" position="popper">
           <Select.ScrollUpButton className="SelectScrollButton">
             <ChevronUpIcon />
           </Select.ScrollUpButton>
           <Select.Viewport className="SelectViewport">
-            <Select.Group>
+            <Select.Group className="SelectGroup">
               {/*{valuesForSelect.map(el => el)} заготовка!!*/}
               <SelectItem value="apple">Apple</SelectItem>
               <SelectItem value="banana">Banana</SelectItem>
