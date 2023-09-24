@@ -1,4 +1,4 @@
-import { Selector } from '@/components/ui/select'
+import { Input } from '@/components/ui/input'
 
 export function App() {
   return (
@@ -12,7 +12,7 @@ export function App() {
         height: '100vh',
       }}
     >
-      <Selector label={'Select'} />
+      <Input label={'Input'} />
     </div>
   )
 }

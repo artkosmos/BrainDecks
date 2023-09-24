@@ -1,3 +1,5 @@
+@import '/src/styles/mixins';
+
 .defaultInputWithoutIcon {
   position: relative;
   color: var(--color-light-100);
@@ -6,6 +8,10 @@
 .inputIcon {
   position: relative;
   color: var(--color-light-100);
+}
+
+.label{
+  @include label
 }
 
 input {
@@ -20,7 +26,6 @@ input {
 }
 
 input:hover {
-  cursor: pointer;
   color: var(--color-dark-100);
   background-color: var(--color-dark-300);
   border: 1px solid var(--color-dark-100);
@@ -43,6 +48,8 @@ input:focus {
 }
 
 .rightSideIcon {
+  cursor: pointer;
+
   position: absolute;
   top: 30%;
   right: 7px;

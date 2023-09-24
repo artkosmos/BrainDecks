@@ -21,6 +21,7 @@ type Story = StoryObj<typeof meta>
 export const DisabledInput: Story = {
   args: {
     disabled: true,
+    label: 'Input',
   },
 }
 export const DefaultInput = () => {
@@ -30,7 +31,7 @@ export const DefaultInput = () => {
     return setInputValue(e.currentTarget.value)
   }
 
-  return <Input value={inputValue} onChange={onChangeInputValueHandler} />
+  return <Input label={'Input'} value={inputValue} onChange={onChangeInputValueHandler} />
 }
 
 export const inputWithIcons = () => {
@@ -40,10 +41,10 @@ export const inputWithIcons = () => {
   // <FontAwesomeIcon icon={faEye} /> right side input icon eye
   // <FontAwesomeIcon icon={faEyeSlash} />  right side input icon eye locked
 
-  return <Input leftSideIcon={searchIcon} rightSideIcon={rightSideIcon} />
+  return <Input label={'Input'} leftSideIcon={searchIcon} rightSideIcon={rightSideIcon} />
 }
 export const inputWithError = () => {
   let error = 'error'
 
-  return <Input error={error} />
+  return <Input error={error} label={'Input'} />
 }
