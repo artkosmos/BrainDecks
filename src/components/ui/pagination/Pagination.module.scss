@@ -2,6 +2,9 @@
   display: flex;
   flex-direction: row;
   gap: 12px;
+  align-items: center;
+  justify-content: center;
+
   list-style-type: none;
 
   .paginationArrow {
@@ -96,4 +99,30 @@
       background-color: var(--color-light-100);
     }
   }
+
+  .settings {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+
+    margin-left: 15px;
+  }
+}
+
+.textColorDark {
+  color: var(--color-dark-900);
+}
+
+.textColorLight {
+  color: var(--color-light-100);
+}
+
+.trigger {
+  width: 50px !important;
+  padding: 0 6px !important;
+}
+
+.content {
+  width: 63.5px !important;
 }

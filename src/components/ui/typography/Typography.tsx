@@ -1,4 +1,11 @@
-import { ComponentPropsWithoutRef, ElementRef, ElementType, ReactNode } from 'react'
+import {
+  ComponentPropsWithoutRef,
+  ElementRef,
+  ElementType,
+  ForwardedRef,
+  forwardRef,
+  ReactNode,
+} from 'react'
 
 import s from './Typography.module.scss'
 
@@ -11,7 +18,22 @@ type Props<T extends ElementType> = {
   className?: string
 } & ComponentPropsWithoutRef<T>
 
-export const Typography = <T extends ElementType = 'span'>(
+const ELEMENTS = {
+  h1: 'h1',
+  h2: 'h2',
+  h3: 'h3',
+  subtitle1: 'span',
+  subtitle2: 'span',
+  body1: 'span',
+  body2: 'span',
+  caption: 'span',
+  link1: 'a',
+  link2: 'a',
+  overline: 'span',
+  large: 'p',
+} as const
+
+const TypographyPolymorph = <T extends ElementType = 'span'>(
   props: Props<T> & Omit<ComponentPropsWithoutRef<T>, keyof Props<T>>,
   ref: ElementRef<T>
 ) => {
@@ -28,17 +50,7 @@ export const Typography = <T extends ElementType = 'span'>(
   )
 }
 
-const ELEMENTS = {
-  h1: 'h1',
-  h2: 'h2',
-  h3: 'h3',
-  subtitle1: 'span',
-  subtitle2: 'span',
-  body1: 'span',
-  body2: 'span',
-  caption: 'span',
-  link1: 'a',
-  link2: 'a',
-  overline: 'span',
-  large: 'p',
-} as const
+export const Typography = forwardRef(TypographyPolymorph) as <T extends ElementType = 'button'>(
+  props: Props<T> &
+    Omit<ComponentPropsWithoutRef<T>, keyof Props<T>> & { ref?: ForwardedRef<ElementRef<T>> }
+) => ReturnType<typeof TypographyPolymorph>

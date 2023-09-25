@@ -42,11 +42,20 @@ export const CustomPaginationWithState: Story = {
 
 const RenderPagination = () => {
   const [page, setPage] = useState<number>(1)
+  const [pageSize, setPageSize] = useState<number>(10)
 
-  const totalCount = 50
-  const pageSize = 5
+  const options = ['10', '20', '30', '50', '100']
+
+  const totalCount = 100
 
   return (
-    <Pagination totalCount={totalCount} currentPage={page} pageSize={pageSize} onChange={setPage} />
+    <Pagination
+      options={options}
+      totalCount={totalCount}
+      currentPage={page}
+      pageSize={pageSize}
+      selectFilterChange={setPageSize}
+      onChange={setPage}
+    />
   )
 }

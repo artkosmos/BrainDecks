@@ -1,22 +1,34 @@
 import s from './Pagination.module.scss'
 
+import { Selector } from '@/components/ui/select'
 import { Typography } from '@/components/ui/typography'
 import { usePagination } from '@/hooks'
 
 type Props = {
+  options: string[]
   siblingCount?: number
   totalCount: number
   currentPage: number
   pageSize: number
   onChange: (value: number) => void
   className?: string
+  selectFilterChange?: (value: number) => void
 }
 export const Pagination = (props: Props) => {
-  const { currentPage, totalCount, siblingCount, pageSize, onChange, className } = props
+  const {
+    currentPage,
+    totalCount,
+    siblingCount,
+    pageSize,
+    onChange,
+    className,
+    options,
+    selectFilterChange,
+  } = props
 
   const paginationRange = usePagination(totalCount, pageSize, currentPage, siblingCount)
 
-  if (currentPage === 0 || paginationRange.length < 2) {
+  if (currentPage === 0 || paginationRange.length < 1) {
     return null
   }
 
@@ -26,6 +38,10 @@ export const Pagination = (props: Props) => {
 
   const previousPageHandler = () => {
     onChange(currentPage - 1)
+  }
+
+  const changeSelectFilterHandler = (value: string) => {
+    selectFilterChange?.(Number(value))
   }
 
   const lastPage = paginationRange[paginationRange.length - 1]
@@ -41,7 +57,7 @@ export const Pagination = (props: Props) => {
   const mappedPages = paginationRange.map((page, index) => {
     const paginationItemClassName = `${s.paginationItem} ${page === currentPage && s.selected}`
 
-    const typographyColor = page === currentPage ? 'dark' : 'light'
+    const typographyClassName = page === currentPage ? s.textColorDark : s.textColorLight
 
     if (page === 'DOTS') {
       return (
@@ -53,7 +69,7 @@ export const Pagination = (props: Props) => {
 
     return (
       <li key={index} className={paginationItemClassName} onClick={() => onChange(Number(page))}>
-        <Typography variant={'body2'} color={typographyColor}>
+        <Typography variant={'body2'} className={typographyClassName}>
           {page}
         </Typography>
       </li>
@@ -69,6 +85,21 @@ export const Pagination = (props: Props) => {
       <li className={paginationRightArrowClassName} onClick={nextPageHandler}>
         <div className={`${s.arrow} ${s.rightArrow}`} />
       </li>
+      <div className={s.settings}>
+        <Typography variant={'body2'} className={s.textColorLight}>
+          Показать
+        </Typography>
+        <Selector
+          triggerClassName={s.trigger}
+          contentClassName={s.content}
+          value={String(pageSize)}
+          setSelectedValue={changeSelectFilterHandler}
+          selectData={options}
+        />
+        <Typography variant={'body2'} className={s.textColorLight}>
+          на странице
+        </Typography>
+      </div>
     </ul>
   )
 }
