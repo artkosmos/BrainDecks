@@ -10,7 +10,8 @@ type SelectPropsType = {
   selectName?: string
   selectData?: string[]
   disable?: boolean
-  label?: string
+  label: string
+  setSelectedValue: (value: string) => void
 }
 
 const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
@@ -23,15 +24,19 @@ const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
   }
 )
 
-export const Selector = ({ disable, label, selectData }: SelectPropsType) => {
+export const Selector = ({ setSelectedValue, disable, label, selectData }: SelectPropsType) => {
   const [open, setOpen] = useState(false)
 
   return (
     <div>
       <div className={s.label}>{label}</div>
-      {/*true*/}
-      <Select.Root open={open} onOpenChange={setOpen} disabled={disable}>
-        <Select.Trigger className={s.selectTrigger} aria-label="Food">
+      <Select.Root
+        open={open}
+        onOpenChange={setOpen}
+        disabled={disable}
+        onValueChange={(value: string) => setSelectedValue(value)}
+      >
+        <Select.Trigger className={s.selectTrigger} aria-label="Select a value">
           <Select.Value placeholder="Select a value…" />
           <Select.Icon className={s.selectIcon}>
             {open ? <ChevronUpIcon /> : <ChevronDownIcon />}

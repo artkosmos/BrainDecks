@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react'
+import { ComponentPropsWithoutRef, ElementRef, ElementType, ReactNode } from 'react'
 
 import s from './Typography.module.scss'
 
@@ -12,16 +12,17 @@ type Props<T extends ElementType> = {
 } & ComponentPropsWithoutRef<T>
 
 export const Typography = <T extends ElementType = 'span'>(
-  props: Props<T> & Omit<ComponentPropsWithoutRef<T>, keyof Props<T>>
+  props: Props<T> & Omit<ComponentPropsWithoutRef<T>, keyof Props<T>>,
+  ref: ElementRef<T>
 ) => {
-  const { variant = 'body1', className, children, onClick, ...rest } = props
+  const { variant = 'body1', className, children, onClick, htmlTag, ...rest } = props
 
   const finalClassName = `${s.element} ${className ? className : ''}`
 
-  const Element = ELEMENTS[variant]
+  const Element = htmlTag !== undefined ? htmlTag : ELEMENTS[variant]
 
   return (
-    <Element onClick={onClick} className={finalClassName} data-state={variant} {...rest}>
+    <Element ref={ref} onClick={onClick} className={finalClassName} data-state={variant} {...rest}>
       {children}
     </Element>
   )

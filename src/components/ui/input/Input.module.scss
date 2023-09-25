@@ -10,8 +10,8 @@
   color: var(--color-light-100);
 }
 
-.label{
-  @include label
+.label {
+  @include label;
 }
 
 input {
