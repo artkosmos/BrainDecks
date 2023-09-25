@@ -19,7 +19,7 @@ export const Slider = (
   return (
     <div className={s.sliderWrapper}>
       <div className={s.rectangle}>
-        <Typography variant={'body1'} color={'grey'}>
+        <Typography variant={'body1'} className={s.textColor}>
           {value1}
         </Typography>
       </div>
@@ -38,7 +38,7 @@ export const Slider = (
         <SliderRadix.Thumb className={s.thumb} />
       </SliderRadix.Root>
       <div className={s.rectangle}>
-        <Typography variant={'body1'} color={'grey'}>
+        <Typography variant={'body1'} className={s.textColor}>
           {value2}
         </Typography>
       </div>
