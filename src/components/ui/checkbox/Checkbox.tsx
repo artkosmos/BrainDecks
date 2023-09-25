@@ -3,26 +3,32 @@ import { ComponentPropsWithoutRef } from 'react'
 import * as CheckboxRadix from '@radix-ui/react-checkbox'
 import * as Label from '@radix-ui/react-label'
 
-import style from './Checkbox.module.scss'
+import s from './Checkbox.module.scss'
+
+import { Typography } from '@/components/ui/typography'
 
 type Props = Omit<ComponentPropsWithoutRef<typeof CheckboxRadix.Root>, 'onChange'> & {
   label?: string
   onChange?: (checked: boolean) => void
 }
 
-export const Checkbox = ({ checked, disabled, label, onChange, ...restProps }: Props) => {
+export const Checkbox = (props: Props) => {
+  const { checked, disabled, label, onChange, ...rest } = props
+
   return (
-    <Label.Root className={style.label}>
-      {label}
-      <div className={style.checkboxWrapper}>
+    <Label.Root className={s.label}>
+      <Typography variant={'body2'} className={!disabled ? s.textColor : s.disabledTextColor}>
+        {label}
+      </Typography>
+      <div className={s.checkboxWrapper}>
         <CheckboxRadix.Root
-          className={style.root}
+          className={s.root}
           checked={checked}
           disabled={disabled}
           onCheckedChange={onChange}
-          {...restProps}
+          {...rest}
         >
-          <CheckboxRadix.Indicator className={style.indicator}>
+          <CheckboxRadix.Indicator className={s.indicator}>
             {checked && (
               <svg
                 xmlns="http://www.w3.org/2000/svg"

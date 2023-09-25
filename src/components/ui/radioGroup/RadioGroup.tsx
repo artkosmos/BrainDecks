@@ -3,7 +3,7 @@ import { ComponentPropsWithoutRef } from 'react'
 import { Label } from '@radix-ui/react-label'
 import * as Radio from '@radix-ui/react-radio-group'
 
-import style from './RadioGroup.module.scss'
+import s from './RadioGroup.module.scss'
 
 import { Typography } from '@/components/ui/typography'
 
@@ -25,18 +25,18 @@ export const RadioGroup = (
     <Radio.Root
       onValueChange={onValueChange}
       defaultValue={'none'}
-      className={style.root}
+      className={s.root}
       disabled={disabled}
       {...rest}
     >
       {options.map((item, index) => (
-        <Label key={index} className={style.label}>
-          <Typography variant={'body2'} color={!disabled ? 'light' : 'grey'}>
+        <Label key={index} className={s.label}>
+          <Typography variant={'body2'} className={!disabled ? s.textColor : s.disabledTextColor}>
             {item.label}
           </Typography>
-          <div className={style.radioItemWrapper}>
-            <Radio.Item value={item.value} className={style.item}>
-              <Radio.Indicator className={style.indicator} />
+          <div className={s.radioItemWrapper}>
+            <Radio.Item value={item.value} className={s.item}>
+              <Radio.Indicator className={s.indicator} />
             </Radio.Item>
           </div>
         </Label>
