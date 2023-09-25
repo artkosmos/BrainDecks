@@ -1,6 +1,8 @@
-import { Input } from '@/components/ui/input'
+import { Selector } from '@/components/ui/select'
 
 export function App() {
+  let data = ['lol', 'kek']
+
   return (
     <div
       style={{
@@ -12,7 +14,7 @@ export function App() {
         height: '100vh',
       }}
     >
-      <Input label={'Input'} />
+      <Selector label={'Select'} selectData={data} />
     </div>
   )
 }

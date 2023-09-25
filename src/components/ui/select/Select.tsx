@@ -10,7 +10,7 @@ type SelectPropsType = {
   selectName?: string
   selectData?: string[]
   disable?: boolean
-  label?: string
+  label: string
 }
 
 const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
@@ -29,9 +29,8 @@ export const Selector = ({ disable, label, selectData }: SelectPropsType) => {
   return (
     <div>
       <div className={s.label}>{label}</div>
-      {/*true*/}
       <Select.Root open={open} onOpenChange={setOpen} disabled={disable}>
-        <Select.Trigger className={s.selectTrigger} aria-label="Food">
+        <Select.Trigger className={s.selectTrigger} aria-label="Select a value">
           <Select.Value placeholder="Select a value…" />
           <Select.Icon className={s.selectIcon}>
             {open ? <ChevronUpIcon /> : <ChevronDownIcon />}
