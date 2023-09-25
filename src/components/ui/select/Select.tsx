@@ -23,7 +23,7 @@ const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
   }
 )
 
-export const Selector = ({ disable, label }: SelectPropsType) => {
+export const Selector = ({ disable, label, selectData }: SelectPropsType) => {
   const [open, setOpen] = useState(false)
 
   return (
@@ -32,7 +32,7 @@ export const Selector = ({ disable, label }: SelectPropsType) => {
       {/*true*/}
       <Select.Root open={open} onOpenChange={setOpen} disabled={disable}>
         <Select.Trigger className={s.selectTrigger} aria-label="Food">
-          <Select.Value placeholder="Select a fruit…" />
+          <Select.Value placeholder="Select a value…" />
           <Select.Icon className={s.selectIcon}>
             {open ? <ChevronUpIcon /> : <ChevronDownIcon />}
           </Select.Icon>
@@ -44,12 +44,13 @@ export const Selector = ({ disable, label }: SelectPropsType) => {
             </Select.ScrollUpButton>
             <Select.Viewport className={s.selectViewPort}>
               <Select.Group className={s.selectGroup}>
-                {/*{valuesForSelect.map(el => el)} */}
-                <SelectItem value="apple">Apple</SelectItem>
-                <SelectItem value="banana">Banana</SelectItem>
-                <SelectItem value="blueberry">Blueberry</SelectItem>
-                <SelectItem value="grapes">Grapes</SelectItem>
-                <SelectItem value="pineapple">Pineapple</SelectItem>
+                {selectData?.map((el, index) => {
+                  return (
+                    <SelectItem key={index} value={el}>
+                      {el}
+                    </SelectItem>
+                  )
+                })}
               </Select.Group>
             </Select.Viewport>
           </Select.Content>
