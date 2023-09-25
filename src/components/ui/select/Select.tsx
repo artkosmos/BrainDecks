@@ -10,8 +10,11 @@ type SelectPropsType = {
   selectName?: string
   selectData?: string[]
   disable?: boolean
-  label: string
+  label?: string
   setSelectedValue: (value: string) => void
+  value?: string
+  triggerClassName?: string
+  contentClassName?: string
 }
 
 const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
@@ -24,8 +27,19 @@ const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
   }
 )
 
-export const Selector = ({ setSelectedValue, disable, label, selectData }: SelectPropsType) => {
+export const Selector = ({
+  setSelectedValue,
+  disable,
+  label,
+  selectData,
+  value,
+  triggerClassName,
+  contentClassName,
+}: SelectPropsType) => {
   const [open, setOpen] = useState(false)
+
+  const finalTriggerClassName = `${s.selectTrigger} ${triggerClassName ? triggerClassName : ''}`
+  const finalContentClassName = `${s.selectContent} ${contentClassName ? contentClassName : ''}`
 
   return (
     <div>
@@ -35,15 +49,16 @@ export const Selector = ({ setSelectedValue, disable, label, selectData }: Selec
         onOpenChange={setOpen}
         disabled={disable}
         onValueChange={(value: string) => setSelectedValue(value)}
+        value={value}
       >
-        <Select.Trigger className={s.selectTrigger} aria-label="Select a value">
+        <Select.Trigger className={finalTriggerClassName} aria-label="Select a value">
           <Select.Value placeholder="Select a value…" />
           <Select.Icon className={s.selectIcon}>
             {open ? <ChevronUpIcon /> : <ChevronDownIcon />}
           </Select.Icon>
         </Select.Trigger>
         <Select.Portal>
-          <Select.Content className={s.selectContent} position="popper">
+          <Select.Content className={finalContentClassName} position="popper">
             <Select.ScrollUpButton className={s.selectButton}>
               <ChevronUpIcon />
             </Select.ScrollUpButton>
