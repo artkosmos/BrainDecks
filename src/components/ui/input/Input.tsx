@@ -4,17 +4,19 @@ import s from './Input.module.scss'
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
-type AdditionalTypeToInput = {
+export type AdditionalTypeToInput = {
   leftSideIcon?: JSX.Element
   rightSideIcon?: JSX.Element
-  error?: string
-  label: string
+  errorMessage?: string
+  label?: string
+  value?: string
+  name?: string
 }
 
 type InputPropsType = ComponentPropsWithoutRef<'input'> & AdditionalTypeToInput
 
 export const Input = (props: InputPropsType) => {
-  let { label, error, leftSideIcon, rightSideIcon, disabled, value, onChange } = props
+  let { name, label, errorMessage, leftSideIcon, rightSideIcon, disabled, value, onChange } = props
 
   return (
     <div>
@@ -23,14 +25,14 @@ export const Input = (props: InputPropsType) => {
         {leftSideIcon && <span className={s.searchIcon}>{leftSideIcon}</span>}
         <input
           type="text"
-          placeholder={'Input'}
+          placeholder={name}
           disabled={disabled}
           value={value}
           onChange={onChange}
-          className={error ? s.errorInput : s.input}
+          className={errorMessage ? s.errorInput : s.input}
         />
         {rightSideIcon && <span className={s.rightSideIcon}>{rightSideIcon}</span>}
-        {error !== '' && <div className={s.error}>{error}</div>}
+        {errorMessage !== '' && <div className={s.error}>{errorMessage}</div>}
       </div>
     </div>
   )
