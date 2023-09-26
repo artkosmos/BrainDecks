@@ -4,7 +4,9 @@ import { useForm } from 'react-hook-form'
 import { Button } from '../../ui/button'
 
 // import { Checkbox } from '@/components/ui/checkbox'
-import ControlledInput from '@/components/ui/controlledInput/ControlledInput.tsx'
+import { Card } from '@/components/ui/card'
+import { ControlledInput } from '@/components/ui/controlled/controlledInput/ControlledInput.tsx'
+import { Typography } from '@/components/ui/typography'
 
 type FormValues = {
   email: string
@@ -20,12 +22,19 @@ export const LoginForm = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <DevTool control={control} />
-      <ControlledInput name={'email'} control={control} />
-      <ControlledInput name={'password'} control={control} />
-      {/*<Checkbox label={'checkBox'} />*/}
-      <Button type="submit">Submit</Button>
-    </form>
+    <div>
+      <Card>
+        <div>
+          <Typography />
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <DevTool control={control} />
+            <ControlledInput name={'email'} control={control} />
+            <ControlledInput name={'password'} control={control} />
+            {/*<Checkbox label={'checkBox'} />*/}
+            <Button type="submit">Submit</Button>
+          </form>
+        </div>
+      </Card>
+    </div>
   )
 }

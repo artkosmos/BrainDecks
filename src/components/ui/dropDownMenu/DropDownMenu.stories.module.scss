@@ -1,7 +1,7 @@
 .button {
   cursor: pointer;
 
-  position: relative;
+  //position: relative;
 
   display: flex;
   flex-shrink: 0;
@@ -23,9 +23,9 @@
 }
 
 .content {
-  position: absolute;
-  top: 0;
-  left: 0;
+  //position: absolute;
+  //top: 0;
+  //left: 0;
   transform: translate(30px, calc(200% + 5px)) !important;
 
   display: flex;
