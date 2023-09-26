@@ -10,8 +10,8 @@ type Props = {
 export const Card = (props: Props) => {
   const { children, classNameCard, classNameContent } = props
 
-  const finalCardClassName = `${s.card} ${classNameCard ? s[classNameCard] : ''}`
-  const finalContentClassName = `${s.content} ${classNameContent ? s[classNameContent] : ''}`
+  const finalCardClassName = `${s.card} ${classNameCard ? classNameCard : ''}`
+  const finalContentClassName = `${s.content} ${classNameContent ? classNameContent : ''}`
 
   return (
     <div className={finalCardClassName}>
