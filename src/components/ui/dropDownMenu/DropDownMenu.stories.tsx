@@ -42,6 +42,7 @@ const PreviewDropDown = () => {
         onOpenChange={onOpenChange}
         className={s.content}
         container={buttonRef.current}
+        sideOffset={20}
       >
         Hello world
       </DropDownMenu>
