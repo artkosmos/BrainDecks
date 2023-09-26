@@ -8,13 +8,10 @@ import s from './Checkbox.module.scss'
 import { CheckedIcon } from '@/components/ui/checkbox'
 import { Typography } from '@/components/ui/typography'
 
-export type CheckboxProps = Omit<
-  ComponentPropsWithoutRef<typeof CheckboxRadix.Root>,
-  'onCheckedChange'
-> & {
+export type CheckboxProps = {
   label?: string
   onCheckedChange?: (checked: boolean) => void
-}
+} & Omit<ComponentPropsWithoutRef<typeof CheckboxRadix.Root>, 'onCheckedChange'>
 
 export const Checkbox = (props: CheckboxProps) => {
   const { checked, disabled, label, onChange, onCheckedChange, ...rest } = props
