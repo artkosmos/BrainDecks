@@ -46,5 +46,5 @@ export const inputWithIcons = () => {
 export const inputWithError = () => {
   let error = 'error'
 
-  return <Input error={error} label={'Input'} />
+  return <Input errorMessage={error} label={'Input'} />
 }
