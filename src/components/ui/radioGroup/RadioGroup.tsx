@@ -12,19 +12,17 @@ type Options = {
   value: string
 }
 
-type Props = {
+export type RadioGroupProps = {
   options: Options[]
-}
+} & ComponentPropsWithoutRef<typeof Radio.Root>
 
-export const RadioGroup = (
-  props: Props & Omit<ComponentPropsWithoutRef<typeof Radio.Root>, keyof Props>
-) => {
-  const { disabled, className, options, onValueChange, ...rest } = props
+export const RadioGroup = (props: RadioGroupProps) => {
+  const { disabled, className, options, onValueChange, defaultValue, ...rest } = props
 
   return (
     <Radio.Root
       onValueChange={onValueChange}
-      defaultValue={'none'}
+      defaultValue={defaultValue}
       className={s.root}
       disabled={disabled}
       {...rest}
