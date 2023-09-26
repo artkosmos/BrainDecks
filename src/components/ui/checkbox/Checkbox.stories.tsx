@@ -31,5 +31,5 @@ export const DisabledCheckbox: Story = {
 const CheckboxWithHook = () => {
   const [checked, setChecked] = useState<boolean>(false)
 
-  return <Checkbox label={'Check-box'} checked={checked} onChange={setChecked} />
+  return <Checkbox label={'Check-box'} checked={checked} onCheckedChange={setChecked} />
 }
