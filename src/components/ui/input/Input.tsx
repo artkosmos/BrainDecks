@@ -6,7 +6,7 @@ import s from './Input.module.scss'
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
-export type AdditionalTypeToInput = {
+type AdditionalTypeToInput = {
   leftSideIcon?: JSX.Element
   rightSideIcon?: JSX.Element
   errorMessage?: string
@@ -15,7 +15,7 @@ export type AdditionalTypeToInput = {
   name?: string
 }
 
-type InputPropsType = ComponentPropsWithoutRef<'input'> & AdditionalTypeToInput
+export type InputPropsType = ComponentPropsWithoutRef<'input'> & AdditionalTypeToInput
 
 export const Input = (props: InputPropsType) => {
   let {
