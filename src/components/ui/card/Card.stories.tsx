@@ -47,7 +47,7 @@ const Card1 = () => {
       <Typography variant={'h1'} color={'light'}>
         Unknown title
       </Typography>
-      <Checkbox label={'Check-box'} checked={checked} onChange={setChecked} />
+      <Checkbox label={'Check-box'} checked={checked} onCheckedChange={setChecked} />
       <Button>Just button</Button>
       <RadioGroup options={options} />
     </Card>

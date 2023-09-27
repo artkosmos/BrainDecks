@@ -1,5 +1,7 @@
 import { ReactNode } from 'react'
 
+import { clsx } from 'clsx'
+
 import s from './Card.module.scss'
 
 type Props = {
@@ -10,8 +12,9 @@ type Props = {
 export const Card = (props: Props) => {
   const { children, classNameCard, classNameContent } = props
 
-  const finalCardClassName = `${s.card} ${classNameCard ? classNameCard : ''}`
-  const finalContentClassName = `${s.content} ${classNameContent ? classNameContent : ''}`
+  const finalCardClassName = clsx(s.card, classNameCard ? classNameCard : '')
+
+  const finalContentClassName = clsx(s.content, classNameContent ? classNameContent : '')
 
   return (
     <div className={finalCardClassName}>

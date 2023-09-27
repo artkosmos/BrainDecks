@@ -1,5 +1,7 @@
 import { ComponentPropsWithoutRef } from 'react'
 
+import { clsx } from 'clsx'
+
 import s from './Input.module.scss'
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
@@ -16,7 +18,20 @@ export type AdditionalTypeToInput = {
 type InputPropsType = ComponentPropsWithoutRef<'input'> & AdditionalTypeToInput
 
 export const Input = (props: InputPropsType) => {
-  let { name, label, errorMessage, leftSideIcon, rightSideIcon, disabled, value, onChange } = props
+  let {
+    name,
+    label,
+    errorMessage,
+    leftSideIcon,
+    rightSideIcon,
+    disabled,
+    value,
+    onChange,
+    className,
+    ...rest
+  } = props
+
+  const finalClassName = clsx(s.input, errorMessage && s.errorInput, className && className)
 
   return (
     <div>
@@ -29,7 +44,8 @@ export const Input = (props: InputPropsType) => {
           disabled={disabled}
           value={value}
           onChange={onChange}
-          className={errorMessage ? s.errorInput : s.input}
+          className={finalClassName}
+          {...rest}
         />
         {rightSideIcon && <span className={s.rightSideIcon}>{rightSideIcon}</span>}
         {errorMessage !== '' && <div className={s.error}>{errorMessage}</div>}
