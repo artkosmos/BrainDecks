@@ -1,3 +1,4 @@
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 
 import s from './ForgotPasswordForm.module.scss'
@@ -6,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { ControlledInput } from '@/components/ui/controlled/controlledInput'
 import { Typography } from '@/components/ui/typography'
+import { forgotPasswordSchema } from '@/schemes'
 import { ForgotPasswordFields } from '@/types/common'
 
 type Props = {
@@ -15,7 +17,14 @@ type Props = {
 export const ForgotPasswordForm = (props: Props) => {
   const { onSubmit } = props
 
-  const { control, handleSubmit } = useForm<ForgotPasswordFields>()
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ForgotPasswordFields>({
+    resolver: zodResolver(forgotPasswordSchema),
+    mode: 'onSubmit',
+  })
 
   const onSubmitHandler = handleSubmit(data => {
     onSubmit(data)
@@ -27,7 +36,13 @@ export const ForgotPasswordForm = (props: Props) => {
         <Typography className={s.title} variant={'large'}>
           Forgot your password?
         </Typography>
-        <ControlledInput className={s.input} control={control} name={'email'} label={'Email'} />
+        <ControlledInput
+          className={s.input}
+          control={control}
+          name={'email'}
+          label={'Email'}
+          errorMessage={errors.email?.message}
+        />
         <Typography className={s.subtitle_1} variant={'body2'}>
           Enter your email address and we will send you further instructions
         </Typography>
