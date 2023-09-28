@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import { Button } from '../../ui/button'
 
 // import { Checkbox } from '@/components/ui/checkbox'
+
 import { Card } from '@/components/ui/card'
 import { ControlledInput } from '@/components/ui/controlled/controlledInput/ControlledInput.tsx'
 import { Typography } from '@/components/ui/typography'
@@ -25,13 +26,18 @@ export const LoginForm = () => {
     <div>
       <Card>
         <div>
-          <Typography />
+          <Typography variant={'h1'} color={'light'}>
+            Sign In
+          </Typography>
+          {/*<Typography htmlTag={p}><div>Sign In</div><Typography/>*/}
           <form onSubmit={handleSubmit(onSubmit)}>
             <DevTool control={control} />
             <ControlledInput name={'email'} control={control} />
             <ControlledInput name={'password'} control={control} />
             {/*<Checkbox label={'checkBox'} />*/}
-            <Button type="submit">Submit</Button>
+            <Button type="submit" fullWidth={true}>
+              Submit
+            </Button>
           </form>
         </div>
       </Card>
