@@ -3,10 +3,11 @@ import { forwardRef, useState } from 'react'
 import { ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons'
 import * as Select from '@radix-ui/react-select'
 import { SelectItemProps } from '@radix-ui/react-select'
+import { clsx } from 'clsx'
 
 import s from './Select.module.scss'
 
-type SelectPropsType = {
+export type SelectPropsType = {
   selectName?: string
   selectData?: string[]
   disable?: boolean
@@ -15,6 +16,7 @@ type SelectPropsType = {
   value?: string
   triggerClassName?: string
   contentClassName?: string
+  name?: string
 }
 
 const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(
@@ -38,8 +40,9 @@ export const Selector = ({
 }: SelectPropsType) => {
   const [open, setOpen] = useState(false)
 
-  const finalTriggerClassName = `${s.selectTrigger} ${triggerClassName ? triggerClassName : ''}`
-  const finalContentClassName = `${s.selectContent} ${contentClassName ? contentClassName : ''}`
+  const finalTriggerClassName = clsx(s.selectTrigger, triggerClassName && triggerClassName)
+
+  const finalContentClassName = clsx(s.selectContent, contentClassName && contentClassName)
 
   return (
     <div>
