@@ -40,7 +40,7 @@ export const Input = (props: InputPropsType) => {
   const showPasswordHandler = () => {
     callBack?.(!callBackValue)
   }
-
+  //
   const finalClassName = clsx(s.input, errorMessage && s.errorInput, className && className)
 
   return (
@@ -60,7 +60,11 @@ export const Input = (props: InputPropsType) => {
           className={finalClassName}
           {...rest}
         />
-        {rightSideIcon && <span className={s.rightSideIcon} onClick={showPasswordHandler}>{rightSideIcon}</span>}
+        {rightSideIcon && (
+          <span className={s.rightSideIcon} onClick={showPasswordHandler}>
+            {rightSideIcon}
+          </span>
+        )}
         {errorMessage !== '' && (
           <div>
             <Typography variant={'body2'} className={s.error}>
@@ -68,7 +72,6 @@ export const Input = (props: InputPropsType) => {
             </Typography>
           </div>
         )}
-        {/*{errorMessage !== '' && <div className={s.error}>{errorMessage}</div>}*/}
       </div>
     </div>
   )
