@@ -13,6 +13,8 @@ type AdditionalTypeToInput = {
   label?: string
   value?: string
   name?: string
+  setShowPassword?: (value: boolean) => void
+  showPassword?: boolean
 }
 
 export type InputPropsType = ComponentPropsWithoutRef<'input'> & AdditionalTypeToInput
@@ -28,8 +30,14 @@ export const Input = (props: InputPropsType) => {
     value,
     onChange,
     className,
+    setShowPassword,
+    showPassword,
     ...rest
   } = props
+
+  const showPasswordHandler = () => {
+    setShowPassword?.(!showPassword)
+  }
 
   const finalClassName = clsx(s.input, errorMessage && s.errorInput, className && className)
 
@@ -47,7 +55,11 @@ export const Input = (props: InputPropsType) => {
           className={finalClassName}
           {...rest}
         />
-        {rightSideIcon && <span className={s.rightSideIcon}>{rightSideIcon}</span>}
+        {rightSideIcon && (
+          <span className={s.rightSideIcon} onClick={showPasswordHandler}>
+            {rightSideIcon}
+          </span>
+        )}
         {errorMessage !== '' && <div className={s.error}>{errorMessage}</div>}
       </div>
     </div>
