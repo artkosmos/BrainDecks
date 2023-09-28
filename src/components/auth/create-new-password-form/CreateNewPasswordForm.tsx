@@ -64,7 +64,7 @@ export const CreateNewPasswordForm = (props: Props) => {
         <Typography className={s.subtitle} variant={'body2'}>
           Create new password and we will send you further instructions to email
         </Typography>
-        <Button variant={'primary'} fullWidth={true}>
+        <Button type={'submit'} variant={'primary'} fullWidth={true}>
           <Typography variant={'subtitle2'}>Create New Password</Typography>
         </Button>
       </form>

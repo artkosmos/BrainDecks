@@ -52,7 +52,7 @@ export const ForgotPasswordForm = (props: Props) => {
         <Typography className={s.subtitle_2} variant={'body2'}>
           Did you remember your password?
         </Typography>
-        <Button variant={'link'}>
+        <Button type={'submit'} variant={'link'}>
           <Typography className={s.link} variant={'subtitle2'}>
             Try logging in
           </Typography>
