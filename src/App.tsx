@@ -1,10 +1,9 @@
-import { Selector } from '@/components/ui/select'
+import { useForm } from 'react-hook-form'
+
+import { ControlledInput } from '@/components/ui/controlled/controlledInput'
 
 export function App() {
-  let data = ['lol', 'kek']
-  let setSelectedValue = (value: string) => {
-    console.log(value)
-  }
+  const { control } = useForm()
 
   return (
     <div
@@ -16,7 +15,7 @@ export function App() {
         height: '100vh',
       }}
     >
-      <Selector label={'Select'} selectData={data} setSelectedValue={setSelectedValue} />
+      <ControlledInput name={'Input'} control={control} />
     </div>
   )
 }

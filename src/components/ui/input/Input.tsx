@@ -3,10 +3,12 @@ import { ComponentPropsWithoutRef } from 'react'
 import { clsx } from 'clsx'
 
 import s from './Input.module.scss'
+
+import { Typography } from '@/components/ui/typography'
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
-type AdditionalTypeToInput = {
+export type AdditionalTypeToInput = {
   leftSideIcon?: JSX.Element
   rightSideIcon?: JSX.Element
   errorMessage?: string
@@ -43,7 +45,10 @@ export const Input = (props: InputPropsType) => {
 
   return (
     <div>
-      <div className={s.label}>{label}</div>
+      <Typography variant={'body2'} className={s.label}>
+        {label}
+      </Typography>
+      {/*<div className={s.label}>{label}</div>*/}
       <div className={leftSideIcon ? s.inputIcon : s.defaultInputWithoutIcon}>
         {leftSideIcon && <span className={s.searchIcon}>{leftSideIcon}</span>}
         <input
@@ -55,12 +60,15 @@ export const Input = (props: InputPropsType) => {
           className={finalClassName}
           {...rest}
         />
-        {rightSideIcon && (
-          <span className={s.rightSideIcon} onClick={showPasswordHandler}>
-            {rightSideIcon}
-          </span>
+        {rightSideIcon && <span className={s.rightSideIcon} onClick={showPasswordHandler}>{rightSideIcon}</span>}
+        {errorMessage !== '' && (
+          <div>
+            <Typography variant={'body2'} className={s.error}>
+              {errorMessage}
+            </Typography>
+          </div>
         )}
-        {errorMessage !== '' && <div className={s.error}>{errorMessage}</div>}
+        {/*{errorMessage !== '' && <div className={s.error}>{errorMessage}</div>}*/}
       </div>
     </div>
   )
