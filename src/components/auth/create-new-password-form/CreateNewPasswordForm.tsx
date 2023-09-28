@@ -58,8 +58,8 @@ export const CreateNewPasswordForm = (props: Props) => {
           label={'Password'}
           errorMessage={errors.password?.message}
           rightSideIcon={icon}
-          setShowPassword={setShowPassword}
-          showPassword={showPassword}
+          callBack={setShowPassword}
+          callBackValue={showPassword}
         />
         <Typography className={s.subtitle} variant={'body2'}>
           Create new password and we will send you further instructions to email
