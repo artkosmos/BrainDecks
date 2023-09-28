@@ -1,4 +1,7 @@
 @mixin label {
+  margin: 0;
+  margin-top: 15% !important;
+
   font-family: var(--font-family-primary);
   font-size: 14px;
   font-weight: 400;
