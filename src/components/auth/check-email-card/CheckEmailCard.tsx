@@ -7,7 +7,7 @@ import letter from '@/images/check_email.svg'
 
 export const CheckEmailCard = () => {
   return (
-    <Card classNameCard={s.emailCard} classNameContent={s.content}>
+    <Card className={s.emailCard}>
       <Typography className={s.title} variant={'large'}>
         Check Email
       </Typography>

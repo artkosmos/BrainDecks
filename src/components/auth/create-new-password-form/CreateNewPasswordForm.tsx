@@ -45,7 +45,7 @@ export const CreateNewPasswordForm = (props: Props) => {
   const inputType = showPassword ? 'text' : 'password'
 
   return (
-    <Card classNameCard={s.newPasswordCard}>
+    <Card className={s.newPasswordCard}>
       <form className={s.form} onSubmit={onSubmitHandler}>
         <Typography className={s.title} variant={'large'}>
           Create new password
