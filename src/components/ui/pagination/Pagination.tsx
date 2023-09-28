@@ -1,3 +1,5 @@
+import { clsx } from 'clsx'
+
 import s from './Pagination.module.scss'
 
 import { Selector } from '@/components/ui/select'
@@ -46,16 +48,14 @@ export const Pagination = (props: Props) => {
 
   const lastPage = paginationRange[paginationRange.length - 1]
 
-  const paginationContainerClassName = `${s.paginationContainer} ${className ? s[className] : ''}`
+  const containerClassName = clsx(s.paginationContainer, className && className)
 
-  const paginationLeftArrowClassName = `${s.paginationArrow} ${currentPage === 1 && s.disabled}`
+  const leftArrowClassName = clsx(s.paginationArrow, currentPage === 1 && s.disabled)
 
-  const paginationRightArrowClassName = `${s.paginationArrow} ${
-    currentPage === lastPage && s.disabled
-  }`
+  const rightArrowClassName = clsx(s.paginationArrow, currentPage === lastPage && s.disabled)
 
   const mappedPages = paginationRange.map((page, index) => {
-    const paginationItemClassName = `${s.paginationItem} ${page === currentPage && s.selected}`
+    const itemClassName = clsx(s.paginationItem, page === currentPage && s.selected)
 
     const typographyClassName = page === currentPage ? s.textColorDark : s.textColorLight
 
@@ -68,7 +68,7 @@ export const Pagination = (props: Props) => {
     }
 
     return (
-      <li key={index} className={paginationItemClassName} onClick={() => onChange(Number(page))}>
+      <li key={index} className={itemClassName} onClick={() => onChange(Number(page))}>
         <Typography variant={'body2'} className={typographyClassName}>
           {page}
         </Typography>
@@ -77,12 +77,12 @@ export const Pagination = (props: Props) => {
   })
 
   return (
-    <ul className={paginationContainerClassName}>
-      <li className={paginationLeftArrowClassName} onClick={previousPageHandler}>
+    <ul className={containerClassName}>
+      <li className={leftArrowClassName} onClick={previousPageHandler}>
         <div className={`${s.arrow} ${s.leftArrow}`} />
       </li>
       {mappedPages}
-      <li className={paginationRightArrowClassName} onClick={nextPageHandler}>
+      <li className={rightArrowClassName} onClick={nextPageHandler}>
         <div className={`${s.arrow} ${s.rightArrow}`} />
       </li>
       <div className={s.settings}>

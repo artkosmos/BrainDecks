@@ -1,5 +1,7 @@
 import { ComponentPropsWithoutRef } from 'react'
 
+import { clsx } from 'clsx'
+
 import s from './Input.module.scss'
 
 import { Typography } from '@/components/ui/typography'
@@ -13,12 +15,33 @@ export type AdditionalTypeToInput = {
   label?: string
   value?: string
   name?: string
+  callBack?: (value: boolean) => void
+  callBackValue?: boolean
 }
 
-type InputPropsType = ComponentPropsWithoutRef<'input'> & AdditionalTypeToInput
+export type InputPropsType = ComponentPropsWithoutRef<'input'> & AdditionalTypeToInput
 
 export const Input = (props: InputPropsType) => {
-  let { name, label, errorMessage, leftSideIcon, rightSideIcon, disabled, value, onChange } = props
+  let {
+    name,
+    label,
+    errorMessage,
+    leftSideIcon,
+    rightSideIcon,
+    disabled,
+    value,
+    onChange,
+    className,
+    callBack,
+    callBackValue,
+    ...rest
+  } = props
+
+  const showPasswordHandler = () => {
+    callBack?.(!callBackValue)
+  }
+
+  const finalClassName = clsx(s.input, errorMessage && s.errorInput, className && className)
 
   return (
     <div>
@@ -34,9 +57,10 @@ export const Input = (props: InputPropsType) => {
           disabled={disabled}
           value={value}
           onChange={onChange}
-          className={errorMessage ? s.errorInput : s.input}
+          className={finalClassName}
+          {...rest}
         />
-        {rightSideIcon && <span className={s.rightSideIcon}>{rightSideIcon}</span>}
+        {rightSideIcon && <span className={s.rightSideIcon} onClick={showPasswordHandler}>{rightSideIcon}</span>}
         {errorMessage !== '' && (
           <div>
             <Typography variant={'body2'} className={s.error}>

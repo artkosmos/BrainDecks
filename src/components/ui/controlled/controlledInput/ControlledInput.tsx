@@ -1,9 +1,9 @@
 import { FieldValues, useController, UseControllerProps } from 'react-hook-form'
 
-import { AdditionalTypeToInput, Input } from '@/components/ui/input'
+import { Input, InputPropsType } from '@/components/ui/input'
 
 type ControlledInputPropsType<T extends FieldValues> = UseControllerProps<T> &
-  Omit<AdditionalTypeToInput, 'onChange' | 'value'>
+  Omit<InputPropsType, 'onChange' | 'value'>
 
 export const ControlledInput = <T extends FieldValues>({
   name,
