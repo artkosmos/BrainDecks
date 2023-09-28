@@ -1,10 +1,6 @@
-import { useForm } from 'react-hook-form'
-
-import { ControlledInput } from '@/components/ui/controlled/controlledInput'
+import { PersonalInformation } from '@/components/ui/personalInfo/PersonalInformation.tsx'
 
 export function App() {
-  const { control } = useForm()
-
   return (
     <div
       style={{
@@ -15,7 +11,7 @@ export function App() {
         height: '100vh',
       }}
     >
-      <ControlledInput name={'Input'} control={control} />
+      <PersonalInformation />
     </div>
   )
 }
