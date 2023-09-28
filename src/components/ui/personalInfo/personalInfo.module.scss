@@ -1,4 +1,4 @@
-.container{
+.container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -6,30 +6,33 @@
 
   padding: 30px 70px;
 
-  .userPhoto{
+  .userPhoto {
     width: 96px;
     height: 96px;
   }
 
-  .editLogo{
+  .editLogo {
     position: relative;
     z-index: 9999;
-    right:25px;
-    bottom:5px
+    right: 25px;
+    bottom: 5px;
 
+    padding: 3px;
+
+    background-color: var(--color-dark-300);
+    border-radius: 6px;
   }
 
-  .editIcon{
+  .editIcon {
     margin-left: 10px;
   }
 
-  .email{
-    margin-top:5%;
+  .email {
+    margin-top: 5%;
     margin-bottom: 5%;
   }
 
-  .button{
+  .button {
     box-shadow: none;
   }
 }
-
