@@ -1,6 +1,5 @@
 // import { PersonalInformation } from '@/components/ui/personalInfo/PersonalInformation.tsx'
-import { LoginForm } from '@/components/auth/login-form/LoginForm.tsx'
-// import { Input } from '@/components/ui/input'
+import { PersonalInformation } from '@/components/ui/personalInfo/PersonalInformation.tsx'
 
 export function App() {
   return (
@@ -13,7 +12,7 @@ export function App() {
         height: '100vh',
       }}
     >
-      <LoginForm />
+      <PersonalInformation />
     </div>
   )
 }

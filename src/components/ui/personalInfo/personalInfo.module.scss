@@ -4,11 +4,21 @@
   align-items: center;
   justify-content: space-between;
 
-  padding: 30px 70px;
+  padding: 30px;
+
+  .typoInfo {
+    font-family: var(--font-family-primary);
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 36px;
+    color: white;
+    word-wrap: break-word;
+  }
 
   .userPhoto {
     width: 96px;
     height: 96px;
+    border-radius: 47%;
   }
 
   .editLogo {
@@ -33,6 +43,7 @@
   }
 
   .button {
+    margin-top: 3%;
     box-shadow: none;
   }
 }

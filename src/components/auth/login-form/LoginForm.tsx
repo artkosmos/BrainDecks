@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { DevTool } from '@hookform/devtools'
 import { useForm } from 'react-hook-form'
 
@@ -22,6 +24,7 @@ type FormValues = {
 
 export const LoginForm = () => {
   const { handleSubmit, control } = useForm<FormValues>()
+  const [eyeType, setEyeType] = useState<boolean>(false)
 
   const [checked, setChecked] = useState(false)
   const onSubmit = (data: FormValues) => {
@@ -32,13 +35,26 @@ export const LoginForm = () => {
     <div>
       <Card className={s.container}>
         <div>
-          <Typography variant={'h1'} color={'light'} className={s.signTypography}>
+          <Typography className={s.signTypography} variant={'h1'} color={'light'}>
             Sign In
           </Typography>
           <form onSubmit={handleSubmit(onSubmit)}>
             <DevTool control={control} />
-            <ControlledInput name={'email'} control={control} label={'Email'} />
-            <ControlledInput name={'password'} control={control} label={'Password'} />
+            <ControlledInput className={s.input} name={'email'} control={control} label={'Email'} />
+            <ControlledInput
+              className={s.input}
+              type={eyeType ? 'text' : 'password'}
+              name={'password'}
+              control={control}
+              label={'Password'}
+              rightSideIcon={
+                eyeType ? (
+                  <FontAwesomeIcon icon={faEye} onClick={() => setEyeType(!eyeType)} />
+                ) : (
+                  <FontAwesomeIcon icon={faEyeSlash} onClick={() => setEyeType(!eyeType)} />
+                )
+              }
+            />
             <div className={s.checkBox}>
               <Checkbox
                 label={'Remember Me'}
