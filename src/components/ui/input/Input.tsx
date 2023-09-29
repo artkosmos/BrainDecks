@@ -51,22 +51,24 @@ export const Input = (props: InputPropsType) => {
         {label}
       </Typography>
       {/*<div className={s.label}>{label}</div>*/}
-      <div className={leftSideIcon ? s.inputIcon : s.defaultInputWithoutIcon}>
-        {leftSideIcon && <span className={s.searchIcon}>{leftSideIcon}</span>}
-        <input
-          type="text"
-          placeholder={name}
-          disabled={disabled}
-          value={value}
-          onChange={onChange}
-          className={inputClassName}
-          {...rest}
-        />
-        {rightSideIcon && (
-          <span className={s.rightSideIcon} onClick={showPasswordHandler}>
-            {rightSideIcon}
-          </span>
-        )}
+      <div>
+        <div className={leftSideIcon ? s.inputIcon : s.defaultInputWithoutIcon}>
+          {leftSideIcon && <span className={s.searchIcon}>{leftSideIcon}</span>}
+          <input
+            type="text"
+            placeholder={name}
+            disabled={disabled}
+            value={value}
+            onChange={onChange}
+            className={inputClassName}
+            {...rest}
+          />
+          {rightSideIcon && (
+            <span className={s.rightSideIcon} onClick={showPasswordHandler}>
+              {rightSideIcon}
+            </span>
+          )}
+        </div>
         {errorMessage !== '' && (
           <div>
             <Typography variant={'body2'} className={s.error}>

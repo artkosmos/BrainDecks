@@ -1,6 +1,5 @@
 @mixin label {
-  margin: 0;
-  margin-top: 15% !important;
+  display: block;
 
   font-family: var(--font-family-primary);
   font-size: 14px;
@@ -9,3 +8,7 @@
   color: var(--color-dark-100);
   word-wrap: break-word;
 }
+
+// display:
+// inline, block, inline-block
+// flex, grid, inline-flex

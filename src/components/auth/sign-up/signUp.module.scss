@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 20px 40px;
+
+  .signTypography {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5%;
+  }
+
+  .button {
+    margin-top: 20%;
+
+    font-family: var(--font-family-primary);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 24px;
+    word-wrap: break-word;
+  }
+
+  .signInContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .question {
+      margin-top: 5%;
+
+      font-family: var(--font-family-primary);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 24px;
+      color: var(--color-light-700);
+      word-wrap: break-word;
+    }
+
+    .loginLink {
+      margin-top: 5%;
+      margin-bottom: 5%;
+      text-decoration-line: underline;
+    }
+  }
+}
