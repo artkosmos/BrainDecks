@@ -41,10 +41,12 @@ export const Input = (props: InputPropsType) => {
     callBack?.(!callBackValue)
   }
   //
-  const finalClassName = clsx(s.input, errorMessage && s.errorInput, className && className)
+  const inputClassName = clsx(s.input, errorMessage && s.errorInput)
+
+  const wrapperClassName = clsx(s.inputWrapper, className && className)
 
   return (
-    <div>
+    <div className={wrapperClassName}>
       <Typography variant={'body2'} className={s.label}>
         {label}
       </Typography>
@@ -57,7 +59,7 @@ export const Input = (props: InputPropsType) => {
           disabled={disabled}
           value={value}
           onChange={onChange}
-          className={finalClassName}
+          className={inputClassName}
           {...rest}
         />
         {rightSideIcon && (
