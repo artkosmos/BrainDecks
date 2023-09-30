@@ -1,3 +1,5 @@
+@import '@/styles/mixins';
+
 .container {
   display: flex;
   flex-direction: column;
@@ -9,6 +11,10 @@
     flex-direction: column;
     align-items: center;
     margin-top: 5%;
+  }
+
+  .error{
+    @include custom-text-style(var(--font-family-primary), 12px, 400, 24px, var(--color-danger-300));
   }
 
   .input {

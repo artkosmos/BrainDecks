@@ -1,7 +1,6 @@
 @import '@/styles/mixins';
 
 .header {
-
   @include size(100vh, 60px); //TODO can be error with adaptive
 
   background-color: var(--color-dark-700);

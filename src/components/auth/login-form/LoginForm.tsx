@@ -49,7 +49,9 @@ export const LoginForm = () => {
           <form onSubmit={handleSubmit(onSubmit)}>
             <DevTool control={control} />
             <ControlledInput className={s.input} name={'email'} control={control} label={'Email'} />
-            <p>{errors?.email?.message}</p>
+            <Typography variant={'body2'} className={s.error}>
+              {errors?.email?.message}
+            </Typography>
             <ControlledInput
               className={s.input}
               type={eyeType ? 'text' : 'password'}
