@@ -1,3 +1,5 @@
+@import '/src/styles/mixins';
+
 .container {
   display: flex;
   flex-direction: column;
@@ -11,18 +13,25 @@
     margin-top: 5%;
   }
 
+  .error {
+    @include custom-text-style(
+      var(--font-family-primary),
+      12px,
+      400,
+      24px,
+      var(--color-danger-300)
+    );
+  }
+
   .input {
     margin-top: 5%;
   }
 
   .button {
-    margin-top: 20%;
 
-    font-family: var(--font-family-primary);
-    font-size: 14px;
-    font-weight: 700;
-    line-height: 24px;
-    word-wrap: break-word;
+    @include custom-text-style(var(--font-family-primary), 14px, 700, 24px, none);
+
+    margin-top: 20%;
   }
 
   .signInContainer {
@@ -31,14 +40,9 @@
     align-items: center;
 
     .question {
-      margin-top: 5%;
+      @include custom-text-style(var(--font-family-primary), 14px, 400, 24px, var(--color-light-700));
 
-      font-family: var(--font-family-primary);
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 24px;
-      color: var(--color-light-700);
-      word-wrap: break-word;
+      margin-top: 5%;
     }
 
     .loginLink {

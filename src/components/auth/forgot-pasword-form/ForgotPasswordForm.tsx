@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { ControlledInput } from '@/components/ui/controlled/controlledInput'
 import { Typography } from '@/components/ui/typography'
-import { forgotPasswordSchema } from '@/schemes'
+import { emailSchema } from '@/schemes'
 import { ForgotPasswordFields } from '@/types/common'
 
 type Props = {
@@ -22,7 +22,7 @@ export const ForgotPasswordForm = (props: Props) => {
     handleSubmit,
     formState: { errors },
   } = useForm<ForgotPasswordFields>({
-    resolver: zodResolver(forgotPasswordSchema),
+    resolver: zodResolver(emailSchema),
     mode: 'onSubmit',
   })
 
