@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { DevTool } from '@hookform/devtools'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 
 import s from './signUp.module.scss'
@@ -11,23 +12,29 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { ControlledInput } from '@/components/ui/controlled/controlledInput'
 import { Typography } from '@/components/ui/typography'
+import { createAccountSchema } from '@/schemes/createAccountSchema.ts'
 
 export const SignUp = () => {
   const [eyeType, setEyeType] = useState<boolean>(false)
 
-  const { handleSubmit, control } = useForm<FormValues>()
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<FormValues>({
+    resolver: zodResolver(createAccountSchema),
+  })
 
   type FormValues = {
     email: string
     password: string
     confirmPassword: string
+    confirm?: string
   }
 
   const onSubmit = (data: FormValues) => {
     console.log(data)
   }
-  // const closeEye = <FontAwesomeIcon icon={faEyeSlash} />
-  // const openEye = <FontAwesomeIcon icon={faEye} />
 
   return (
     <Card className={s.container}>
@@ -38,6 +45,9 @@ export const SignUp = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <DevTool control={control} />
           <ControlledInput name={'email'} control={control} label={'Email'} className={s.input} />
+          <Typography variant={'body2'} className={s.error}>
+            {errors?.email?.message}
+          </Typography>
           <ControlledInput
             className={s.input}
             type={eyeType ? 'text' : 'password'}
@@ -52,6 +62,9 @@ export const SignUp = () => {
               )
             }
           />
+          <Typography variant={'body2'} className={s.error}>
+            {errors?.password?.message}
+          </Typography>
           <ControlledInput
             className={s.input}
             type={eyeType ? 'text' : 'password'}
@@ -67,6 +80,9 @@ export const SignUp = () => {
               )
             }
           />
+          <Typography variant={'body2'} className={s.error}>
+            {errors?.confirm?.message}
+          </Typography>
           <Button type="submit" fullWidth={true} className={s.button}>
             Sign Up
           </Button>

@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { DevTool } from '@hookform/devtools'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 
 import { Button } from '../../ui/button'
@@ -15,6 +16,7 @@ import { Card } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
 import { ControlledInput } from '@/components/ui/controlled/controlledInput/ControlledInput.tsx'
 import { Typography } from '@/components/ui/typography'
+import { emailSchema } from '@/schemes'
 
 type FormValues = {
   email: string
@@ -23,7 +25,13 @@ type FormValues = {
 }
 
 export const LoginForm = () => {
-  const { handleSubmit, control } = useForm<FormValues>()
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<FormValues>({
+    resolver: zodResolver(emailSchema),
+  })
   const [eyeType, setEyeType] = useState<boolean>(false)
 
   const [checked, setChecked] = useState(false)
@@ -41,6 +49,7 @@ export const LoginForm = () => {
           <form onSubmit={handleSubmit(onSubmit)}>
             <DevTool control={control} />
             <ControlledInput className={s.input} name={'email'} control={control} label={'Email'} />
+            <p>{errors?.email?.message}</p>
             <ControlledInput
               className={s.input}
               type={eyeType ? 'text' : 'password'}

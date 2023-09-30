@@ -40,7 +40,6 @@ export const Input = (props: InputPropsType) => {
   const showPasswordHandler = () => {
     callBack?.(!callBackValue)
   }
-  //
   const inputClassName = clsx(s.input, errorMessage && s.errorInput)
 
   const wrapperClassName = clsx(s.inputWrapper, className && className)
