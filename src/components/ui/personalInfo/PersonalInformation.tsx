@@ -1,15 +1,12 @@
 import { useRef, useState } from 'react'
-
 import { faArrowRightFromBracket, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
-import s from './personalInfo.module.scss'
-
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Typography } from '@/components/ui/typography'
 import cardsLogo from '@/images/cardsLogo.png'
+import s from './personalInfo.module.scss'
 
 export const PersonalInformation = () => {
   const [edit, setEdit] = useState(false)

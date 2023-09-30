@@ -1,7 +1,5 @@
 import { ComponentPropsWithoutRef, forwardRef } from 'react'
-
 import { clsx } from 'clsx'
-
 import s from './Icon.module.scss'
 
 type Props = { srcIcon: string } & Omit<ComponentPropsWithoutRef<'img'>, 'src'>

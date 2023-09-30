@@ -13,8 +13,14 @@
     margin-top: 5%;
   }
 
-  .error{
-    @include custom-text-style(var(--font-family-primary), 12px, 400, 24px, var(--color-danger-300));
+  .error {
+    @include custom-text-style(
+      var(--font-family-primary),
+      12px,
+      400,
+      24px,
+      var(--color-danger-300)
+    );
   }
 
   .input {

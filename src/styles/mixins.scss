@@ -2,6 +2,7 @@
 
 @mixin label {
   @include custom-text-style(var(--font-family-primary), 14px, 400, 24px, var(--color-dark-100));
+
   display: block;
 }
 

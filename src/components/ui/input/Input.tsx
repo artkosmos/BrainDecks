@@ -1,9 +1,6 @@
 import { ComponentPropsWithoutRef } from 'react'
-
 import { clsx } from 'clsx'
-
 import s from './Input.module.scss'
-
 import { Typography } from '@/components/ui/typography'
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
@@ -42,7 +39,7 @@ export const Input = (props: InputPropsType) => {
   }
   const inputClassName = clsx(s.input, errorMessage && s.errorInput)
 
-  const wrapperClassName = clsx(s.inputWrapper, className && className)
+  const wrapperClassName = clsx(s.inputWrapper, className)
 
   return (
     <div className={wrapperClassName}>

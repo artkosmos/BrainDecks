@@ -1,7 +1,5 @@
 import { ComponentPropsWithoutRef, forwardRef } from 'react'
-
 import { clsx } from 'clsx'
-
 import s from './TableHeadCell.module.scss'
 
 type Props = ComponentPropsWithoutRef<'th'>
