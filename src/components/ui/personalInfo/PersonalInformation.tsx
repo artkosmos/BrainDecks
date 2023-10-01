@@ -40,17 +40,24 @@ export const PersonalInformation = () => {
         </span>
       </div>
       {edit ? (
-        <Input name={'Nick name'} autoFocus={true} onBlur={() => setEdit(false)} />
+        <Input
+          className={s.input}
+          name={'Nick name'}
+          autoFocus={true}
+          onBlur={() => setEdit(false)}
+        />
       ) : (
-        <div onDoubleClick={handleButtonClick}>
-          name
-          <span className={s.editIcon}>
-            <FontAwesomeIcon icon={faPenToSquare} />
-          </span>
+        <div className={s.nameEmailBlock} onDoubleClick={handleButtonClick}>
+          <label>
+            name
+            <span className={s.editIcon}>
+              <FontAwesomeIcon icon={faPenToSquare} />
+            </span>
+          </label>
+          <Typography className={s.email}>email@gmail.com</Typography>
         </div>
       )}
 
-      <div className={s.email}>email</div>
       {edit ? (
         <Button className={s.button} variant={'primary'} fullWidth={true}>
           <>

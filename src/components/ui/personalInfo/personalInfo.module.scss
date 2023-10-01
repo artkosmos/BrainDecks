@@ -3,7 +3,7 @@
 .container {
   @include display-column;
 
-  padding: 30px;
+  padding: 10%;
 
   .typoInfo {
     @include custom-text-style(var(--font-family-primary), 26px, 700, 36px, white);
@@ -27,17 +27,33 @@
     border-radius: 6px;
   }
 
-  .editIcon {
-    margin-left: 10px;
+  .input{
+    margin-top: 5%;
   }
 
-  .email {
+  .nameEmailBlock{
+
+    @include display-column;
+
     margin-top: 5%;
-    margin-bottom: 5%;
+
+    .editIcon {
+      margin-left: 10px;
+    }
+
+    .email {
+      @include custom-text-style(14px,Roboto,400,24px,var(--color-dark-300));
+
+      margin-top: 5%;
+      margin-bottom: 5%;
+    }
+
   }
+
 
   .button {
-    margin-top: 3%;
+    width: 83%;
+    margin-top: 10%;
     box-shadow: none;
   }
 }
