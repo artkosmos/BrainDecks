@@ -1,10 +1,6 @@
 import { useState } from 'react'
-
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-
-import s from './CreateNewPassword.module.scss'
-
 import eye from '@/assets/icons/eye.svg'
 import crossedEye from '@/assets/icons/eye_crossed.svg'
 import { Button } from '@/components/ui/button'
@@ -14,6 +10,7 @@ import { Icon } from '@/components/ui/icon'
 import { Typography } from '@/components/ui/typography'
 import { createNewPasswordSchema } from '@/schemes'
 import { CreateNewPasswordFields } from '@/types/common'
+import s from './CreateNewPassword.module.scss'
 
 type Props = {
   onSubmit: (values: CreateNewPasswordFields) => void

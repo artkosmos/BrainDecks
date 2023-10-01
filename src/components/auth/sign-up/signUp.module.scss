@@ -28,7 +28,6 @@
   }
 
   .button {
-
     @include custom-text-style(var(--font-family-primary), 14px, 700, 24px, none);
 
     margin-top: 20%;
@@ -40,7 +39,13 @@
     align-items: center;
 
     .question {
-      @include custom-text-style(var(--font-family-primary), 14px, 400, 24px, var(--color-light-700));
+      @include custom-text-style(
+        var(--font-family-primary),
+        14px,
+        400,
+        24px,
+        var(--color-light-700)
+      );
 
       margin-top: 5%;
     }

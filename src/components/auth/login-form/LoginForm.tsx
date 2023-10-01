@@ -1,22 +1,17 @@
 import { useState } from 'react'
-
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-
 import { Button } from '../../ui/button'
-
 // import { Checkbox } from '@/components/ui/checkbox'
-
-import s from './loginForm.module.scss'
-
 import { Card } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
 import { ControlledInput } from '@/components/ui/controlled/controlledInput/ControlledInput.tsx'
 import { Typography } from '@/components/ui/typography'
 import { emailSchema } from '@/schemes'
+import s from './loginForm.module.scss'
 
 type FormValues = {
   email: string

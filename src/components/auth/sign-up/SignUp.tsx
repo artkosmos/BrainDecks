@@ -1,18 +1,15 @@
 import { useState } from 'react'
-
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-
-import s from './signUp.module.scss'
-
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { ControlledInput } from '@/components/ui/controlled/controlledInput'
 import { Typography } from '@/components/ui/typography'
 import { createAccountSchema } from '@/schemes/createAccountSchema.ts'
+import s from './signUp.module.scss'
 
 export const SignUp = () => {
   const [eyeType, setEyeType] = useState<boolean>(false)
