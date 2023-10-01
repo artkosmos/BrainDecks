@@ -43,7 +43,7 @@ export const PersonalInformation = () => {
         </span>
       </div>
       {edit ? (
-        <Input name={'Nick name'} onBlur={() => setEdit(false)} />
+        <Input name={'Nick name'} autoFocus={true} onBlur={() => setEdit(false)} />
       ) : (
         <div onDoubleClick={handleButtonClick}>
           name

@@ -17,6 +17,7 @@ export type AdditionalTypeToInput = {
   name?: string
   callBack?: (value: boolean) => void
   callBackValue?: boolean
+  autoFocusValue?: boolean
 }
 
 export type InputPropsType = ComponentPropsWithoutRef<'input'> & AdditionalTypeToInput
@@ -34,6 +35,7 @@ export const Input = (props: InputPropsType) => {
     className,
     callBack,
     callBackValue,
+    autoFocusValue,
     ...rest
   } = props
 
@@ -60,6 +62,7 @@ export const Input = (props: InputPropsType) => {
             value={value}
             onChange={onChange}
             className={inputClassName}
+            autoFocus={autoFocusValue}
             {...rest}
           />
           {rightSideIcon && (
