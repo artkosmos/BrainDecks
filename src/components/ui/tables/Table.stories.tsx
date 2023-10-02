@@ -6,6 +6,7 @@ import { TableCell } from '@/components/ui/tables/TableCell'
 import { TableHead } from '@/components/ui/tables/TableHead'
 import { TableHeadCell } from '@/components/ui/tables/TableHeadCell'
 import { TableRow } from '@/components/ui/tables/TableRow'
+import { Column } from '@/components/ui/tables/TableColumn'
 
 const meta = {
   title: 'Components/Table',
@@ -29,12 +30,10 @@ export const Test: Story = {
   render: () => (
     <div style={{ width: '50vw' }}>
       <Table style={tableStyles} cellSpacing={'0'}>
-        <colgroup>
-          <col style={{ width: '25%' }} />
-          <col style={{ width: '25%' }} />
-          <col style={{ width: '25%' }} />
-          <col style={{ width: '25%' }} />
-        </colgroup>
+        <Column style={{ width: '40%' }} />
+        <Column style={{ width: '25%' }} />
+        <Column style={{ width: '25%' }} />
+        <Column style={{ width: '10%' }} />
         <TableHead>
           <TableRow>
             <TableHeadCell>ISBN</TableHeadCell>
