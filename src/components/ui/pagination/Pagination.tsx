@@ -66,7 +66,13 @@ export const Pagination = (props: Props) => {
     }
 
     return (
-      <li key={index} className={itemClassName} onClick={() => onChange(Number(page))}>
+      <li
+        key={index}
+        className={itemClassName}
+        onClick={() => onChange(Number(page))}
+        role={'button'}
+        aria-label={`page ${page}`}
+      >
         <Typography variant={'body2'} className={typographyClassName}>
           {page}
         </Typography>
@@ -75,15 +81,25 @@ export const Pagination = (props: Props) => {
   })
 
   return (
-    <ul className={containerClassName}>
-      <li className={leftArrowClassName} onClick={previousPageHandler}>
+    <ul className={containerClassName} role={'navigation'} aria-label={'pagination'}>
+      <li
+        className={leftArrowClassName}
+        onClick={previousPageHandler}
+        role={'button'}
+        aria-label={'previous page'}
+      >
         <div className={`${s.arrow} ${s.leftArrow}`} />
       </li>
       {mappedPages}
-      <li className={rightArrowClassName} onClick={nextPageHandler}>
+      <li
+        className={rightArrowClassName}
+        onClick={nextPageHandler}
+        role={'button'}
+        aria-label={'next page'}
+      >
         <div className={`${s.arrow} ${s.rightArrow}`} />
       </li>
-      <div className={s.settings}>
+      <div className={s.settings} role={'settings'} aria-label={'pagination page filter'}>
         <Typography variant={'body2'} className={s.textColorLight}>
           Показать
         </Typography>
