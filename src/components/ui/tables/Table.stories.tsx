@@ -20,20 +20,14 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-const tableStyles = {
-  width: '100%',
-  border: '1px solid var(--color-dark-500)',
-  borderBottomWidth: '0',
-}
-
-export const Test: Story = {
+export const CompleteTable: Story = {
   render: () => (
     <div style={{ width: '50vw' }}>
-      <Table style={tableStyles} cellSpacing={'0'}>
-        <Column style={{ width: '40%' }} />
+      <Table>
         <Column style={{ width: '25%' }} />
         <Column style={{ width: '25%' }} />
-        <Column style={{ width: '10%' }} />
+        <Column style={{ width: '25%' }} />
+        <Column style={{ width: '25%' }} />
         <TableHead>
           <TableRow>
             <TableHeadCell>ISBN</TableHeadCell>
