@@ -1,3 +1,5 @@
+@import '@/styles/mixins';
+
 [data-orientation='horizontal'] {
   display: inline-flex;
   flex-direction: row;
@@ -9,16 +11,16 @@
 }
 
 .tab {
+  @include custom-text-style(
+    var(--font-family-primary),
+    var(--font-size-m),
+    var(--font-weight-regular),
+    var(--line-height-m),
+    var(--color-light-100)
+  );
+
   cursor: pointer;
-
   padding: 6px 24px;
-
-  font-family: var(--font-family-primary);
-  font-size: var(--font-size-m);
-  font-weight: var(--font-weight-regular);
-  line-height: var(--line-height-m);
-  color: var(--color-light-100);
-
   background-color: var(--color-dark-900);
   border: 1px solid var(--color-dark-300);
 

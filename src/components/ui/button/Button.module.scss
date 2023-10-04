@@ -1,20 +1,27 @@
+@import '@/styles/mixins';
+
 .button {
-  padding: 6px 28px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  color: var(color-light-100);
-  border-radius: 4px;
-  border: 2px solid;
-  box-shadow: 0 4px 18px 0 rgba(140, 97, 255, 0.35);
+  @include display-flex;
+  @include custom-text-style(
+    var(--font-family-primary),
+    var(--font-size-m),
+    var(--font-weight-bold),
+    var(--line-height-m),
+    var(color-light-100)
+  );
+
   cursor: pointer;
+
+  gap: 10px;
+  justify-content: center;
+
+  padding: 6px 28px;
+
+  border: 2px solid;
+  border-radius: 4px;
   outline: 0;
   outline-offset: 0;
-  font-family: var(--font-family-primary);
-  font-weight: var(--font-weight-bold);
-  font-size: var(--font-size-m);
-  line-height: var(--line-height-m);
+  box-shadow: 0 4px 18px 0 rgb(140 97 255 / 35%);
 }
 
 .primary {
@@ -37,9 +44,9 @@
   }
 
   &:disabled {
+    color: var(--color-light-900);
     background-color: var(--color-accent-900);
     border-color: var(--color-accent-900);
-    color: var(--color-light-900);
   }
 }
 
@@ -63,27 +70,27 @@
   }
 
   &:disabled {
+    color: var(--color-light-900);
     background-color: var(--color-dark-300);
     border-color: var(--color-dark-300);
-    color: var(--color-light-900);
   }
 }
 
 .tertiary {
+  color: var(--color-accent-500);
   background-color: transparent;
   border-color: var(--color-accent-500);
-  color: var(--color-accent-500);
 
   &:active {
+    color: var(--color-accent-500);
     background-color: var(--color-dark-900);
     border-color: var(--color-dark-700);
-    color: var(--color-accent-500);
   }
 
   &:hover {
+    color: var(--color-accent-500);
     background-color: var(--color-dark-500);
     border-color: var(--color-accent-700);
-    color: var(--color-accent-500);
   }
 
   &:focus {
@@ -93,17 +100,19 @@
   }
 
   &:disabled {
+    color: var(--color-accent-900);
     background-color: transparent;
     border-color: var(--color-accent-900);
-    color: var(--color-accent-900);
   }
 }
 
 .link {
   padding: 6px 0;
+
+  color: var(--color-accent-500);
+
   background-color: transparent;
   border-color: transparent;
-  color: var(--color-accent-500);
   box-shadow: none;
 
   &:hover {

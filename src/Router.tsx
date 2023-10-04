@@ -5,6 +5,9 @@ import {
   RouteObject,
   RouterProvider,
 } from 'react-router-dom'
+import { Card } from '@/components/ui/card'
+import { PersonalInformation } from '@/components/ui/personalInfo/PersonalInformation.tsx'
+import { ForgotPasswordForm } from '@/components/auth/forgot-pasword-form'
 
 const publicRoutes: RouteObject[] = [
   {
@@ -16,7 +19,16 @@ const publicRoutes: RouteObject[] = [
 const privateRoutes: RouteObject[] = [
   {
     path: '/',
-    element: <div>Your component is shown here</div>,
+    // element: <div>Your component is shown here</div>,
+    element: <ForgotPasswordForm onSubmit={() => {}} />,
+  },
+  {
+    path: '/card',
+    element: (
+      <Card>
+        <PersonalInformation />
+      </Card>
+    ),
   },
 ]
 
