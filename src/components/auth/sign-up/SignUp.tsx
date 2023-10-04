@@ -34,18 +34,25 @@ export const SignUp = () => {
   }
 
   return (
-    <Card className={s.container}>
+    <Card aria-label={'registration form'} className={s.container}>
       <div>
         <Typography variant={'h1'} color={'light'} className={s.signTypography}>
           Sign Up
         </Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
           <DevTool control={control} />
-          <ControlledInput name={'email'} control={control} label={'Email'} className={s.input} />
+          <ControlledInput
+            aria-label={'enter your email'}
+            name={'email'}
+            control={control}
+            label={'Email'}
+            className={s.input}
+          />
           <Typography variant={'body2'} className={s.error}>
             {errors?.email?.message}
           </Typography>
           <ControlledInput
+            aria-label={'enter your password'}
             className={s.input}
             type={eyeType ? 'text' : 'password'}
             name={'password'}
@@ -63,6 +70,7 @@ export const SignUp = () => {
             {errors?.password?.message}
           </Typography>
           <ControlledInput
+            aria-label={'confirm your password'}
             className={s.input}
             type={eyeType ? 'text' : 'password'}
             name={'confirmPassword'}
@@ -80,7 +88,12 @@ export const SignUp = () => {
           <Typography variant={'body2'} className={s.error}>
             {errors?.confirm?.message}
           </Typography>
-          <Button type="submit" fullWidth={true} className={s.button}>
+          <Button
+            aria-label={'commit registration'}
+            type="submit"
+            fullWidth={true}
+            className={s.button}
+          >
             Sign Up
           </Button>
           <div className={s.signInContainer}>
@@ -88,7 +101,7 @@ export const SignUp = () => {
             {/*<NavLink to="/register" className={s.registerLink}>*/}
             {/*</NavLink>*/}
 
-            <Button variant={'link'}>
+            <Button aria-label={'back to login page'} variant={'link'}>
               <Typography className={s.loginLink} variant={'subtitle2'}>
                 Sign In
               </Typography>

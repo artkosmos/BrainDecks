@@ -36,18 +36,25 @@ export const LoginForm = () => {
 
   return (
     <div>
-      <Card className={s.container}>
+      <Card className={s.container} aria-label={'login form'}>
         <div>
           <Typography className={s.signTypography} variant={'h1'} color={'light'}>
             Sign In
           </Typography>
           <form onSubmit={handleSubmit(onSubmit)}>
             <DevTool control={control} />
-            <ControlledInput className={s.input} name={'email'} control={control} label={'Email'} />
+            <ControlledInput
+              aria-label={'enter your email'}
+              className={s.input}
+              name={'email'}
+              control={control}
+              label={'Email'}
+            />
             <Typography variant={'body2'} className={s.error}>
               {errors?.email?.message}
             </Typography>
             <ControlledInput
+              aria-label={'enter your password'}
               className={s.input}
               type={eyeType ? 'text' : 'password'}
               name={'password'}
@@ -63,15 +70,21 @@ export const LoginForm = () => {
             />
             <div className={s.checkBox}>
               <Checkbox
+                aria-label={'remember me'}
                 label={'Remember Me'}
                 checked={checked}
                 onCheckedChange={() => setChecked(!checked)}
               />
             </div>
-            <Typography variant={'caption'} className={s.forgotTypography} onClick={() => {}}>
+            <Typography
+              aria-label={'if you forgot password - follow this link'}
+              variant={'caption'}
+              className={s.forgotTypography}
+              onClick={() => {}}
+            >
               Forgot Password?
             </Typography>
-            <Button type="submit" fullWidth={true} className={s.button}>
+            <Button aria-label={'login button'} type="submit" fullWidth={true} className={s.button}>
               Sign In
             </Button>
             <div className={s.signUpContainer}>
@@ -79,7 +92,7 @@ export const LoginForm = () => {
               {/*<NavLink to="/register" className={s.registerLink}>*/}
               {/*</NavLink>*/}
 
-              <Button variant={'link'}>
+              <Button aria-label={'registration link'} variant={'link'}>
                 <Typography className={s.registerLink} variant={'subtitle2'}>
                   Sign up
                 </Typography>

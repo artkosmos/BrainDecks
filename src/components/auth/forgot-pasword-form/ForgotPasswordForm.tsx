@@ -35,6 +35,7 @@ export const ForgotPasswordForm = (props: Props) => {
           Forgot your password?
         </Typography>
         <ControlledInput
+          aria-label={'enter your email to recover yours password'}
           className={s.input}
           control={control}
           name={'email'}
@@ -44,13 +45,23 @@ export const ForgotPasswordForm = (props: Props) => {
         <Typography className={s.subtitle_1} variant={'body2'}>
           Enter your email address and we will send you further instructions
         </Typography>
-        <Button className={s.button} type={'submit'} variant={'primary'} fullWidth={true}>
+        <Button
+          aria-label={'submit password recovering'}
+          className={s.button}
+          type={'submit'}
+          variant={'primary'}
+          fullWidth={true}
+        >
           <Typography variant={'subtitle1'}>Send Instructions</Typography>
         </Button>
         <Typography className={s.subtitle_2} variant={'body2'}>
           Did you remember your password?
         </Typography>
-        <Button type={'submit'} variant={'link'}>
+        <Button
+          aria-label={'try to login if you have remembered your password'}
+          type={'submit'}
+          variant={'link'}
+        >
           <Typography className={s.link} variant={'subtitle2'}>
             Try logging in
           </Typography>
