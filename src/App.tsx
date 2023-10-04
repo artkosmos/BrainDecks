@@ -1,18 +1,11 @@
-// import { PersonalInformation } from '@/components/ui/personalInfo/PersonalInformation.tsx'
-import { PersonalInformation } from '@/components/ui/personalInfo/PersonalInformation.tsx'
+import { Router } from '@/Router.tsx'
+import { Provider } from 'react-redux'
+import { store } from '@/services/store.ts'
 
 export function App() {
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100vh',
-        height: '100vh',
-      }}
-    >
-      <PersonalInformation />
-    </div>
+    <Provider store={store}>
+      <Router />
+    </Provider>
   )
 }

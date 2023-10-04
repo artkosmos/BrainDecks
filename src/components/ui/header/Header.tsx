@@ -1,4 +1,4 @@
-import headerLogo from '@/images/cardsLogo.png'
+import headerLogo from '@/assets/icons/cardsLogo.png'
 import s from './header.module.scss'
 
 type HeaderPropsType = {

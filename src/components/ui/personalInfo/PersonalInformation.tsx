@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Typography } from '@/components/ui/typography'
-import cardsLogo from '@/images/cardsLogo.png'
+import cardsLogo from '@/assets/icons/cardsLogo.png'
 import s from './personalInfo.module.scss'
 
 export const PersonalInformation = () => {
