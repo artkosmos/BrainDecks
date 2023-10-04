@@ -4,20 +4,22 @@
   @include size(100vh, 60px); //TODO can be error with adaptive
 
   background-color: var(--color-dark-700);
-}
 
-.logo {
-  height: 50px;
-  margin-left: 7%;
-}
+  .container {
+    @include display-flex;
 
-.container {
-  @include display-flex;
+    margin: 0 10%;
 
-  margin: 0 10%;
-}
+    .logo {
+      height: 50px;
+      margin-left: 7%;
+    }
 
-.userContainer {
-  display: flex;
-  align-items: center;
+    .userContainer {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
 }
