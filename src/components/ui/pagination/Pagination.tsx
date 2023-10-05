@@ -101,7 +101,7 @@ export const Pagination = (props: Props) => {
       </li>
       <div className={s.settings} role={'settings'} aria-label={'pagination page filter'}>
         <Typography variant={'body2'} className={s.textColorLight}>
-          Показать
+          Show
         </Typography>
         <Selector
           triggerClassName={s.trigger}
@@ -111,7 +111,7 @@ export const Pagination = (props: Props) => {
           selectData={options}
         />
         <Typography variant={'body2'} className={s.textColorLight}>
-          на странице
+          items per page
         </Typography>
       </div>
     </ul>
