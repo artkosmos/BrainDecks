@@ -10,9 +10,14 @@ import { useForm } from 'react-hook-form'
 import { TableHeadCell } from '@/components/ui/tables/TableHeadCell'
 import { TableRow } from '@/components/ui/tables/TableRow'
 import { Pagination } from '@/components/ui/pagination'
+import { Table } from '@/components/ui/tables'
+import { TableHead } from '@/components/ui/tables/TableHead'
+import { TableBody } from '@/components/ui/tables/TableBody'
 
 export const Cards = () => {
   const { register, control, handleSubmit } = useForm<FormValues>()
+
+  const data = ['asasasas', 'asaasasas']
 
   return (
     <div className={s.packContainer}>
@@ -47,16 +52,21 @@ export const Cards = () => {
         <div className={s.searchContainer}>
           <ControlledInput className={s.input} name={'Search input'} control={control} />
         </div>
-        <div className={s.table}>
-          <TableHeadCell>Question</TableHeadCell>
-          <TableHeadCell>Answer</TableHeadCell>
-          <TableHeadCell>Last Updated</TableHeadCell>
-          <TableHeadCell>Grade</TableHeadCell>
-          <TableHeadCell></TableHeadCell>
-          <TableRow>row1y</TableRow>
-          <TableRow>row2</TableRow>
-          <TableRow>row3</TableRow>
-        </div>
+        <Table className={s.table}>
+          <TableHead>
+            <TableHeadCell>Question</TableHeadCell>
+            <TableHeadCell>Answer</TableHeadCell>
+            <TableHeadCell>Last Updated</TableHeadCell>
+            <TableHeadCell>Grade</TableHeadCell>
+            <TableHeadCell></TableHeadCell>
+          </TableHead>
+
+          <TableBody>
+            {data.map(item => {
+              return <TableRow key={item}>{item}</TableRow>
+            })}
+          </TableBody>
+        </Table>
       </div>
       <Pagination
         currentPage={1}
