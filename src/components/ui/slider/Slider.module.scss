@@ -1,6 +1,17 @@
 @import '@/styles/mixins';
 
 .sliderWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+}
+
+.label {
+  align-self: flex-start;
+}
+
+.slider {
   @include flex-row-center(12px);
 }
 
