@@ -8,7 +8,7 @@ import s from './Slider.module.scss'
 type Props = ComponentPropsWithoutRef<typeof SliderRadix.Root>
 
 export const Slider = forwardRef<ElementRef<typeof SliderRadix.Root>, Props>((props, ref) => {
-  const { min, max, value, className, ...rest } = props
+  const { min = 0, max = 100, value, className, ...rest } = props
 
   const value1 = value?.length ? value[0] : min
   const value2 = value?.length ? value[1] : max

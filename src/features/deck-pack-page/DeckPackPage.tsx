@@ -23,15 +23,30 @@ const tabs: TabType[] = [
 ]
 
 export const DeckPackPage = () => {
-  const [name, setName] = useState('')
-  const [currentPage, setCurrentPage] = useState(1)
-  const [itemsPerPage, setItemsPerPage] = useState(10)
+  const [name, setName] = useState<string>('')
+  const [currentPage, setCurrentPage] = useState<number>(1)
+  const [itemsPerPage, setItemsPerPage] = useState<number>(10)
+  const [sliderValues, setSliderValues] = useState<number[]>([0, 52])
+
+  const selectOptions = ['10', '20', '30', '50', '100']
+
+  const minCardsCount = String(sliderValues[0])
+  const maxCardsCount = String(sliderValues[1])
 
   const [createDeck] = useCreateDeckMutation()
 
-  const { isLoading, data } = useGetDecksQuery({ name, currentPage, itemsPerPage })
+  const { isLoading, data } = useGetDecksQuery({
+    name,
+    currentPage,
+    itemsPerPage,
+    maxCardsCount,
+    minCardsCount,
+  })
 
-  const selectOptions = ['10', '20', '30', '50', '100']
+  const clearFilterHandler = () => {
+    setName('')
+    setSliderValues([0, 52])
+  }
 
   console.log(useGetDecksQuery())
 
@@ -46,17 +61,17 @@ export const DeckPackPage = () => {
       <div className={s.tableSettings}>
         <Input className={s.searchInput} onChange={e => setName(e.currentTarget.value)} />
         <TabSwitcher tabs={tabs} />
-        <Slider />
-        <Button variant={'secondary'}>
-          <Icon srcIcon={deleteIcon} />
-          Clear filter
+        <Slider max={data?.maxCardsCount} onValueChange={setSliderValues} value={sliderValues} />
+        <Button variant={'secondary'} onClick={clearFilterHandler}>
+          <Icon className={s.deleteIcon} srcIcon={deleteIcon} />
+          <Typography variant={'subtitle2'}>Clear filter</Typography>
         </Button>
       </div>
       {isLoading && <span>Loading...</span>}
       <DeckTable data={data?.items || []} />
       <Pagination
         options={selectOptions}
-        totalCount={data?.pagination.totalItems || 0}
+        totalCount={data?.pagination.totalItems || 1}
         currentPage={data?.pagination.currentPage || 1}
         pageSize={data?.pagination.itemsPerPage || 1}
         onChange={setCurrentPage}
