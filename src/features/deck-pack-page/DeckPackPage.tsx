@@ -6,32 +6,38 @@ import { Slider } from '@/components/ui/slider'
 import { Icon } from '@/components/ui/icon'
 import deleteIcon from '@/assets/icons/delete_icon.svg'
 import { DeckTable } from '@/features/deck-pack-page/deck-table'
-import { useCreateDeckMutation, useGetDecksQuery } from '@/services/deck-service/decks.service.ts'
 import { useState } from 'react'
 import { Pagination } from '@/components/ui/pagination'
+import { useCreateDeckMutation, useGetDecksQuery } from '@/services/deck-service/decks.service.ts'
+import { DeckModals } from '@/types/common'
+import { AddNewDeckModal } from '@/components/modals/add-new-deck'
+import searchIcon from '@/assets/icons/input_search.svg'
 import s from './DeckPackPage.module.scss'
-
-const tabs: TabType[] = [
-  {
-    id: '1',
-    title: 'My Cards',
-  },
-  {
-    id: '2',
-    title: 'All Cards',
-  },
-]
 
 export const DeckPackPage = () => {
   const [name, setName] = useState<string>('')
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [itemsPerPage, setItemsPerPage] = useState<number>(10)
   const [sliderValues, setSliderValues] = useState<number[]>([0, 52])
+  const [openModal, setOpenModal] = useState<DeckModals | null>(null)
 
   const selectOptions = ['10', '20', '30', '50', '100']
 
+  const tabs: TabType[] = [
+    {
+      id: '1',
+      title: 'My Cards',
+    },
+    {
+      id: '2',
+      title: 'All Cards',
+    },
+  ]
+
   const minCardsCount = String(sliderValues[0])
   const maxCardsCount = String(sliderValues[1])
+
+  const inputIcon = <Icon srcIcon={searchIcon} />
 
   const [createDeck] = useCreateDeckMutation()
 
@@ -48,18 +54,25 @@ export const DeckPackPage = () => {
     setSliderValues([0, 52])
   }
 
-  console.log(useGetDecksQuery())
+  const openModalHandler = (value: DeckModals | null) => {
+    setOpenModal(value)
+  }
 
   return (
     <div className={s.contentWrapper}>
       <div className={s.deckNameAndButton}>
         <Typography variant={'large'}>Deck&apos;s list</Typography>
-        <Button className={s.createDeckButton} onClick={() => createDeck({ name: 'чырык' })}>
+        <Button onClick={() => openModalHandler(DeckModals.CREATE)}>
           <Typography>Add new deck</Typography>
         </Button>
       </div>
       <div className={s.tableSettings}>
-        <Input className={s.searchInput} onChange={e => setName(e.currentTarget.value)} />
+        <Input
+          placeholder={'Search'}
+          className={s.searchInput}
+          leftSideIcon={inputIcon}
+          onChange={e => setName(e.currentTarget.value)}
+        />
         <TabSwitcher tabs={tabs} />
         <Slider max={data?.maxCardsCount} onValueChange={setSliderValues} value={sliderValues} />
         <Button variant={'secondary'} onClick={clearFilterHandler}>
@@ -70,6 +83,7 @@ export const DeckPackPage = () => {
       {isLoading && <span>Loading...</span>}
       <DeckTable data={data?.items || []} />
       <Pagination
+        className={s.pagination}
         options={selectOptions}
         totalCount={data?.pagination.totalItems || 1}
         currentPage={data?.pagination.currentPage || 1}
@@ -77,6 +91,7 @@ export const DeckPackPage = () => {
         onChange={setCurrentPage}
         selectFilterChange={setItemsPerPage}
       />
+      <AddNewDeckModal open={openModal} setOpen={setOpenModal} onSubmit={createDeck} />
     </div>
   )
 }
