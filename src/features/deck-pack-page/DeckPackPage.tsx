@@ -18,9 +18,9 @@ import {
 import { DeckModals, NewDeckNameField } from '@/types/common'
 import { AddNewDeckModal } from '@/components/modals/add-new-deck'
 import searchIcon from '@/assets/icons/input_search.svg'
-import s from './DeckPackPage.module.scss'
 import { EditDeckModal } from '@/components/modals/edit-deck'
 import { DeleteDeckModal } from '@/components/modals/delete-deck'
+import s from './DeckPackPage.module.scss'
 
 export const DeckPackPage = () => {
   const [name, setName] = useState<string>('')
