@@ -128,7 +128,12 @@ export const DeckPackPage = () => {
         selectFilterChange={setItemsPerPage}
       />
       <AddNewDeckModal open={openModal} setOpen={setOpenModal} onSubmit={createDeck} />
-      <EditDeckModal open={openModal} setOpen={setOpenModal} onSubmit={updateDeckHandler} />
+      <EditDeckModal
+        activeItem={activeDeck}
+        open={openModal}
+        setOpen={setOpenModal}
+        onSubmit={updateDeckHandler}
+      />
       <DeleteDeckModal deleteCallBack={deleteDeckHandler} open={openModal} setOpen={setOpenModal} />
     </div>
   )

@@ -7,24 +7,25 @@ import { ControlledCheckbox } from '@/components/ui/controlled/controlledCheckbo
 import { Button } from '@/components/ui/button'
 import { Typography } from '@/components/ui/typography'
 import { Modal } from '@/components/ui/modal'
+import { Deck } from '@/services/deck-service/decks.service.ts'
 import s from './EditDeckModal.module.scss'
 
 type Props = {
   open: DeckModals | null
   setOpen: (value: DeckModals | null) => void
   onSubmit: (values: NewDeckNameField) => void
+  activeItem: Deck | undefined // test
 }
 
-export const EditDeckModal = ({ onSubmit, open, setOpen }: Props) => {
+export const EditDeckModal = ({ onSubmit, open, setOpen, activeItem }: Props) => {
   const {
     control,
     handleSubmit,
-    // setValue,
     formState: { errors },
   } = useForm<NewDeckNameField>({
     resolver: zodResolver(newDeckNameSchema),
     mode: 'onSubmit',
-    defaultValues: { name: '', isPrivate: false },
+    defaultValues: { isPrivate: false },
   })
 
   const onSubmitHandler = handleSubmit(data => {
@@ -34,7 +35,6 @@ export const EditDeckModal = ({ onSubmit, open, setOpen }: Props) => {
 
   const cancelModalHandler = () => {
     setOpen(null)
-    // setValue('name', '')
   }
 
   return (
@@ -44,6 +44,7 @@ export const EditDeckModal = ({ onSubmit, open, setOpen }: Props) => {
       </Typography>
       <form onSubmit={onSubmitHandler} className={s.newDeckForm}>
         <ControlledInput
+          defaultValue={activeItem?.name || ''} // test
           aria-label={'enter new deck name'}
           className={s.input}
           control={control}

@@ -24,6 +24,7 @@ export const AddNewDeckModal = ({ onSubmit, open, setOpen }: Props) => {
   } = useForm<NewDeckNameField>({
     resolver: zodResolver(newDeckNameSchema),
     mode: 'onSubmit',
+    defaultValues: { name: '', isPrivate: false },
   })
 
   const onSubmitHandler = handleSubmit(data => {
@@ -43,6 +44,7 @@ export const AddNewDeckModal = ({ onSubmit, open, setOpen }: Props) => {
       </Typography>
       <form onSubmit={onSubmitHandler} className={s.newDeckForm}>
         <ControlledInput
+          placeholder={''}
           aria-label={'enter new deck name'}
           className={s.input}
           control={control}
