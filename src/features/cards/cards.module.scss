@@ -75,7 +75,7 @@
 
       .actionTableCell {
         padding: 0;
-        width: 90px;
+        width: 100px;
       }
 
       .actions {
@@ -83,6 +83,7 @@
 
         .icon {
           margin-right: 10px;
+          cursor: pointer;
         }
       }
     }

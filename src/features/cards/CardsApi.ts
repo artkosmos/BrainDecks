@@ -10,6 +10,7 @@ export const cardsApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     getCards: builder.query<GetCardsResponse, Pick<GetCardsPayload, 'packId'>>({
       query: ({ packId }) => `v1/decks/${packId}/cards`,
+      providesTags: ['Cards'],
     }),
     postCard: builder.mutation<any, PostCardPayload>({
       query: ({ packId, ...rest }) => ({
@@ -17,7 +18,7 @@ export const cardsApi = baseApi.injectEndpoints({
         method: 'POST',
         body: rest,
       }),
-      invalidatesTags: ['Decks'],
+      invalidatesTags: ['Cards'],
     }),
     patchCard: builder.mutation<PatchResponse, PostCardPayload>({
       query: ({ packId, ...rest }) => ({
@@ -25,17 +26,22 @@ export const cardsApi = baseApi.injectEndpoints({
         method: 'PATCH',
         body: rest,
       }),
-      invalidatesTags: ['Decks'],
+      invalidatesTags: ['Cards'],
     }),
-    // postCard: builder.mutation<any, PostCardPayload>({
-    //   query: ({ packId, ...rest }) => ({
-    //     url: `v1/decks/${packId}/cards`,
-    //     method: 'POST',
-    //     body: rest,
-    //   }),
-    //   invalidatesTags: ['Decks'],
-    // }),
+    deleteCard: builder.mutation<any, { cardId: string }>({
+      query: ({ cardId, ...rest }) => ({
+        url: `v1/cards/${cardId}`,
+        method: 'DELETE',
+        body: rest,
+      }),
+      invalidatesTags: ['Cards'],
+    }),
   }),
 })
 
-export const { useGetCardsQuery, usePostCardMutation } = cardsApi
+export const {
+  useGetCardsQuery,
+  usePostCardMutation,
+  usePatchCardMutation,
+  useDeleteCardMutation,
+} = cardsApi

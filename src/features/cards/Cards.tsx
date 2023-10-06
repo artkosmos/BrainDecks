@@ -13,7 +13,11 @@ import { Pagination } from '@/components/ui/pagination'
 import { Table } from '@/components/ui/tables'
 import { TableHead } from '@/components/ui/tables/TableHead'
 import { TableBody } from '@/components/ui/tables/TableBody'
-import { useGetCardsQuery, usePostCardMutation } from '@/features/cards/CardsApi.ts'
+import {
+  useDeleteCardMutation,
+  useGetCardsQuery,
+  usePostCardMutation,
+} from '@/features/cards/CardsApi.ts'
 import { TableCell } from '@/components/ui/tables/TableCell'
 import { Input } from '@/components/ui/input'
 import { ChangeEvent, useState } from 'react'
@@ -22,6 +26,7 @@ import { Icon } from '@/components/ui/icon'
 export const Cards = () => {
   const [inputValue, setInputValue] = useState<string>('')
   const [postCard] = usePostCardMutation({})
+  const [deleteCard] = useDeleteCardMutation({})
 
   let temporaryPackId = 'clncyq50p0smtvo2qnczpg2wr'
   const selectOptions = ['10', '20', '30', '50', '100']
@@ -51,6 +56,15 @@ export const Cards = () => {
 
     try {
       await postCard({ answer, question, packId: temporaryPackId })
+    } catch (e) {
+      console.log(e)
+    }
+  }
+  const deleteCardHandler = async () => {
+    let cardId = 'clnf1cs3f0tk0vo2q3hjyztqx'
+
+    try {
+      await deleteCard({ cardId })
     } catch (e) {
       console.log(e)
     }
@@ -117,8 +131,13 @@ export const Cards = () => {
                   <TableCell>{new Date(item.updated).toLocaleDateString()}</TableCell>
                   <TableCell>{item.grade}</TableCell>
                   <TableCell className={s.actions}>
-                    <Icon className={s.icon} srcIcon={deleteIcon} alt={'delete icon'} />
-                    <Icon srcIcon={editIcon} alt={'edit icon'} />
+                    <Icon
+                      className={s.icon}
+                      srcIcon={deleteIcon}
+                      alt={'delete icon'}
+                      onClick={deleteCardHandler}
+                    />
+                    <Icon className={s.icon} srcIcon={editIcon} alt={'edit icon'} />
                   </TableCell>
                 </TableRow>
               )
