@@ -5,8 +5,6 @@ import s from './cards.module.scss'
 import { Typography } from '@/components/ui/typography'
 import headerLogo from '@/assets/icons/cardsLogo.png'
 import { Button } from '@/components/ui/button'
-import { ControlledInput } from '@/components/ui/controlled/controlledInput'
-import { useForm } from 'react-hook-form'
 import { TableHeadCell } from '@/components/ui/tables/TableHeadCell'
 import { TableRow } from '@/components/ui/tables/TableRow'
 import { Pagination } from '@/components/ui/pagination'
@@ -15,11 +13,13 @@ import { TableHead } from '@/components/ui/tables/TableHead'
 import { TableBody } from '@/components/ui/tables/TableBody'
 import { useGetCardsQuery } from '@/features/cards/CardsApi.ts'
 import { TableCell } from '@/components/ui/tables/TableCell'
+import { Input } from '@/components/ui/input'
+import { ChangeEvent, useState } from 'react'
 
 export const Cards = () => {
-  const { control } = useForm()
-  const selectOptions = ['10', '20', '30', '50', '100']
+  const [inputValue, setInputValue] = useState<string>('')
 
+  const selectOptions = ['10', '20', '30', '50', '100']
   const { data } = useGetCardsQuery({
     id: 'clncyq50p0smtvo2qnczpg2wr',
   })
@@ -28,9 +28,23 @@ export const Cards = () => {
     return null
   }
 
-  const { currentPage, itemsPerPage, totalPages, totalItems } = data.pagination
+  const changeSearchValue = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.currentTarget.value)
+  }
 
-  console.log(totalItems)
+  const inputSearchData = data.items.filter(
+    elements => {
+      if (inputValue !== '') {
+        return elements.question.includes(inputValue)
+      } else {
+        return elements
+      }
+    }
+
+    // elements.question === inputValue ? elements : inputValue
+  )
+
+  const { currentPage, itemsPerPage, totalPages, totalItems } = data.pagination
 
   return (
     <div className={s.packContainer}>
@@ -63,19 +77,26 @@ export const Cards = () => {
         </span>
 
         <div className={s.searchContainer}>
-          <ControlledInput className={s.input} name={'Search input'} control={control} />
+          <Input
+            className={s.input}
+            name={'Search input'}
+            onChange={changeSearchValue}
+            value={inputValue}
+          />
         </div>
         <Table className={s.table}>
           <TableHead>
-            <TableHeadCell>Question</TableHeadCell>
-            <TableHeadCell>Answer</TableHeadCell>
-            <TableHeadCell>Last Updated</TableHeadCell>
-            <TableHeadCell>Grade</TableHeadCell>
-            <TableHeadCell></TableHeadCell>
+            <TableRow>
+              <TableHeadCell>Question</TableHeadCell>
+              <TableHeadCell>Answer</TableHeadCell>
+              <TableHeadCell>Last Updated</TableHeadCell>
+              <TableHeadCell>Grade</TableHeadCell>
+              {/*<TableHeadCell></TableHeadCell>*/}
+            </TableRow>
           </TableHead>
 
           <TableBody>
-            {data?.items.map(item => {
+            {inputSearchData.map(item => {
               return (
                 <TableRow key={item.id}>
                   <TableCell>{item.question}</TableCell>

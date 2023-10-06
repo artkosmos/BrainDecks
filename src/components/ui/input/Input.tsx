@@ -34,6 +34,8 @@ export const Input = (props: InputPropsType) => {
     ...rest
   } = props
 
+  console.log(value)
+
   const showPasswordHandler = () => {
     callBack?.(!callBackValue)
   }

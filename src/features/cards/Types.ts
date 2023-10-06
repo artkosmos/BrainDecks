@@ -1,12 +1,4 @@
-export type GetCardsResponse = {
-  items: [CardData]
-  pagination: {
-    currentPage: number
-    itemsPerPage: number
-    totalPages: number
-    totalItems: number
-  }
-}
+// get
 export type CardData = {
   id: string
   question: string
@@ -22,6 +14,16 @@ export type CardData = {
   grade: number
   userId: string
 }
+
+export type GetCardsResponse = {
+  items: [CardData]
+  pagination: {
+    currentPage: number
+    itemsPerPage: number
+    totalPages: number
+    totalItems: number
+  }
+}
 export type GetCardsPayload = {
   id: string
   question?: string
@@ -30,3 +32,9 @@ export type GetCardsPayload = {
   currentPage?: number
   itemsPerPage?: number
 }
+
+//post
+
+//put
+
+//delete
