@@ -10,7 +10,7 @@ import { Modal } from '@/components/ui/modal'
 import s from './AddNewDeckModal.module.scss'
 
 type Props = {
-  open: DeckModals
+  open: DeckModals | null
   setOpen: (value: DeckModals | null) => void
   onSubmit: (values: NewDeckNameField) => void
 }
@@ -19,6 +19,7 @@ export const AddNewDeckModal = ({ onSubmit, open, setOpen }: Props) => {
   const {
     control,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<NewDeckNameField>({
     resolver: zodResolver(newDeckNameSchema),
@@ -27,10 +28,12 @@ export const AddNewDeckModal = ({ onSubmit, open, setOpen }: Props) => {
 
   const onSubmitHandler = handleSubmit(data => {
     onSubmit(data)
+    setOpen(null)
   })
 
   const cancelModalHandler = () => {
     setOpen(null)
+    setValue('name', '')
   }
 
   return (
