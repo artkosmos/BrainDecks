@@ -1,4 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import deleteIcon from '@/assets/icons/delete_icon.svg'
+import editIcon from '@/assets/icons/edit_icon.svg'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 import s from './cards.module.scss'
@@ -11,17 +13,20 @@ import { Pagination } from '@/components/ui/pagination'
 import { Table } from '@/components/ui/tables'
 import { TableHead } from '@/components/ui/tables/TableHead'
 import { TableBody } from '@/components/ui/tables/TableBody'
-import { useGetCardsQuery } from '@/features/cards/CardsApi.ts'
+import { useGetCardsQuery, usePostCardMutation } from '@/features/cards/CardsApi.ts'
 import { TableCell } from '@/components/ui/tables/TableCell'
 import { Input } from '@/components/ui/input'
 import { ChangeEvent, useState } from 'react'
+import { Icon } from '@/components/ui/icon'
 
 export const Cards = () => {
   const [inputValue, setInputValue] = useState<string>('')
+  const [postCard] = usePostCardMutation({})
 
+  let temporaryPackId = 'clncyq50p0smtvo2qnczpg2wr'
   const selectOptions = ['10', '20', '30', '50', '100']
   const { data } = useGetCardsQuery({
-    id: 'clncyq50p0smtvo2qnczpg2wr',
+    packId: temporaryPackId,
   })
 
   if (!data) {
@@ -32,18 +37,26 @@ export const Cards = () => {
     setInputValue(e.currentTarget.value)
   }
 
-  const inputSearchData = data.items.filter(
-    elements => {
-      if (inputValue !== '') {
-        return elements.question.includes(inputValue)
-      } else {
-        return elements
-      }
+  const inputSearchData = data.items.filter(elements => {
+    if (inputValue !== '') {
+      return elements.question.includes(inputValue)
+    } else {
+      return elements
     }
+  })
 
-    // elements.question === inputValue ? elements : inputValue
-  )
+  const addNewCardHandler = async () => {
+    let answer = 'answer'
+    let question = 'question'
 
+    try {
+      await postCard({ answer, question, packId: temporaryPackId })
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  //pagination
   const { currentPage, itemsPerPage, totalPages, totalItems } = data.pagination
 
   return (
@@ -67,7 +80,7 @@ export const Cards = () => {
             {/*{packUserId === userId && <DropDownMenu packId={packId} />}*/}
           </Typography>
           {/*{packUserId === userId ? (*/}
-          <Button variant={'primary'}>
+          <Button variant={'primary'} onClick={addNewCardHandler}>
             {/*<BaseModal modalTitle={'Add new card'} buttonType={'base'}>*/}
             {/*  {close => <AddCard closeModal={close} addCardCallback={addNewCardHandle} />}*/}
             {/*</BaseModal>*/}
@@ -91,7 +104,7 @@ export const Cards = () => {
               <TableHeadCell>Answer</TableHeadCell>
               <TableHeadCell>Last Updated</TableHeadCell>
               <TableHeadCell>Grade</TableHeadCell>
-              {/*<TableHeadCell></TableHeadCell>*/}
+              <TableHeadCell className={s.actionTableCell}></TableHeadCell>
             </TableRow>
           </TableHead>
 
@@ -103,6 +116,10 @@ export const Cards = () => {
                   <TableCell>{item.answer}</TableCell>
                   <TableCell>{new Date(item.updated).toLocaleDateString()}</TableCell>
                   <TableCell>{item.grade}</TableCell>
+                  <TableCell className={s.actions}>
+                    <Icon className={s.icon} srcIcon={deleteIcon} alt={'delete icon'} />
+                    <Icon srcIcon={editIcon} alt={'edit icon'} />
+                  </TableCell>
                 </TableRow>
               )
             })}

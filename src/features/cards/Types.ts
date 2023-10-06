@@ -25,7 +25,7 @@ export type GetCardsResponse = {
   }
 }
 export type GetCardsPayload = {
-  id: string
+  packId: string
   question?: string
   answer?: string
   orderBy?: string
@@ -35,6 +35,30 @@ export type GetCardsPayload = {
 
 //post
 
-//put
+export type PostCardPayload = {
+  packId: string
+  question: string
+  answer: string
+  questionImg?: string
+  answerImg?: string
+  questionVideo?: string
+  answerVideo?: string
+}
 
+//put
+export type PatchResponse = {
+  id: string
+  deckId: string
+  userId: string
+  question: string
+  answer: string
+  shots: number
+  answerImg: string
+  questionImg: string
+  questionVideo: string
+  answerVideo: string
+  rating: number
+  created: string
+  updated: string
+}
 //delete

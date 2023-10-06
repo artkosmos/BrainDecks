@@ -72,6 +72,19 @@
 
     .table {
       margin-top: 24px;
+
+      .actionTableCell {
+        padding: 0;
+        width: 90px;
+      }
+
+      .actions {
+        text-align: end;
+
+        .icon {
+          margin-right: 10px;
+        }
+      }
     }
   }
 }
