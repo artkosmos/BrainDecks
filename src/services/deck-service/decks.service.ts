@@ -20,11 +20,35 @@ export const DecksService = baseApi.injectEndpoints({
         }),
         invalidatesTags: ['Decks'],
       }),
+      deleteDeck: builder.mutation<Deck, { id: string }>({
+        query: ({ id }) => ({
+          url: `v1/decks/${id}`,
+          method: 'DELETE',
+        }),
+        invalidatesTags: ['Decks'],
+      }),
+      updateDeck: builder.mutation<UpdateDeckResponseData, UpdateDeckArgs>({
+        query: ({ id, ...body }) => ({
+          url: `v1/decks/${id}`,
+          method: 'PATCH',
+          body,
+        }),
+        invalidatesTags: ['Decks'],
+      }),
     }
   },
 })
 
-export const { useGetDecksQuery, useCreateDeckMutation } = DecksService
+export const {
+  useGetDecksQuery,
+  useCreateDeckMutation,
+  useDeleteDeckMutation,
+  useUpdateDeckMutation,
+} = DecksService
+
+export type UpdateDeckResponseData = Deck & DeckAuthor
+
+export type UpdateDeckArgs = Pick<Deck, 'name' | 'cover' | 'isPrivate' | 'id'>
 
 export type CreateDeckArgs = Pick<Deck, 'name' | 'cover' | 'isPrivate'>
 
@@ -48,10 +72,10 @@ export type Deck = {
   created: string
   updated: string
   cardsCount: number
-  author: Author
+  author: DeckAuthor
 }
 
-export type Author = {
+export type DeckAuthor = {
   id: string
   name: string
 }

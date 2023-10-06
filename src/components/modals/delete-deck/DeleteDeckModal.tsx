@@ -5,11 +5,17 @@ import { Button } from '@/components/ui/button'
 import s from './DeleteDeckModal.module.scss'
 
 type Props = {
-  open: DeckModals
+  open: DeckModals | null
   setOpen: (value: DeckModals | null) => void
+  deleteCallBack: () => void
 }
-export const DeleteDeckModal = ({ open, setOpen }: Props) => {
+export const DeleteDeckModal = ({ open, setOpen, deleteCallBack }: Props) => {
   const cancelModalHandler = () => {
+    setOpen(null)
+  }
+
+  const onDelete = () => {
+    deleteCallBack()
     setOpen(null)
   }
 
@@ -26,7 +32,7 @@ export const DeleteDeckModal = ({ open, setOpen }: Props) => {
         <Button onClick={cancelModalHandler} variant={'secondary'}>
           <Typography variant={'subtitle2'}>Cancel</Typography>
         </Button>
-        <Button>
+        <Button onClick={onDelete}>
           <Typography variant={'subtitle2'}>Delete Deck</Typography>
         </Button>
       </div>

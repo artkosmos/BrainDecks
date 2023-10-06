@@ -13,7 +13,7 @@ import { DeckModals } from '@/types/common'
 import s from './DeckTable.module.scss'
 
 type Props = {
-  onIconClick: (value: DeckModals | null) => void
+  onIconClick: (value: DeckModals | null, item: Deck) => void
   className?: string
   data: Deck[]
 }
@@ -43,12 +43,12 @@ export const DeckTable = (props: Props) => {
               <TableCell className={s.iconsCell}>
                 <Icon className={s.icon} srcIcon={playIcon} />
                 <Icon
-                  onClick={() => onIconClick(DeckModals.UPDATE)}
+                  onClick={() => onIconClick(DeckModals.UPDATE, item)}
                   className={s.icon}
                   srcIcon={editIcon}
                 />
                 <Icon
-                  onClick={() => onIconClick(DeckModals.DELETE)}
+                  onClick={() => onIconClick(DeckModals.DELETE, item)}
                   className={s.icon}
                   srcIcon={deleteIcon}
                 />

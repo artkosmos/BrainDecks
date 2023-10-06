@@ -10,7 +10,7 @@ import { Modal } from '@/components/ui/modal'
 import s from './EditDeckModal.module.scss'
 
 type Props = {
-  open: DeckModals
+  open: DeckModals | null
   setOpen: (value: DeckModals | null) => void
   onSubmit: (values: NewDeckNameField) => void
 }
@@ -19,18 +19,22 @@ export const EditDeckModal = ({ onSubmit, open, setOpen }: Props) => {
   const {
     control,
     handleSubmit,
+    // setValue,
     formState: { errors },
   } = useForm<NewDeckNameField>({
     resolver: zodResolver(newDeckNameSchema),
     mode: 'onSubmit',
+    defaultValues: { name: '', isPrivate: false },
   })
 
   const onSubmitHandler = handleSubmit(data => {
     onSubmit(data)
+    setOpen(null)
   })
 
   const cancelModalHandler = () => {
     setOpen(null)
+    // setValue('name', '')
   }
 
   return (
@@ -43,6 +47,7 @@ export const EditDeckModal = ({ onSubmit, open, setOpen }: Props) => {
           aria-label={'enter new deck name'}
           className={s.input}
           control={control}
+          placeholder={''}
           name={'name'}
           label={'Name Deck'}
           errorMessage={errors.name?.message}
