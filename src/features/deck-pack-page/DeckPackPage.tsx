@@ -60,6 +60,8 @@ export const DeckPackPage = () => {
     minCardsCount,
   })
 
+  console.log(data)
+
   // get max card value from data for slider useState
   // useEffect(() => {
   //   setSliderValues([0, data?.maxCardsCount || 52])

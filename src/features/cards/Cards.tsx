@@ -13,17 +13,30 @@ import { Pagination } from '@/components/ui/pagination'
 import { Table } from '@/components/ui/tables'
 import { TableHead } from '@/components/ui/tables/TableHead'
 import { TableBody } from '@/components/ui/tables/TableBody'
+import { useGetCardsQuery } from '@/features/cards/CardsApi.ts'
+import { TableCell } from '@/components/ui/tables/TableCell'
 
 export const Cards = () => {
-  const { register, control, handleSubmit } = useForm<FormValues>()
+  const { control } = useForm()
+  const selectOptions = ['10', '20', '30', '50', '100']
 
-  const data = ['asasasas', 'asaasasas']
+  const { data } = useGetCardsQuery({
+    id: 'clncyq50p0smtvo2qnczpg2wr',
+  })
+
+  if (!data) {
+    return null
+  }
+
+  const { currentPage, itemsPerPage, totalPages, totalItems } = data.pagination
+
+  console.log(totalItems)
 
   return (
     <div className={s.packContainer}>
       <div className={s.insideContainer}>
         <span>
-          <Link to={'/packs'} style={{ textDecoration: 'none', color: 'black' }}>
+          <Link to={'/decks'} style={{ textDecoration: 'none', color: 'black' }}>
             <label className={s.backToCards}>
               <FontAwesomeIcon icon={faArrowLeft} style={{ color: '#ffffff' }} />
               <Typography className={s.backToPacks} variant={'body2'}>
@@ -62,18 +75,25 @@ export const Cards = () => {
           </TableHead>
 
           <TableBody>
-            {data.map(item => {
-              return <TableRow key={item}>{item}</TableRow>
+            {data?.items.map(item => {
+              return (
+                <TableRow key={item.id}>
+                  <TableCell>{item.question}</TableCell>
+                  <TableCell>{item.answer}</TableCell>
+                  <TableCell>{new Date(item.updated).toLocaleDateString()}</TableCell>
+                  <TableCell>{item.grade}</TableCell>
+                </TableRow>
+              )
             })}
           </TableBody>
         </Table>
       </div>
       <Pagination
-        currentPage={1}
-        pageSize={20}
+        currentPage={currentPage}
+        pageSize={itemsPerPage}
         onChange={() => {}}
-        totalCount={2}
-        options={['sa']}
+        totalCount={totalPages}
+        options={selectOptions}
       />
     </div>
   )
