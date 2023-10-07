@@ -1,12 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import deleteIcon from '@/assets/icons/delete_icon.svg'
 import editIcon from '@/assets/icons/edit_icon.svg'
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { faArrowLeft, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 import s from './cards.module.scss'
 import { Typography } from '@/components/ui/typography'
 import headerLogo from '@/assets/icons/cardsLogo.png'
-import { Button } from '@/components/ui/button'
 import { TableHeadCell } from '@/components/ui/tables/TableHeadCell'
 import { TableRow } from '@/components/ui/tables/TableRow'
 import { Pagination } from '@/components/ui/pagination'
@@ -22,17 +21,25 @@ import { TableCell } from '@/components/ui/tables/TableCell'
 import { Input } from '@/components/ui/input'
 import { ChangeEvent, useState } from 'react'
 import { Icon } from '@/components/ui/icon'
+import { AddNewCardModal } from '@/components/modals/add-new-card/AddNewCardModal.tsx'
+import { CardsModals, NewCardField } from '@/types/common'
+import { useForm } from 'react-hook-form'
+import { Button } from '@/components/ui/button'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { newCardSchema } from '@/schemes'
 
 export const Cards = () => {
   const [inputValue, setInputValue] = useState<string>('')
+  const [openModal, setOpenModal] = useState<CardsModals | null>(null)
   const [postCard] = usePostCardMutation({})
   const [deleteCard] = useDeleteCardMutation({})
+  let temporaryPackId = 'clndbbkot0ss6vo2q2iwyp0j8'
 
-  let temporaryPackId = 'clncyq50p0smtvo2qnczpg2wr'
-  const selectOptions = ['10', '20', '30', '50', '100']
   const { data } = useGetCardsQuery({
     packId: temporaryPackId,
   })
+
+  const selectOptions = ['10', '20', '30', '50', '100']
 
   if (!data) {
     return null
@@ -71,7 +78,7 @@ export const Cards = () => {
   }
 
   //pagination
-  const { currentPage, itemsPerPage, totalPages, totalItems } = data.pagination
+  const { currentPage, itemsPerPage, totalPages } = data.pagination
 
   return (
     <div className={s.packContainer}>
@@ -90,19 +97,22 @@ export const Cards = () => {
         <span className={s.packAddName}>
           <Typography className={s.packName} variant={'large'}>
             {'packName'}
-            <img className={s.packImg} src={headerLogo} alt="" />
+            <span style={{ marginLeft: '10px', cursor: 'pointer' }}>
+              <FontAwesomeIcon icon={faEllipsisVertical} />
+            </span>
             {/*{packUserId === userId && <DropDownMenu packId={packId} />}*/}
           </Typography>
           {/*{packUserId === userId ? (*/}
-          <Button variant={'primary'} onClick={addNewCardHandler}>
-            {/*<BaseModal modalTitle={'Add new card'} buttonType={'base'}>*/}
-            {/*  {close => <AddCard closeModal={close} addCardCallback={addNewCardHandle} />}*/}
-            {/*</BaseModal>*/}
-            Add New Card
-          </Button>
+          {/*TODO*/}
+          <Button onClick={() => setOpenModal(CardsModals.CREATE)}>Add New Card</Button>
+          <AddNewCardModal
+            open={openModal}
+            name={'Chose a question format'}
+            setOpen={setOpenModal}
+          />
           {/*) : null}*/}
         </span>
-
+        <img className={s.packImg} src={headerLogo} alt="" />
         <div className={s.searchContainer}>
           <Input
             className={s.input}
