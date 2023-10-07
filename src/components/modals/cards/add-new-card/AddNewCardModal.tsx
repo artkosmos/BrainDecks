@@ -36,7 +36,7 @@ export const AddNewCardModal = ({ open, setModalState, createCard }: AddNewCardP
   }
 
   return (
-    <Modal open={open === CardsModals.CREATE}>
+    <Modal open={open === CardsModals.CREATE} setModalState={setModalState}>
       <Typography>Add New Card</Typography>
       <form onSubmit={onSubmitHandler}>
         <ControlledSelector

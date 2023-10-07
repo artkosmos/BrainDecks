@@ -38,7 +38,7 @@ export const EditDeckModal = ({ onSubmit, open, setOpen, activeItem }: Props) =>
   }
 
   return (
-    <Modal className={s.modal} open={open === DeckModals.UPDATE}>
+    <Modal className={s.modal} open={open === DeckModals.UPDATE} setModalState={setOpen}>
       <Typography className={s.title} variant={'h2'}>
         Edit Deck
       </Typography>

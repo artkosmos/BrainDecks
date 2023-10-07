@@ -20,7 +20,7 @@ export const DeleteDeckModal = ({ open, setOpen, deleteCallBack }: Props) => {
   }
 
   return (
-    <Modal className={s.modal} open={open === DeckModals.DELETE}>
+    <Modal className={s.modal} open={open === DeckModals.DELETE} setModalState={setOpen}>
       <Typography className={s.title} variant={'h2'}>
         Delete Deck
       </Typography>

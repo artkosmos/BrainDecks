@@ -38,7 +38,7 @@ export const AddNewDeckModal = ({ onSubmit, open, setOpen }: Props) => {
   }
 
   return (
-    <Modal className={s.modal} open={open === DeckModals.CREATE}>
+    <Modal className={s.modal} open={open === DeckModals.CREATE} setModalState={setOpen}>
       <Typography className={s.title} variant={'h2'}>
         Add New Deck
       </Typography>

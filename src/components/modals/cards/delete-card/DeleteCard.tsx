@@ -31,7 +31,7 @@ export const DeleteCard = ({ open, cardId, cardQuestion, setModalState }: Delete
   }
 
   return (
-    <Modal open={open === CardsModals.DELETE}>
+    <Modal open={open === CardsModals.DELETE} setModalState={setModalState}>
       <Typography>Delete Card</Typography>
       <Dialog.Description className={s.dialogDescription}>
         {`Do you really want to remove card - ${cardQuestion}?`}
