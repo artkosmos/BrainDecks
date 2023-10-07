@@ -10,11 +10,12 @@ import { newCardSchema } from '@/schemes'
 
 type AddNewCardPropsType = {
   open: CardsModals | null
-  setOpen: (value: CardsModals | null) => void
+  setModalState: (value: CardsModals | null) => void
   name: string
+  createCard: (question: string, answer: string) => void
 }
 
-export const AddNewCardModal = ({ open, setOpen }: AddNewCardPropsType) => {
+export const AddNewCardModal = ({ open, setModalState, createCard }: AddNewCardPropsType) => {
   const { control, handleSubmit } = useForm<NewCardField>({
     resolver: zodResolver(newCardSchema),
     mode: 'onSubmit',
@@ -26,10 +27,12 @@ export const AddNewCardModal = ({ open, setOpen }: AddNewCardPropsType) => {
 
   const data = ['text', 'image']
   const onSubmitHandler = handleSubmit(data => {
-    console.log(data)
+    const { Question, Answer } = data
+
+    createCard(Question, Answer)
   })
   const closeModal = () => {
-    setOpen(null)
+    setModalState(null)
   }
 
   return (

@@ -12,27 +12,22 @@ import { Pagination } from '@/components/ui/pagination'
 import { Table } from '@/components/ui/tables'
 import { TableHead } from '@/components/ui/tables/TableHead'
 import { TableBody } from '@/components/ui/tables/TableBody'
-import {
-  useDeleteCardMutation,
-  useGetCardsQuery,
-  usePostCardMutation,
-} from '@/features/cards/CardsApi.ts'
+import { useGetCardsQuery, usePostCardMutation } from '@/features/cards/CardsApi.ts'
 import { TableCell } from '@/components/ui/tables/TableCell'
 import { Input } from '@/components/ui/input'
 import { ChangeEvent, useState } from 'react'
 import { Icon } from '@/components/ui/icon'
-import { AddNewCardModal } from '@/components/modals/add-new-card/AddNewCardModal.tsx'
-import { CardsModals, NewCardField } from '@/types/common'
-import { useForm } from 'react-hook-form'
+import { AddNewCardModal } from '@/components/modals/cards/add-new-card/AddNewCardModal.tsx'
+import { CardsModals } from '@/types/common'
 import { Button } from '@/components/ui/button'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { newCardSchema } from '@/schemes'
+import { DeleteCard } from '@/components/modals/cards/delete-card/DeleteCard.tsx'
+import { CardData } from '@/features/cards/Types.ts'
 
 export const Cards = () => {
   const [inputValue, setInputValue] = useState<string>('')
-  const [openModal, setOpenModal] = useState<CardsModals | null>(null)
+  const [itemData, setItemData] = useState<null | CardData>(null)
+  const [openModal, setModalState] = useState<CardsModals | null>(null)
   const [postCard] = usePostCardMutation({})
-  const [deleteCard] = useDeleteCardMutation({})
   let temporaryPackId = 'clndbbkot0ss6vo2q2iwyp0j8'
 
   const { data } = useGetCardsQuery({
@@ -57,24 +52,17 @@ export const Cards = () => {
     }
   })
 
-  const addNewCardHandler = async () => {
-    let answer = 'answer'
-    let question = 'question'
-
+  const addNewCardHandler = async (question: string, answer: string) => {
     try {
       await postCard({ answer, question, packId: temporaryPackId })
+      setModalState(null)
     } catch (e) {
       console.log(e)
     }
   }
-  const deleteCardHandler = async () => {
-    let cardId = 'clnf1cs3f0tk0vo2q3hjyztqx'
-
-    try {
-      await deleteCard({ cardId })
-    } catch (e) {
-      console.log(e)
-    }
+  const deleteCardHandler = (item: CardData) => {
+    setModalState(CardsModals.DELETE)
+    setItemData(item)
   }
 
   //pagination
@@ -103,12 +91,12 @@ export const Cards = () => {
             {/*{packUserId === userId && <DropDownMenu packId={packId} />}*/}
           </Typography>
           {/*{packUserId === userId ? (*/}
-          {/*TODO*/}
-          <Button onClick={() => setOpenModal(CardsModals.CREATE)}>Add New Card</Button>
+          <Button onClick={() => setModalState(CardsModals.CREATE)}>Add New Card</Button>
           <AddNewCardModal
             open={openModal}
             name={'Chose a question format'}
-            setOpen={setOpenModal}
+            setModalState={setModalState}
+            createCard={addNewCardHandler}
           />
           {/*) : null}*/}
         </span>
@@ -141,11 +129,18 @@ export const Cards = () => {
                   <TableCell>{new Date(item.updated).toLocaleDateString()}</TableCell>
                   <TableCell>{item.grade}</TableCell>
                   <TableCell className={s.actions}>
+                    {/*TODO*/}
                     <Icon
                       className={s.icon}
                       srcIcon={deleteIcon}
                       alt={'delete icon'}
-                      onClick={deleteCardHandler}
+                      onClick={() => deleteCardHandler(item)}
+                    />
+                    <DeleteCard
+                      open={openModal}
+                      setModalState={setModalState}
+                      cardId={itemData?.id}
+                      cardQuestion={itemData?.question}
                     />
                     <Icon className={s.icon} srcIcon={editIcon} alt={'edit icon'} />
                   </TableCell>
