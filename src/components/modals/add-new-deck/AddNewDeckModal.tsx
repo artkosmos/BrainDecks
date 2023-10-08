@@ -19,7 +19,7 @@ export const AddNewDeckModal = ({ onSubmit, open, setOpen }: Props) => {
   const {
     control,
     handleSubmit,
-    setValue,
+    reset,
     formState: { errors },
   } = useForm<NewDeckNameField>({
     resolver: zodResolver(newDeckNameSchema),
@@ -34,7 +34,7 @@ export const AddNewDeckModal = ({ onSubmit, open, setOpen }: Props) => {
 
   const cancelModalHandler = () => {
     setOpen(null)
-    setValue('name', '')
+    reset({ name: '' })
   }
 
   return (

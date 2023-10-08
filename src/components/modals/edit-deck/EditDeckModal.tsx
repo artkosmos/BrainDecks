@@ -9,6 +9,7 @@ import { Typography } from '@/components/ui/typography'
 import { Modal } from '@/components/ui/modal'
 import { Deck } from '@/services/deck-service/decks.service.ts'
 import s from './EditDeckModal.module.scss'
+import { useEffect } from 'react'
 
 type Props = {
   open: DeckModals | null
@@ -21,12 +22,21 @@ export const EditDeckModal = ({ onSubmit, open, setOpen, activeItem }: Props) =>
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<NewDeckNameField>({
     resolver: zodResolver(newDeckNameSchema),
     mode: 'onSubmit',
-    defaultValues: { isPrivate: false },
+    defaultValues: { name: '', isPrivate: false },
   })
+
+  useEffect(() => {
+    if (activeItem) {
+      const { name, isPrivate } = activeItem
+
+      reset({ name, isPrivate })
+    }
+  }, [activeItem])
 
   const onSubmitHandler = handleSubmit(data => {
     onSubmit(data)
@@ -44,7 +54,6 @@ export const EditDeckModal = ({ onSubmit, open, setOpen, activeItem }: Props) =>
       </Typography>
       <form onSubmit={onSubmitHandler} className={s.newDeckForm}>
         <ControlledInput
-          defaultValue={activeItem?.name || ''} // test
           aria-label={'enter new deck name'}
           className={s.input}
           control={control}
