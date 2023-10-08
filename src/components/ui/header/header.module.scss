@@ -1,8 +1,11 @@
 @import '@/styles/mixins';
 
 .header {
-  @include size(100vh, 60px); //TODO can be error with adaptive
+  @include size(100vw, 60px); //TODO can be error with adaptive
 
+  position: fixed;
+  top: 0;
+  left: 0;
   background-color: var(--color-dark-700);
 
   .container {
