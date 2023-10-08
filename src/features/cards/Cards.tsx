@@ -1,9 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import deleteIcon from '@/assets/icons/delete_icon.svg'
 import editIcon from '@/assets/icons/edit_icon.svg'
-import { faArrowLeft, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
-import s from './cards.module.scss'
 import { Typography } from '@/components/ui/typography'
 import headerLogo from '@/assets/icons/cardsLogo.png'
 import { TableHeadCell } from '@/components/ui/tables/TableHeadCell'
@@ -22,6 +21,8 @@ import { CardsModals } from '@/types/common'
 import { Button } from '@/components/ui/button'
 import { DeleteCard } from '@/components/modals/cards/delete-card/DeleteCard.tsx'
 import { CardData } from '@/features/cards/Types.ts'
+import { PackOptions } from '@/components/modals/cards/pack-options/PackOptions.tsx'
+import s from './cards.module.scss'
 
 export const Cards = () => {
   const [inputValue, setInputValue] = useState<string>('')
@@ -85,8 +86,15 @@ export const Cards = () => {
         <span className={s.packAddName}>
           <Typography className={s.packName} variant={'large'}>
             {'packName'}
-            <span style={{ marginLeft: '10px', cursor: 'pointer' }}>
-              <FontAwesomeIcon icon={faEllipsisVertical} />
+            {/*<span style={{ marginLeft: '10px', cursor: 'pointer' }}>*/}
+            {/*  <FontAwesomeIcon*/}
+            {/*    icon={faEllipsisVertical}*/}
+            {/*    onClick={() => setModalState(CardsModals.OPEN_PACK_OPTIONS)}*/}
+            {/*  />*/}
+            {/*</span>*/}
+            <span style={{ marginLeft: '10px' }}>
+              <PackOptions />
+              {/*тут ^ будет коллбек по откртию модалок */}
             </span>
             {/*{packUserId === userId && <DropDownMenu packId={packId} />}*/}
           </Typography>
@@ -129,7 +137,6 @@ export const Cards = () => {
                   <TableCell>{new Date(item.updated).toLocaleDateString()}</TableCell>
                   <TableCell>{item.grade}</TableCell>
                   <TableCell className={s.actions}>
-                    {/*TODO*/}
                     <Icon
                       className={s.icon}
                       srcIcon={deleteIcon}
