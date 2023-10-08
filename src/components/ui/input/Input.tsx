@@ -1,9 +1,7 @@
 import { ComponentPropsWithoutRef } from 'react'
 import { clsx } from 'clsx'
-import s from './Input.module.scss'
 import { Typography } from '@/components/ui/typography'
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import s from './Input.module.scss'
 
 export type AdditionalTypeToInput = {
   leftSideIcon?: JSX.Element
@@ -48,7 +46,6 @@ export const Input = (props: InputPropsType) => {
       <Typography variant={'body2'} className={s.label}>
         {label}
       </Typography>
-      {/*<div className={s.label}>{label}</div>*/}
       <div>
         <div className={leftSideIcon ? s.inputIcon : s.defaultInputWithoutIcon}>
           {leftSideIcon && <span className={s.searchIcon}>{leftSideIcon}</span>}
