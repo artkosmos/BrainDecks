@@ -6,7 +6,7 @@ export type ForgotPasswordFields = z.infer<typeof emailSchema>
 
 export type CreateNewPasswordFields = z.infer<typeof createNewPasswordSchema>
 
-export type NewDeckNameField = z.infer<typeof newDeckNameSchema>
+export type NewDeckNameFields = z.infer<typeof newDeckNameSchema>
 
 export type NewCardField = z.infer<typeof newCardSchema>
 
@@ -20,8 +20,14 @@ export enum DeckModals {
   UPDATE = 'update',
   DELETE = 'delete',
 }
+
 export enum CardsModals {
   CREATE = 'create',
   UPDATE = 'update',
   DELETE = 'delete',
+}
+
+export type Column = {
+  key: string
+  title: string
 }

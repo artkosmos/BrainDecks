@@ -1,6 +1,6 @@
 import { ControlledInput } from '@/components/ui/controlled/controlledInput'
 import { useForm } from 'react-hook-form'
-import { DeckModals, NewDeckNameField } from '@/types/common'
+import { DeckModals, NewDeckNameFields } from '@/types/common'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { newDeckNameSchema } from '@/schemes'
 import { ControlledCheckbox } from '@/components/ui/controlled/controlledCheckbox'
@@ -8,14 +8,14 @@ import { Button } from '@/components/ui/button'
 import { Typography } from '@/components/ui/typography'
 import { Modal } from '@/components/ui/modal'
 import { Deck } from '@/services/deck-service/decks.service.ts'
-import s from './EditDeckModal.module.scss'
 import { useEffect } from 'react'
+import s from './EditDeckModal.module.scss'
 
 type Props = {
   open: DeckModals | null
   setOpen: (value: DeckModals | null) => void
-  onSubmit: (values: NewDeckNameField) => void
-  activeItem: Deck | undefined // test
+  onSubmit: (values: NewDeckNameFields) => void
+  activeItem: Deck | undefined
 }
 
 export const EditDeckModal = ({ onSubmit, open, setOpen, activeItem }: Props) => {
@@ -24,7 +24,7 @@ export const EditDeckModal = ({ onSubmit, open, setOpen, activeItem }: Props) =>
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<NewDeckNameField>({
+  } = useForm<NewDeckNameFields>({
     resolver: zodResolver(newDeckNameSchema),
     mode: 'onSubmit',
     defaultValues: { name: '', isPrivate: false },
@@ -57,7 +57,6 @@ export const EditDeckModal = ({ onSubmit, open, setOpen, activeItem }: Props) =>
           aria-label={'enter new deck name'}
           className={s.input}
           control={control}
-          placeholder={''}
           name={'name'}
           label={'Name Deck'}
           errorMessage={errors.name?.message}

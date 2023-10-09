@@ -5,7 +5,7 @@ import {
   RouteObject,
   RouterProvider,
 } from 'react-router-dom'
-import { DeckPackPage } from '@/features/deck-pack-page'
+import { DeckPack } from '@/features/deck-pack'
 import { Cards } from '@/features/cards/Cards.tsx'
 
 const publicRoutes: RouteObject[] = [
@@ -23,7 +23,7 @@ const privateRoutes: RouteObject[] = [
   },
   {
     path: '/decks',
-    element: <DeckPackPage />,
+    element: <DeckPack />,
   },
 ]
 

@@ -115,8 +115,13 @@ export const DeckPack = () => {
           leftSideIcon={inputIcon}
           onChange={changeInputHandler}
         />
-        <TabSwitcher tabs={tabs} />
-        <Slider max={data.maxCardsCount} onValueChange={setSliderValues} value={sliderValues} />
+        <TabSwitcher label={'Show decks cards'} tabs={tabs} />
+        <Slider
+          label={'Number of cards'}
+          max={data.maxCardsCount}
+          onValueChange={setSliderValues}
+          value={sliderValues}
+        />
         <Button variant={'secondary'} onClick={clearFilterHandler}>
           <Icon srcIcon={deleteIcon} />
           <Typography variant={'subtitle2'}>Clear filter</Typography>

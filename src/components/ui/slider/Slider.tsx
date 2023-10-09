@@ -10,7 +10,7 @@ type Props = {
 } & ComponentPropsWithoutRef<typeof SliderRadix.Root>
 
 export const Slider = forwardRef<ElementRef<typeof SliderRadix.Root>, Props>((props, ref) => {
-  const { min = 0, max = 100, value, className, ...rest } = props
+  const { min = 0, max = 100, value, className, label, ...rest } = props
 
   const startValue = value?.length ? value[0] : min
   const endValue = value?.length ? value[1] : max
@@ -20,7 +20,7 @@ export const Slider = forwardRef<ElementRef<typeof SliderRadix.Root>, Props>((pr
   return (
     <div className={s.sliderWrapper}>
       <Typography className={s.label} variant={'body2'}>
-        Number of cards
+        {label}
       </Typography>
       <div className={s.slider}>
         <div className={s.rectangle}>
