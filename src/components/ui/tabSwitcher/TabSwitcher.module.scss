@@ -5,22 +5,24 @@
   flex-direction: row;
 }
 
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.label {
+  align-self: flex-start;
+}
+
 [data-orientation='vertical'] {
   display: inline-flex;
   flex-direction: column;
 }
 
 .tab {
-  @include custom-text-style(
-    var(--font-family-primary),
-    var(--font-size-m),
-    var(--font-weight-regular),
-    var(--line-height-m),
-    var(--color-light-100)
-  );
-
   cursor: pointer;
-  padding: 6px 24px;
+  padding: 5px 24px;
   background-color: var(--color-dark-900);
   border: 1px solid var(--color-dark-300);
 
