@@ -30,6 +30,7 @@ export const DeckPack = () => {
   const [sliderValues, setSliderValues] = useState<number[]>([0, 52])
   const [openModal, setOpenModal] = useState<DeckModals | null>(null)
   const [sort, setSort] = useState<Sort | null>(null)
+  const [timerId, setTimerId] = useState<number | null>(null)
 
   const selectOptions = ['10', '20', '30', '50', '100']
 
@@ -77,7 +78,21 @@ export const DeckPack = () => {
   }
 
   const changeInputHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    setName(event.currentTarget.value)
+    let inputValue = event.currentTarget.value
+
+    if (timerId !== null) {
+      clearTimeout(timerId)
+    }
+
+    const newTimerId = +setTimeout(() => {
+      setName(inputValue)
+    }, 1500)
+
+    setTimerId(newTimerId)
+  }
+
+  const changeSliderHandler = (values: number[]) => {
+    setSliderValues(values)
   }
 
   const deleteDeckHandler = () => {
@@ -119,7 +134,7 @@ export const DeckPack = () => {
         <Slider
           label={'Number of cards'}
           max={data.maxCardsCount}
-          onValueChange={setSliderValues}
+          onValueChange={changeSliderHandler}
           value={sliderValues}
         />
         <Button variant={'secondary'} onClick={clearFilterHandler}>
