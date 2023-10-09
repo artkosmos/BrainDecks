@@ -9,6 +9,10 @@
 
 .label {
   @include flex-row-reverse-center(3px);
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .radioItemWrapper {
