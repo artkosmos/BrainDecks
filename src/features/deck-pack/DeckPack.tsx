@@ -6,7 +6,7 @@ import { Slider } from '@/components/ui/slider'
 import { Icon } from '@/components/ui/icon'
 import deleteIcon from '@/assets/icons/delete_icon.svg'
 import { DeckTable } from '@/features/deck-pack/deck-table'
-import { ChangeEvent, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Pagination } from '@/components/ui/pagination'
 import {
   useCreateDeckMutation,
@@ -20,6 +20,7 @@ import { AddNewDeckModal } from '@/components/modals/add-new-deck'
 import searchIcon from '@/assets/icons/input_search.svg'
 import { EditDeckModal } from '@/components/modals/edit-deck'
 import { DeleteDeckModal } from '@/components/modals/delete-deck'
+import { useDebounce } from '@/hooks/useDebounce.tsx'
 import s from './DeckPack.module.scss'
 
 export const DeckPack = () => {
@@ -30,7 +31,6 @@ export const DeckPack = () => {
   const [sliderValues, setSliderValues] = useState<number[]>([0, 52])
   const [openModal, setOpenModal] = useState<DeckModals | null>(null)
   const [sort, setSort] = useState<Sort | null>(null)
-  const [timerId, setTimerId] = useState<number | null>(null)
 
   const selectOptions = ['10', '20', '30', '50', '100']
 
@@ -45,25 +45,24 @@ export const DeckPack = () => {
     },
   ]
 
-  const minCardsCount = String(sliderValues[0])
-  const maxCardsCount = String(sliderValues[1])
-
   const sortedString = useMemo(() => {
     if (!sort) return null
 
     return `${sort.key}-${sort.direction}` as GetDeckQueryParams['orderBy']
   }, [sort])
 
+  const debouncedInputValue = useDebounce(name)
+  const debouncedSliderValues = useDebounce(sliderValues)
+
   const [createDeck] = useCreateDeckMutation()
   const [deleteDeck] = useDeleteDeckMutation()
   const [updateDeck] = useUpdateDeckMutation()
-
   const { isLoading, data } = useGetDecksQuery({
-    name,
+    name: debouncedInputValue,
     currentPage,
     itemsPerPage,
-    maxCardsCount,
-    minCardsCount,
+    maxCardsCount: String(debouncedSliderValues[1]),
+    minCardsCount: String(debouncedSliderValues[0]),
     orderBy: sortedString,
   })
 
@@ -75,24 +74,6 @@ export const DeckPack = () => {
   const openModalHandler = (value: DeckModals | null, item?: Deck) => {
     setOpenModal(value)
     setActiveDeck(item)
-  }
-
-  const changeInputHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    let inputValue = event.currentTarget.value
-
-    if (timerId !== null) {
-      clearTimeout(timerId)
-    }
-
-    const newTimerId = +setTimeout(() => {
-      setName(inputValue)
-    }, 1500)
-
-    setTimerId(newTimerId)
-  }
-
-  const changeSliderHandler = (values: number[]) => {
-    setSliderValues(values)
   }
 
   const deleteDeckHandler = () => {
@@ -128,13 +109,13 @@ export const DeckPack = () => {
           placeholder={'Search'}
           className={s.searchInput}
           leftSideIcon={inputIcon}
-          onChange={changeInputHandler}
+          onChange={e => setName(e.currentTarget.value)}
         />
         <TabSwitcher label={'Show decks cards'} tabs={tabs} />
         <Slider
           label={'Number of cards'}
           max={data.maxCardsCount}
-          onValueChange={changeSliderHandler}
+          onValueChange={setSliderValues}
           value={sliderValues}
         />
         <Button variant={'secondary'} onClick={clearFilterHandler}>
