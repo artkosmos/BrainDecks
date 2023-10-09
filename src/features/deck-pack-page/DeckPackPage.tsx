@@ -16,7 +16,7 @@ import {
   useUpdateDeckMutation,
 } from '@/services/deck-service/decks.service.ts'
 import { DeckModals, NewDeckNameField } from '@/types/common'
-import { AddNewDeckModal } from '@/components/modals/add-new-deck'
+import { AddNewDeckModal } from '../../components/modals/add-new-deck'
 import searchIcon from '@/assets/icons/input_search.svg'
 import { EditDeckModal } from '@/components/modals/edit-deck'
 import { DeleteDeckModal } from '@/components/modals/delete-deck'
@@ -126,8 +126,8 @@ export const DeckPackPage = () => {
         totalCount={data.pagination.totalItems}
         currentPage={data.pagination.currentPage}
         pageSize={data.pagination.itemsPerPage}
-        onChange={setCurrentPage}
-        selectFilterChange={setItemsPerPage}
+        setCurrentPage={setCurrentPage}
+        setItemsPerPage={setItemsPerPage}
       />
       <AddNewDeckModal open={openModal} setOpen={setOpenModal} onSubmit={createDeck} />
       <EditDeckModal
