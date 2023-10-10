@@ -13,7 +13,7 @@ import {
   useDeleteDeckMutation,
   useGetDecksQuery,
   useUpdateDeckMutation,
-} from '@/services/deck-service/decks.service.ts'
+} from '@/services/deck-service'
 import { DeckModals, NewDeckNameFields } from '@/types/common'
 import { Deck, GetDeckQueryParams, Sort } from '@/types/api'
 import { AddNewDeckModal } from '@/components/modals/add-new-deck'

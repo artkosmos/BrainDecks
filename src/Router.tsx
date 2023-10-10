@@ -7,23 +7,24 @@ import {
 } from 'react-router-dom'
 import { DeckPack } from '@/features/deck-pack'
 import { Cards } from '@/features/cards/Cards.tsx'
+import { Login } from '@/features/login'
+import { useMeQuery } from '@/services/auth-service/auth-service.ts'
 
 const publicRoutes: RouteObject[] = [
   {
     path: '/login',
-    element: <div>Login a little boy</div>,
+    element: <Login />,
   },
 ]
 
 const privateRoutes: RouteObject[] = [
   {
     path: '/',
-    // element: <div>Your component is shown here</div>,
-    element: <Cards />,
+    element: <DeckPack />,
   },
   {
-    path: '/decks',
-    element: <DeckPack />,
+    path: '/cards',
+    element: <Cards />,
   },
 ]
 
@@ -37,7 +38,12 @@ export const Router = () => {
 }
 
 function PrivateRoutes() {
-  const isAuthenticated = true
+  const { isError, isLoading } = useMeQuery()
 
-  return isAuthenticated ? <Outlet /> : <Navigate to="/login" />
+  if (isLoading) {
+    return <div style={{ textAlign: 'center' }}>Loading...</div>
+  }
+  const isAuthorized = !isError
+
+  return isAuthorized ? <Outlet /> : <Navigate to="/login" />
 }
