@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { AddNewDeckModal } from '@/components/modals/add-new-deck'
+import { AddNewDeckModal } from ''
 import { DeckModals } from '@/types/common'
 
 const meta = {
