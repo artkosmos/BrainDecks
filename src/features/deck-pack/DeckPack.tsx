@@ -5,30 +5,32 @@ import { TabSwitcher, TabType } from '@/components/ui/tabSwitcher'
 import { Slider } from '@/components/ui/slider'
 import { Icon } from '@/components/ui/icon'
 import deleteIcon from '@/assets/icons/delete_icon.svg'
-import { DeckTable } from '@/features/deck-pack-page/deck-table'
-import { ChangeEvent, useState } from 'react'
+import { DeckTable } from '@/features/deck-pack/deck-table'
+import { useMemo, useState } from 'react'
 import { Pagination } from '@/components/ui/pagination'
 import {
-  Deck,
   useCreateDeckMutation,
   useDeleteDeckMutation,
   useGetDecksQuery,
   useUpdateDeckMutation,
 } from '@/services/deck-service/decks.service.ts'
-import { DeckModals, NewDeckNameField } from '@/types/common'
+import { DeckModals, NewDeckNameFields } from '@/types/common'
+import { Deck, GetDeckQueryParams, Sort } from '@/types/api'
 import { AddNewDeckModal } from '@/components/modals/add-new-deck'
 import searchIcon from '@/assets/icons/input_search.svg'
 import { EditDeckModal } from '@/components/modals/edit-deck'
 import { DeleteDeckModal } from '@/components/modals/delete-deck'
-import s from './DeckPackPage.module.scss'
+import { useDebounce } from '@/hooks/useDebounce.tsx'
+import s from './DeckPack.module.scss'
 
-export const DeckPackPage = () => {
+export const DeckPack = () => {
   const [name, setName] = useState<string>('')
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [activeDeck, setActiveDeck] = useState<Deck | undefined>()
   const [itemsPerPage, setItemsPerPage] = useState<number>(10)
   const [sliderValues, setSliderValues] = useState<number[]>([0, 52])
   const [openModal, setOpenModal] = useState<DeckModals | null>(null)
+  const [sort, setSort] = useState<Sort | null>(null)
 
   const selectOptions = ['10', '20', '30', '50', '100']
 
@@ -43,29 +45,26 @@ export const DeckPackPage = () => {
     },
   ]
 
-  const minCardsCount = String(sliderValues[0])
-  const maxCardsCount = String(sliderValues[1])
+  const sortedString = useMemo(() => {
+    if (!sort) return null
 
-  const inputIcon = <Icon srcIcon={searchIcon} />
+    return `${sort.key}-${sort.direction}` as GetDeckQueryParams['orderBy']
+  }, [sort])
+
+  const debouncedInputValue = useDebounce(name)
+  const debouncedSliderValues = useDebounce(sliderValues)
 
   const [createDeck] = useCreateDeckMutation()
   const [deleteDeck] = useDeleteDeckMutation()
   const [updateDeck] = useUpdateDeckMutation()
-
   const { isLoading, data } = useGetDecksQuery({
-    name,
+    name: debouncedInputValue,
     currentPage,
     itemsPerPage,
-    maxCardsCount,
-    minCardsCount,
+    maxCardsCount: String(debouncedSliderValues[1]),
+    minCardsCount: String(debouncedSliderValues[0]),
+    orderBy: sortedString,
   })
-
-  console.log(data)
-
-  // get max card value from data for slider useState
-  // useEffect(() => {
-  //   setSliderValues([0, data?.maxCardsCount || 52])
-  // }, [data])
 
   const clearFilterHandler = () => {
     setName('')
@@ -77,17 +76,17 @@ export const DeckPackPage = () => {
     setActiveDeck(item)
   }
 
-  const changeInputHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    setName(event.currentTarget.value)
-  }
-
   const deleteDeckHandler = () => {
     deleteDeck({ id: activeDeck?.id || '' })
   }
 
-  const updateDeckHandler = (values: NewDeckNameField) => {
-    updateDeck({ id: activeDeck?.id || '', name: values.name, isPrivate: values.isPrivate })
+  const updateDeckHandler = (values: NewDeckNameFields) => {
+    const { name, isPrivate } = values
+
+    updateDeck({ id: activeDeck?.id || '', name, isPrivate })
   }
+
+  const inputIcon = <Icon srcIcon={searchIcon} />
 
   if (isLoading) {
     return <div style={{ textAlign: 'center' }}>Loading...</div>
@@ -110,16 +109,21 @@ export const DeckPackPage = () => {
           placeholder={'Search'}
           className={s.searchInput}
           leftSideIcon={inputIcon}
-          onChange={changeInputHandler}
+          onChange={e => setName(e.currentTarget.value)}
         />
-        <TabSwitcher tabs={tabs} />
-        <Slider max={data.maxCardsCount} onValueChange={setSliderValues} value={sliderValues} />
+        <TabSwitcher label={'Show decks cards'} tabs={tabs} />
+        <Slider
+          label={'Number of cards'}
+          max={data.maxCardsCount}
+          onValueChange={setSliderValues}
+          value={sliderValues}
+        />
         <Button variant={'secondary'} onClick={clearFilterHandler}>
           <Icon srcIcon={deleteIcon} />
           <Typography variant={'subtitle2'}>Clear filter</Typography>
         </Button>
       </div>
-      <DeckTable data={data.items} onIconClick={openModalHandler} />
+      <DeckTable data={data.items} onIconClick={openModalHandler} sort={sort} setSort={setSort} />
       <Pagination
         className={s.pagination}
         options={selectOptions}

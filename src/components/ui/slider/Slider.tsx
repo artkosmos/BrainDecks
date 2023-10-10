@@ -10,22 +10,19 @@ type Props = {
 } & ComponentPropsWithoutRef<typeof SliderRadix.Root>
 
 export const Slider = forwardRef<ElementRef<typeof SliderRadix.Root>, Props>((props, ref) => {
-  const { min = 0, max = 100, value, className, ...rest } = props
-
-  const startValue = value?.length ? value[0] : min
-  const endValue = value?.length ? value[1] : max
+  const { min = 0, max = 100, value, className, label, ...rest } = props
 
   const finalClassName = clsx(s.root, className)
 
   return (
     <div className={s.sliderWrapper}>
       <Typography className={s.label} variant={'body2'}>
-        Number of cards
+        {label}
       </Typography>
       <div className={s.slider}>
         <div className={s.rectangle}>
           <Typography variant={'body1'} className={s.textColor}>
-            {startValue}
+            {value && value[0]}
           </Typography>
         </div>
         <SliderRadix.Root
@@ -44,7 +41,7 @@ export const Slider = forwardRef<ElementRef<typeof SliderRadix.Root>, Props>((pr
         </SliderRadix.Root>
         <div className={s.rectangle}>
           <Typography variant={'body1'} className={s.textColor}>
-            {endValue}
+            {value && value[1]}
           </Typography>
         </div>
       </div>

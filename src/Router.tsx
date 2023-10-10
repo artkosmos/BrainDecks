@@ -5,9 +5,8 @@ import {
   RouteObject,
   RouterProvider,
 } from 'react-router-dom'
-import { DeckPackPage } from '@/features/deck-pack-page'
-import { CardPage } from '@/features/CardPage'
-import { ForgotPasswordForm } from '@/components/auth/forgot-pasword-form'
+import { DeckPack } from '@/features/deck-pack'
+import { Cards } from '@/features/cards/Cards.tsx'
 
 const publicRoutes: RouteObject[] = [
   {
@@ -20,15 +19,11 @@ const privateRoutes: RouteObject[] = [
   {
     path: '/',
     // element: <div>Your component is shown here</div>,
-    element: <ForgotPasswordForm onSubmit={() => {}} />,
+    element: <Cards />,
   },
   {
     path: '/decks',
-    element: <DeckPackPage />,
-  },
-  {
-    path: '/card/:id',
-    element: <CardPage />,
+    element: <DeckPack />,
   },
 ]
 
