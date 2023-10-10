@@ -130,8 +130,8 @@ export const DeckPack = () => {
         totalCount={data.pagination.totalItems}
         currentPage={data.pagination.currentPage}
         pageSize={data.pagination.itemsPerPage}
-        onChange={setCurrentPage}
-        selectFilterChange={setItemsPerPage}
+        setCurrentPage={setCurrentPage}
+        setItemsPerPage={setItemsPerPage}
       />
       <AddNewDeckModal open={openModal} setOpen={setOpenModal} onSubmit={createDeck} />
       <EditDeckModal
