@@ -1,16 +1,16 @@
 import { useState } from 'react'
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { DevTool } from '@hookform/devtools'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { Button } from '../../ui/button'
-// import { Checkbox } from '@/components/ui/checkbox'
 import { Card } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
 import { ControlledInput } from '@/components/ui/controlled/controlledInput/ControlledInput.tsx'
 import { Typography } from '@/components/ui/typography'
 import { emailSchema } from '@/schemes'
+import { Icon } from '@/components/ui/icon'
+import crossedEye from '@/assets/icons/eye_crossed.svg'
+import eye from '@/assets/icons/eye.svg'
 import s from './loginForm.module.scss'
 
 type FormValues = {
@@ -19,7 +19,11 @@ type FormValues = {
   rememberMe: boolean
 }
 
-export const LoginForm = () => {
+type Props = {
+  onSubmit: (values: FormValues) => void
+}
+
+export const LoginForm = ({ onSubmit }: Props) => {
   const {
     handleSubmit,
     control,
@@ -27,12 +31,15 @@ export const LoginForm = () => {
   } = useForm<FormValues>({
     resolver: zodResolver(emailSchema),
   })
-  const [eyeType, setEyeType] = useState<boolean>(false)
+  const [showPassword, setShowPassword] = useState<boolean>(false)
 
   const [checked, setChecked] = useState(false)
-  const onSubmit = (data: FormValues) => {
-    console.log(data)
-  }
+
+  const onSubmitHandler = handleSubmit(data => {
+    onSubmit(data)
+  })
+
+  const inputEyeIcon = showPassword ? <Icon srcIcon={crossedEye} /> : <Icon srcIcon={eye} />
 
   return (
     <div>
@@ -41,7 +48,7 @@ export const LoginForm = () => {
           <Typography className={s.signTypography} variant={'h1'} color={'light'}>
             Sign In
           </Typography>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={onSubmitHandler}>
             <DevTool control={control} />
             <ControlledInput
               aria-label={'enter your email'}
@@ -56,17 +63,13 @@ export const LoginForm = () => {
             <ControlledInput
               aria-label={'enter your password'}
               className={s.input}
-              type={eyeType ? 'text' : 'password'}
+              type={showPassword ? 'text' : 'password'}
               name={'password'}
               control={control}
               label={'Password'}
-              rightSideIcon={
-                eyeType ? (
-                  <FontAwesomeIcon icon={faEye} onClick={() => setEyeType(!eyeType)} />
-                ) : (
-                  <FontAwesomeIcon icon={faEyeSlash} onClick={() => setEyeType(!eyeType)} />
-                )
-              }
+              rightSideIcon={inputEyeIcon}
+              callBack={setShowPassword}
+              callBackValue={showPassword}
             />
             <div className={s.checkBox}>
               <Checkbox
