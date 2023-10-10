@@ -12,6 +12,9 @@
 
   cursor: pointer;
 
+  position: relative;
+  z-index: 1;
+
   gap: 10px;
   justify-content: center;
 
@@ -21,12 +24,27 @@
   border-radius: 4px;
   outline: 0;
   outline-offset: 0;
-  box-shadow: 0 4px 18px 0 rgb(140 97 255 / 35%);
 }
 
 .primary {
   background-color: var(--color-accent-500);
   border-color: var(--color-accent-500);
+
+  &::after {
+    content: '';
+
+    position: absolute;
+    z-index: -1;
+    inset: 5px -10px;
+
+    background: radial-gradient(
+      ellipse,
+      rgb(140 97 255 / 100%) 0%,
+      rgb(23 23 23 / 100%) 90%,
+      rgb(0 0 0 / 100%) 100%
+    );
+    filter: blur(30px);
+  }
 
   &:active {
     background-color: var(--color-accent-700);
@@ -53,6 +71,22 @@
 .secondary {
   background-color: var(--color-dark-300);
   border-color: var(--color-dark-300);
+
+  &::after {
+    content: '';
+
+    position: absolute;
+    z-index: -1;
+    inset: 5px 0;
+
+    background: radial-gradient(
+      ellipse,
+      rgb(76 76 76 / 100%) 0%,
+      rgb(23 23 23 / 100%) 90%,
+      rgb(0 0 0 / 100%) 100%
+    );
+    filter: blur(15px);
+  }
 
   &:active {
     background-color: var(--color-dark-500);
@@ -110,6 +144,7 @@
   padding: 6px 0;
 
   color: var(--color-accent-500);
+  text-shadow: 1px 1px #8c61ff59;
 
   background-color: transparent;
   border-color: transparent;
