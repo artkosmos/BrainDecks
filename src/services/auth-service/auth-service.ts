@@ -1,4 +1,6 @@
 import { baseApi } from '@/services/api.ts'
+import { LoginArgs, SignUpArgs, SignUpResponseData } from '@/services/auth-service'
+import { logDOM } from '@storybook/testing-library'
 
 export const authService = baseApi.injectEndpoints({
   endpoints: builder => {
@@ -9,26 +11,47 @@ export const authService = baseApi.injectEndpoints({
             url: `/v1/auth/me`,
           }
         },
-        providesTags: ['User'],
+        providesTags: ['Me'],
       }),
       logIn: builder.mutation<any, LoginArgs>({
         query: body => {
+          console.log(body)
+
           return {
             url: `/v1/auth/login`,
             method: 'POST',
             body,
           }
         },
-        invalidatesTags: ['User'],
+        invalidatesTags: ['Me'],
+      }),
+      logOut: builder.mutation<void, void>({
+        query: () => {
+          return {
+            url: `/v1/auth/logout`,
+            method: 'POST',
+          }
+        },
+        invalidatesTags: ['Me'],
+      }),
+      signUp: builder.mutation<SignUpResponseData, SignUpArgs>({
+        query: body => {
+          return {
+            url: `/v1/auth/sign-up`,
+            method: 'POST',
+            body,
+          }
+        },
       }),
     }
   },
 })
 
-export const { useLogInMutation, useMeQuery } = authService
+export const { useLogInMutation, useMeQuery, useLogOutMutation, useSignUpMutation } = authService
 
-type LoginArgs = {
-  email: string
-  password: string
-  rememberMe?: boolean
-}
+// onQueryStarted: async (_, { getState, dispatch, queryFulfilled }) => {
+//   try {
+//     await queryFulfilled
+//     dispatch(authService.util.updateQueryData('me', undefined, () => null))
+//   } catch (error) {}
+// },

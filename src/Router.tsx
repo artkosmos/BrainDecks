@@ -9,11 +9,17 @@ import { DeckPack } from '@/features/deck-pack'
 import { Cards } from '@/features/cards/Cards.tsx'
 import { Login } from '@/features/login'
 import { useMeQuery } from '@/services/auth-service/auth-service.ts'
+import { Header } from '@/components/ui/header'
+import { Registration } from '@/features/registration'
 
 const publicRoutes: RouteObject[] = [
   {
     path: '/login',
     element: <Login />,
+  },
+  {
+    path: '/registration',
+    element: <Registration />,
   },
 ]
 
@@ -34,7 +40,14 @@ const router = createBrowserRouter([
 ])
 
 export const Router = () => {
-  return <RouterProvider router={router} />
+  const { isError } = useMeQuery()
+
+  return (
+    <>
+      <Header isAuth={!isError} />
+      <RouterProvider router={router} />
+    </>
+  )
 }
 
 function PrivateRoutes() {
