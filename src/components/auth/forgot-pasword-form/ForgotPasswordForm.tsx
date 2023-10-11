@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { ControlledInput } from '@/components/ui/controlled/controlledInput'
 import { Typography } from '@/components/ui/typography'
-import { emailSchema } from '@/schemes'
+import { forgotPasswordSchema } from '@/schemes'
 import { ForgotPasswordFields } from '@/types/common'
 import s from './ForgotPasswordForm.module.scss'
 
@@ -20,7 +20,7 @@ export const ForgotPasswordForm = (props: Props) => {
     handleSubmit,
     formState: { errors },
   } = useForm<ForgotPasswordFields>({
-    resolver: zodResolver(emailSchema),
+    resolver: zodResolver(forgotPasswordSchema),
     mode: 'onSubmit',
   })
 

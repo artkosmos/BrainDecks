@@ -1,14 +1,15 @@
 import { ControlledInput } from '@/components/ui/controlled/controlledInput'
 import { useForm } from 'react-hook-form'
-import { DeckModals, NewDeckNameFields } from '@/types/common'
+import { NewDeckNameFields } from '@/types/common'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { newDeckNameSchema } from '@/schemes'
 import { ControlledCheckbox } from '@/components/ui/controlled/controlledCheckbox'
 import { Button } from '@/components/ui/button'
 import { Typography } from '@/components/ui/typography'
 import { Modal } from '@/components/ui/modal'
-import { Deck } from '@/services/deck-service/decks.service.ts'
 import { useEffect } from 'react'
+import { DeckModals } from '@/features/deck-pack'
+import { Deck } from '@/services/deck-service'
 import s from './EditDeckModal.module.scss'
 
 type Props = {

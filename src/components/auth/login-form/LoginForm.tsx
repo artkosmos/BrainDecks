@@ -7,20 +7,15 @@ import { Card } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
 import { ControlledInput } from '@/components/ui/controlled/controlledInput/ControlledInput.tsx'
 import { Typography } from '@/components/ui/typography'
-import { emailSchema } from '@/schemes'
+import { logInSchema } from '@/schemes'
 import { Icon } from '@/components/ui/icon'
 import crossedEye from '@/assets/icons/eye_crossed.svg'
 import eye from '@/assets/icons/eye.svg'
+import { LogInFields } from '@/types/common'
 import s from './loginForm.module.scss'
 
-type FormValues = {
-  email: string
-  password: string
-  rememberMe: boolean
-}
-
 type Props = {
-  onSubmit: (values: FormValues) => void
+  onSubmit: (values: LogInFields) => void
 }
 
 export const LoginForm = ({ onSubmit }: Props) => {
@@ -28,9 +23,11 @@ export const LoginForm = ({ onSubmit }: Props) => {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<FormValues>({
-    resolver: zodResolver(emailSchema),
+  } = useForm<LogInFields>({
+    resolver: zodResolver(logInSchema),
+    defaultValues: { email: '', password: '', rememberMe: false },
   })
+
   const [showPassword, setShowPassword] = useState<boolean>(false)
 
   const [checked, setChecked] = useState(false)

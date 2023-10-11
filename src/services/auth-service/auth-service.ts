@@ -1,6 +1,5 @@
 import { baseApi } from '@/services/api.ts'
 import { LoginArgs, SignUpArgs, SignUpResponseData } from '@/services/auth-service'
-import { logDOM } from '@storybook/testing-library'
 
 export const authService = baseApi.injectEndpoints({
   endpoints: builder => {
@@ -15,8 +14,6 @@ export const authService = baseApi.injectEndpoints({
       }),
       logIn: builder.mutation<any, LoginArgs>({
         query: body => {
-          console.log(body)
-
           return {
             url: `/v1/auth/login`,
             method: 'POST',

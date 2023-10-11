@@ -7,8 +7,8 @@ import { Icon } from '@/components/ui/icon'
 import playIcon from '@/assets/icons/play_icon.svg'
 import editIcon from '@/assets/icons/edit_icon.svg'
 import deleteIcon from '@/assets/icons/delete_icon.svg'
-import { Column, DeckModals } from '@/types/common'
-import { Deck, Sort } from '@/types/api'
+import { Column, DeckModals } from '@/features/deck-pack'
+import { Deck, Sort } from '@/services/deck-service'
 import s from './DeckTable.module.scss'
 
 type Props = {

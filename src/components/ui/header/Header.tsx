@@ -3,6 +3,7 @@ import unknownUser from '@/assets/icons/unknown_user.svg'
 import { Button } from '@/components/ui/button'
 import { Typography } from '@/components/ui/typography'
 import { Icon } from '@/components/ui/icon'
+import { useLogOutMutation } from '@/services/auth-service'
 import s from './header.module.scss'
 
 type HeaderPropsType = {
@@ -10,6 +11,8 @@ type HeaderPropsType = {
 }
 
 export const Header = ({ isAuth }: HeaderPropsType) => {
+  const [logOut] = useLogOutMutation()
+
   return (
     <header className={s.header}>
       <div className={s.container}>
@@ -28,10 +31,14 @@ export const Header = ({ isAuth }: HeaderPropsType) => {
             <>
               <span className={s.userName}>user</span>
               <Icon srcIcon={unknownUser} alt={'user photo'} />
+              {/*temporary button to handle log out flow*/}
+              <Button onClick={() => logOut()}>
+                <Typography variant={'subtitle2'}>Sign Out</Typography>
+              </Button>
             </>
           ) : (
             <Button aria-label={'login button'}>
-              <Typography>Sign In</Typography>
+              <Typography variant={'subtitle2'}>Sign In</Typography>
             </Button>
           )}
         </label>
