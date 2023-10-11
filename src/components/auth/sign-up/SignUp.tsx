@@ -12,6 +12,7 @@ import eye from '@/assets/icons/eye.svg'
 import { Icon } from '@/components/ui/icon'
 import { CreateAccountFields } from '@/types/common'
 import s from './signUp.module.scss'
+import { useNavigate } from 'react-router-dom'
 
 type Props = {
   onSubmit: (values: CreateAccountFields) => void
@@ -27,6 +28,8 @@ export const SignUp = ({ onSubmit }: Props) => {
   } = useForm<CreateAccountFields>({
     resolver: zodResolver(createAccountSchema),
   })
+
+  const navigate = useNavigate()
 
   const onSubmitHandler = handleSubmit(data => {
     const { email, password } = data
@@ -89,14 +92,18 @@ export const SignUp = ({ onSubmit }: Props) => {
             fullWidth={true}
             className={s.button}
           >
-            Sign Up
+            <Typography variant={'subtitle2'}>Sign Up</Typography>
           </Button>
           <div className={s.signInContainer}>
-            <div className={s.question}>Already have an account?</div>
-            {/*<NavLink to="/register" className={s.registerLink}>*/}
-            {/*</NavLink>*/}
-
-            <Button aria-label={'back to login page'} variant={'link'}>
+            <Typography className={s.question} variant={'body2'}>
+              Already have an account?
+            </Typography>
+            <Button
+              onClick={() => navigate('/login')}
+              type={'button'}
+              aria-label={'back to login page'}
+              variant={'link'}
+            >
               <Typography className={s.loginLink} variant={'subtitle2'}>
                 Sign In
               </Typography>

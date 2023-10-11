@@ -12,6 +12,7 @@ import { Icon } from '@/components/ui/icon'
 import crossedEye from '@/assets/icons/eye_crossed.svg'
 import eye from '@/assets/icons/eye.svg'
 import { LogInFields } from '@/types/common'
+import { useNavigate } from 'react-router-dom'
 import s from './loginForm.module.scss'
 
 type Props = {
@@ -28,8 +29,9 @@ export const LoginForm = ({ onSubmit }: Props) => {
     defaultValues: { email: '', password: '', rememberMe: false },
   })
 
-  const [showPassword, setShowPassword] = useState<boolean>(false)
+  const navigate = useNavigate()
 
+  const [showPassword, setShowPassword] = useState<boolean>(false)
   const [checked, setChecked] = useState(false)
 
   const onSubmitHandler = handleSubmit(data => {
@@ -78,9 +80,9 @@ export const LoginForm = ({ onSubmit }: Props) => {
             </div>
             <Typography
               aria-label={'if you forgot password - follow this link'}
-              variant={'caption'}
+              variant={'body2'}
               className={s.forgotTypography}
-              onClick={() => {}}
+              onClick={() => navigate('/recover-password')}
             >
               Forgot Password?
             </Typography>
@@ -88,11 +90,16 @@ export const LoginForm = ({ onSubmit }: Props) => {
               Sign In
             </Button>
             <div className={s.signUpContainer}>
-              <div className={s.question}>{`Don't have an account?`}</div>
-              {/*<NavLink to="/register" className={s.registerLink}>*/}
-              {/*</NavLink>*/}
+              <Typography className={s.question} variant={'body2'}>
+                Don&apos;t have an account?
+              </Typography>
 
-              <Button aria-label={'registration link'} variant={'link'}>
+              <Button
+                type={'button'}
+                onClick={() => navigate('/registration')}
+                aria-label={'registration link'}
+                variant={'link'}
+              >
                 <Typography className={s.registerLink} variant={'subtitle2'}>
                   Sign up
                 </Typography>
