@@ -1,14 +1,19 @@
 @import '@/styles/mixins';
 
 .header {
-  @include size(100vh, 60px); //TODO can be error with adaptive
+  @include size(100vw, 60px);
 
   background-color: var(--color-dark-700);
 
   .container {
     @include display-flex;
 
+    height: 100%;
     margin: 0 10%;
+
+    .iconAndNameWrapper {
+      @include flex-row-center(10px);
+    }
 
     .logo {
       height: 50px;
@@ -20,6 +25,10 @@
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
+    }
+
+    .userName {
+      border-bottom: 1px dashed var(--color-light-100);
     }
   }
 }
