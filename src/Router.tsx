@@ -11,6 +11,9 @@ import { Login } from '@/features/login'
 import { useMeQuery } from '@/services/auth-service/auth-service.ts'
 import { Header } from '@/components/ui/header'
 import { Registration } from '@/features/registration'
+import { RecoverPassword } from '@/features/recoverPassword'
+import { CheckEmailCard } from '@/components/auth/check-email-card'
+import { ResetPassword } from '@/features/resetPassword'
 
 const publicRoutes: RouteObject[] = [
   {
@@ -20,6 +23,18 @@ const publicRoutes: RouteObject[] = [
   {
     path: '/registration',
     element: <Registration />,
+  },
+  {
+    path: '/recover-password',
+    element: <RecoverPassword />,
+  },
+  {
+    path: '/check-email',
+    element: <CheckEmailCard />,
+  },
+  {
+    path: '/reset-password/:token',
+    element: <ResetPassword />,
   },
 ]
 
@@ -36,27 +51,35 @@ const privateRoutes: RouteObject[] = [
 
 const router = createBrowserRouter([
   { element: <PrivateRoutes />, children: privateRoutes },
-  ...publicRoutes,
+  { element: <PublicRoutes />, children: publicRoutes },
 ])
 
 export const Router = () => {
-  const { isError } = useMeQuery()
-
-  return (
-    <>
-      <Header isAuth={!isError} />
-      <RouterProvider router={router} />
-    </>
-  )
+  return <RouterProvider router={router} />
 }
 
 function PrivateRoutes() {
-  const { isError, isLoading } = useMeQuery()
+  const { isError } = useMeQuery()
 
-  if (isLoading) {
-    return <div style={{ textAlign: 'center' }}>Loading...</div>
-  }
   const isAuthorized = !isError
 
-  return isAuthorized ? <Outlet /> : <Navigate to="/login" />
+  if (isAuthorized) {
+    return (
+      <>
+        <Header isAuth={true} />
+        <Outlet />
+      </>
+    )
+  } else {
+    return <Navigate to="/login" />
+  }
+}
+
+function PublicRoutes() {
+  return (
+    <>
+      <Header isAuth={false} />
+      <Outlet />
+    </>
+  )
 }

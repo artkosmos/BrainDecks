@@ -13,6 +13,8 @@
 
     .iconAndNameWrapper {
       @include flex-row-center(10px);
+
+      cursor: pointer;
     }
 
     .logo {
