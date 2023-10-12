@@ -14,6 +14,7 @@ import { Registration } from '@/features/registration'
 import { RecoverPassword } from '@/features/recoverPassword'
 import { CheckEmailCard } from '@/components/auth/check-email-card'
 import { ResetPassword } from '@/features/resetPassword'
+import { PageNotFound } from '@/components/ui/404'
 
 const publicRoutes: RouteObject[] = [
   {
@@ -35,6 +36,10 @@ const publicRoutes: RouteObject[] = [
   {
     path: '/reset-password/:token',
     element: <ResetPassword />,
+  },
+  {
+    path: '*',
+    element: <PageNotFound />,
   },
 ]
 

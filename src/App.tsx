@@ -2,6 +2,7 @@ import { Router } from '@/Router.tsx'
 import { Provider } from 'react-redux'
 import { store } from '@/services/store.ts'
 import { CSSProperties } from 'react'
+import s from './App.module.scss'
 
 export function App() {
   const tempStyles = {
@@ -13,7 +14,7 @@ export function App() {
   }
 
   return (
-    <div style={tempStyles}>
+    <div style={tempStyles} className={s.appcontainer}>
       <Provider store={store}>
         <Router />
       </Provider>

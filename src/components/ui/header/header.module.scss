@@ -1,7 +1,8 @@
 @import '@/styles/mixins';
 
 .header {
-  @include size(100vh, 60px); //TODO can be error with adaptive
+  @include size(100vw, 60px); //TODO can be error with adaptive
+  @include display-flex;
 
   position: fixed;
   top: 0;
@@ -11,13 +12,15 @@
   .container {
     @include display-flex;
 
+    width: 1006px;
     height: 100%;
-    margin: 0 10%;
+    margin: 0 auto;
 
     .iconAndNameWrapper {
       @include flex-row-center(10px);
 
       cursor: pointer;
+      height: 100%;
     }
 
     .logo {
