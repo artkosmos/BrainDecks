@@ -1,32 +1,46 @@
 import headerLogo from '@/assets/icons/cardsLogo.png'
-import s from './header.module.scss'
+import unknownUser from '@/assets/icons/unknown_user.svg'
 import { Button } from '@/components/ui/button'
 import { Typography } from '@/components/ui/typography'
+import { Icon } from '@/components/ui/icon'
+import { useLogOutMutation } from '@/services/auth-service'
+import { useNavigate } from 'react-router-dom'
+import s from './header.module.scss'
 
 type HeaderPropsType = {
   isAuth: boolean
 }
 
 export const Header = ({ isAuth }: HeaderPropsType) => {
+  const [logOut] = useLogOutMutation()
+  const navigate = useNavigate()
+
   return (
     <header className={s.header}>
       <div className={s.container}>
-        <img
-          aria-label={'logo of application, tap to move to packs page'}
-          src={headerLogo}
-          className={s.logo}
-          alt="app_logo"
-        />
+        <div onClick={() => navigate('/')} className={s.iconAndNameWrapper}>
+          <Icon
+            srcIcon={headerLogo}
+            className={s.logo}
+            alt={'app_logo'}
+            aria-label={'logo of application, tap to move to packs page'}
+          />
+          <Typography variant={'h1'}>Flashcards</Typography>
+        </div>
         <label className={s.userContainer}>
           {isAuth ? (
             // add aria label
             <>
-              <span style={{ borderBottom: '1px dashed #fff' }}>user</span>
-              <img src={headerLogo} className={s.logo} alt="users_photo" />
+              <span className={s.userName}>user</span>
+              <Icon srcIcon={unknownUser} alt={'user photo'} />
+              {/*temporary button to handle log out flow*/}
+              <Button onClick={() => logOut()}>
+                <Typography variant={'subtitle2'}>Log Out</Typography>
+              </Button>
             </>
           ) : (
-            <Button aria-label={'login button'}>
-              <Typography>Sign In</Typography>
+            <Button onClick={() => navigate('/login')} aria-label={'login button'}>
+              <Typography variant={'subtitle2'}>Sign In</Typography>
             </Button>
           )}
         </label>

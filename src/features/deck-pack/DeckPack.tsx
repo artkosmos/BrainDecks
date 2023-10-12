@@ -13,9 +13,12 @@ import {
   useDeleteDeckMutation,
   useGetDecksQuery,
   useUpdateDeckMutation,
-} from '@/services/deck-service/decks.service.ts'
-import { DeckModals, NewDeckNameFields } from '@/types/common'
-import { Deck, GetDeckQueryParams, Sort } from '@/types/api'
+  Deck,
+  GetDeckQueryParams,
+  Sort,
+} from '@/services/deck-service'
+import { NewDeckNameFields } from '@/types/common'
+import { DeckModals } from '@/features/deck-pack'
 import { AddNewDeckModal } from '@/components/modals/add-new-deck'
 import searchIcon from '@/assets/icons/input_search.svg'
 import { EditDeckModal } from '@/components/modals/edit-deck'
