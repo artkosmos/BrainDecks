@@ -28,6 +28,7 @@ export const CreateNewPasswordForm = (props: Props) => {
   } = useForm<CreateNewPasswordFields>({
     resolver: zodResolver(createNewPasswordSchema),
     mode: 'onSubmit',
+    defaultValues: { password: '' },
   })
 
   const onSubmitHandler = handleSubmit(data => {

@@ -11,8 +11,8 @@ import crossedEye from '@/assets/icons/eye_crossed.svg'
 import eye from '@/assets/icons/eye.svg'
 import { Icon } from '@/components/ui/icon'
 import { CreateAccountFields } from '@/types/common'
-import s from './signUp.module.scss'
 import { useNavigate } from 'react-router-dom'
+import s from './signUp.module.scss'
 
 type Props = {
   onSubmit: (values: CreateAccountFields) => void
@@ -32,9 +32,7 @@ export const SignUp = ({ onSubmit }: Props) => {
   const navigate = useNavigate()
 
   const onSubmitHandler = handleSubmit(data => {
-    const { email, password } = data
-
-    onSubmit({ email, password })
+    onSubmit(data)
   })
 
   const inputEyeIcon = showPassword ? <Icon srcIcon={crossedEye} /> : <Icon srcIcon={eye} />

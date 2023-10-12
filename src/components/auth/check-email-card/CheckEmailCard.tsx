@@ -4,8 +4,11 @@ import { Card } from '@/components/ui/card'
 import { Icon } from '@/components/ui/icon'
 import { Typography } from '@/components/ui/typography'
 import s from './CheckEmailCard.module.scss'
+import { useNavigate } from 'react-router-dom'
 
 export const CheckEmailCard = () => {
+  const navigate = useNavigate()
+
   return (
     <Card
       className={s.emailCard}
@@ -19,6 +22,7 @@ export const CheckEmailCard = () => {
         We’ve sent an Email with instructions to example@mail.com
       </Typography>
       <Button
+        onClick={() => navigate('/login')}
         className={s.button}
         variant={'primary'}
         fullWidth={true}

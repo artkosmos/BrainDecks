@@ -1,10 +1,17 @@
 import { baseApi } from '@/services/api.ts'
-import { LoginArgs, SignUpArgs, SignUpResponseData } from '@/services/auth-service'
+import {
+  GetMeQueryResponseData,
+  LoginArgs,
+  RecoverPasswordArgs,
+  SignUpArgs,
+  SignUpResponseData,
+} from '@/services/auth-service'
+import { ResetPasswordArgs } from '@/services/deck-service'
 
 export const authService = baseApi.injectEndpoints({
   endpoints: builder => {
     return {
-      me: builder.query<any, void>({
+      me: builder.query<GetMeQueryResponseData, void>({
         query: () => {
           return {
             url: `/v1/auth/me`,
@@ -40,11 +47,36 @@ export const authService = baseApi.injectEndpoints({
           }
         },
       }),
+      recoverPassword: builder.mutation<void, RecoverPasswordArgs>({
+        query: body => {
+          return {
+            url: `/v1/auth/recover-password`,
+            method: 'POST',
+            body,
+          }
+        },
+      }),
+      resetPassword: builder.mutation<void, ResetPasswordArgs>({
+        query: ({ token, ...args }) => {
+          return {
+            url: `/v1/auth/reset-password/${token}`,
+            method: 'POST',
+            body: { ...args },
+          }
+        },
+      }),
     }
   },
 })
 
-export const { useLogInMutation, useMeQuery, useLogOutMutation, useSignUpMutation } = authService
+export const {
+  useLogInMutation,
+  useMeQuery,
+  useLogOutMutation,
+  useSignUpMutation,
+  useRecoverPasswordMutation,
+  useResetPasswordMutation,
+} = authService
 
 // onQueryStarted: async (_, { getState, dispatch, queryFulfilled }) => {
 //   try {

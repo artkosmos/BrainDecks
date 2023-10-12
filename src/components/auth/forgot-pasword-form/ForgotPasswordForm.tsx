@@ -6,10 +6,11 @@ import { ControlledInput } from '@/components/ui/controlled/controlledInput'
 import { Typography } from '@/components/ui/typography'
 import { forgotPasswordSchema } from '@/schemes'
 import { ForgotPasswordFields } from '@/types/common'
+import { useNavigate } from 'react-router-dom'
 import s from './ForgotPasswordForm.module.scss'
 
 type Props = {
-  onSubmit: (values: ForgotPasswordFields) => void
+  onSubmit: (data: ForgotPasswordFields) => void
 }
 
 export const ForgotPasswordForm = (props: Props) => {
@@ -22,7 +23,10 @@ export const ForgotPasswordForm = (props: Props) => {
   } = useForm<ForgotPasswordFields>({
     resolver: zodResolver(forgotPasswordSchema),
     mode: 'onSubmit',
+    defaultValues: { email: '' },
   })
+
+  const navigate = useNavigate()
 
   const onSubmitHandler = handleSubmit(data => {
     onSubmit(data)
@@ -61,6 +65,7 @@ export const ForgotPasswordForm = (props: Props) => {
           aria-label={'try to login if you have remembered your password'}
           type={'submit'}
           variant={'link'}
+          onClick={() => navigate('/login')}
         >
           <Typography className={s.link} variant={'subtitle2'}>
             Try logging in

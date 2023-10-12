@@ -4,6 +4,16 @@ export type LoginArgs = {
   rememberMe?: boolean
 }
 
+export type GetMeQueryResponseData = {
+  avatar: string
+  id: string
+  email: string
+  isEmailVerified: boolean
+  name: string
+  created: string
+  updated: string
+}
+
 export type SignUpArgs = {
   html?: string
   name?: string
@@ -21,4 +31,10 @@ export type SignUpResponseData = {
   name: string
   created: string
   updated: string
+}
+
+export type RecoverPasswordArgs = {
+  html?: string
+  email: string
+  subject?: string
 }
