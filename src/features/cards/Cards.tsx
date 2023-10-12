@@ -28,11 +28,14 @@ export const Cards = () => {
   const [itemData, setItemData] = useState<null | CardData>(null)
   const [openModal, setModalState] = useState<CardsModals | null>(null)
   const [postCard] = usePostCardMutation({})
-  let temporaryPackId = 'clndbbkot0ss6vo2q2iwyp0j8'
+  // let temporaryPackId = 'clndbbkot0ss6vo2q2iwyp0j8'
+  let temporaryPackId = 'clncye7q80smlvo2qvhrs59uo'
 
   const { data } = useGetCardsQuery({
     packId: temporaryPackId,
   })
+
+  console.log(data)
 
   const selectOptions = ['10', '20', '30', '50', '100']
 

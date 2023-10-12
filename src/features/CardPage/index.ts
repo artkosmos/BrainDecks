@@ -1,3 +1,3 @@
-import { CardPage } from '@/features/CardPage/ui/CardPage'
+import { CardPage } from '@/features/cardPage/CardPage.tsx'
 
 export { CardPage }

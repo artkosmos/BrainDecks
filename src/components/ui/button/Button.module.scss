@@ -35,15 +35,15 @@
 
     position: absolute;
     z-index: -1;
-    inset: 5px -10px;
+    top: -2px;
+    left: -2px;
 
-    background: radial-gradient(
-      ellipse,
-      rgb(140 97 255 / 100%) 0%,
-      rgb(23 23 23 / 100%) 90%,
-      rgb(0 0 0 / 100%) 100%
-    );
-    filter: blur(30px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+
+    background: linear-gradient(45deg, rgb(140 97 255 / 100%) 0%, rgb(140 97 255 / 100%) 100%);
+    background-size: 400%;
+    filter: blur(5px);
   }
 
   &:active {
@@ -77,15 +77,14 @@
 
     position: absolute;
     z-index: -1;
-    inset: 5px 0;
+    top: -2px;
+    left: -2px;
 
-    background: radial-gradient(
-      ellipse,
-      rgb(76 76 76 / 100%) 0%,
-      rgb(23 23 23 / 100%) 90%,
-      rgb(0 0 0 / 100%) 100%
-    );
-    filter: blur(15px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+
+    background: linear-gradient(45deg, rgb(76 76 76 / 100%) 0%, rgb(76 76 76 / 100%) 100%);
+    filter: blur(5px);
   }
 
   &:active {
