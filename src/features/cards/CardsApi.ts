@@ -8,9 +8,13 @@ import {
 
 export const cardsApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    getCards: builder.query<GetCardsResponse, Pick<GetCardsPayload, 'packId'>>({
-      query: ({ packId }) => `v1/decks/${packId}/cards`,
+    getCards: builder.query<GetCardsResponse, GetCardsPayload>({
+      query: ({ packId, ...rest }) => ({
+        url: `v1/decks/${packId}/cards`,
+        params: rest,
+      }),
       providesTags: ['Cards'],
+      // body,
     }),
     postCard: builder.mutation<any, PostCardPayload>({
       query: ({ packId, ...rest }) => ({
@@ -22,7 +26,7 @@ export const cardsApi = baseApi.injectEndpoints({
     }),
     patchCard: builder.mutation<PatchResponse, PostCardPayload>({
       query: ({ packId, ...rest }) => ({
-        url: `v1/decks/${packId}/cards`,
+        url: `v1/cards/${packId}`,
         method: 'PATCH',
         body: rest,
       }),

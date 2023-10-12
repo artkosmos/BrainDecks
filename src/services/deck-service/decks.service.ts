@@ -6,7 +6,7 @@ import {
   GetDeckQueryParams,
   UpdateDeckArgs,
   UpdateDeckResponseData,
-} from '@/types/api'
+} from '@/services/deck-service'
 
 export const DecksService = baseApi.injectEndpoints({
   endpoints: builder => {

@@ -1,7 +1,7 @@
-import { DeckModals } from '@/types/common'
 import { Modal } from '@/components/ui/modal'
 import { Typography } from '@/components/ui/typography'
 import { Button } from '@/components/ui/button'
+import { DeckModals } from '@/features/deck-pack'
 import s from './DeleteDeckModal.module.scss'
 
 type Props = {

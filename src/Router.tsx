@@ -7,29 +7,51 @@ import {
 } from 'react-router-dom'
 import { DeckPack } from '@/features/deck-pack'
 import { Cards } from '@/features/cards/Cards.tsx'
+import { Login } from '@/features/login'
+import { useMeQuery } from '@/services/auth-service/auth-service.ts'
+import { Header } from '@/components/ui/header'
+import { Registration } from '@/features/registration'
+import { RecoverPassword } from '@/features/recoverPassword'
+import { CheckEmailCard } from '@/components/auth/check-email-card'
+import { ResetPassword } from '@/features/resetPassword'
 
 const publicRoutes: RouteObject[] = [
   {
     path: '/login',
-    element: <div>Login a little boy</div>,
+    element: <Login />,
+  },
+  {
+    path: '/registration',
+    element: <Registration />,
+  },
+  {
+    path: '/recover-password',
+    element: <RecoverPassword />,
+  },
+  {
+    path: '/check-email',
+    element: <CheckEmailCard />,
+  },
+  {
+    path: '/reset-password/:token',
+    element: <ResetPassword />,
   },
 ]
 
 const privateRoutes: RouteObject[] = [
   {
     path: '/',
-    // element: <div>Your component is shown here</div>,
-    element: <Cards />,
+    element: <DeckPack />,
   },
   {
-    path: '/decks',
-    element: <DeckPack />,
+    path: '/cards',
+    element: <Cards />,
   },
 ]
 
 const router = createBrowserRouter([
   { element: <PrivateRoutes />, children: privateRoutes },
-  ...publicRoutes,
+  { element: <PublicRoutes />, children: publicRoutes },
 ])
 
 export const Router = () => {
@@ -37,7 +59,27 @@ export const Router = () => {
 }
 
 function PrivateRoutes() {
-  const isAuthenticated = true
+  const { isError } = useMeQuery()
 
-  return isAuthenticated ? <Outlet /> : <Navigate to="/login" />
+  const isAuthorized = !isError
+
+  if (isAuthorized) {
+    return (
+      <>
+        <Header isAuth={true} />
+        <Outlet />
+      </>
+    )
+  } else {
+    return <Navigate to="/login" />
+  }
+}
+
+function PublicRoutes() {
+  return (
+    <>
+      <Header isAuth={false} />
+      <Outlet />
+    </>
+  )
 }
