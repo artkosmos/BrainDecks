@@ -2,6 +2,7 @@ import { baseApi } from '@/services/api.ts'
 import {
   GetMeQueryResponseData,
   LoginArgs,
+  LogInResponseData,
   RecoverPasswordArgs,
   SignUpArgs,
   SignUpResponseData,
@@ -19,7 +20,7 @@ export const authService = baseApi.injectEndpoints({
         },
         providesTags: ['Me'],
       }),
-      logIn: builder.mutation<any, LoginArgs>({
+      logIn: builder.mutation<LogInResponseData, LoginArgs>({
         query: body => {
           return {
             url: `/v1/auth/login`,

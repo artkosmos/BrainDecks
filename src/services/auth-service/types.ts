@@ -38,3 +38,7 @@ export type RecoverPasswordArgs = {
   email: string
   subject?: string
 }
+
+export type LogInResponseData = {
+  accessToken: string
+}

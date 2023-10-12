@@ -56,3 +56,8 @@ export type GetDeckQueryParams = {
   minCardsCount?: string
   maxCardsCount?: string
 }
+
+export type ResetPasswordArgs = {
+  password: string
+  token: string
+}

@@ -4,7 +4,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { Button } from '../../ui/button'
 import { Card } from '@/components/ui/card'
-import { Checkbox } from '@/components/ui/checkbox'
 import { ControlledInput } from '@/components/ui/controlled/controlledInput/ControlledInput.tsx'
 import { Typography } from '@/components/ui/typography'
 import { logInSchema } from '@/schemes'
@@ -13,10 +12,11 @@ import crossedEye from '@/assets/icons/eye_crossed.svg'
 import eye from '@/assets/icons/eye.svg'
 import { LogInFields } from '@/types/common'
 import { useNavigate } from 'react-router-dom'
+import { ControlledCheckbox } from '@/components/ui/controlled/controlledCheckbox'
 import s from './loginForm.module.scss'
 
 type Props = {
-  onSubmit: (values: LogInFields) => void
+  onSubmit: (data: LogInFields) => void
 }
 
 export const LoginForm = ({ onSubmit }: Props) => {
@@ -32,7 +32,6 @@ export const LoginForm = ({ onSubmit }: Props) => {
   const navigate = useNavigate()
 
   const [showPassword, setShowPassword] = useState<boolean>(false)
-  const [checked, setChecked] = useState(false)
 
   const onSubmitHandler = handleSubmit(data => {
     onSubmit(data)
@@ -71,11 +70,11 @@ export const LoginForm = ({ onSubmit }: Props) => {
               callBackValue={showPassword}
             />
             <div className={s.checkBox}>
-              <Checkbox
+              <ControlledCheckbox
                 aria-label={'remember me'}
+                control={control}
                 label={'Remember Me'}
-                checked={checked}
-                onCheckedChange={() => setChecked(!checked)}
+                name={'rememberMe'}
               />
             </div>
             <Typography
