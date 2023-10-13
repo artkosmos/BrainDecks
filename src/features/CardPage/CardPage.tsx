@@ -4,19 +4,14 @@ import { Typography } from '@/components/ui/typography'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 import { RadioGroup } from '@/components/ui/radioGroup'
+import { useParams } from 'react-router-dom'
 import s from './CardPage.module.scss'
 
-type CardPagePropsType = {
-  deckId?: string //TODO remove '?'
-  deckName?: string //TODO remove '?'
-}
-
-export const CardPage = ({
-  deckId = 'clncye7q80smlvo2qvhrs59uo',
-  deckName = 'Deck Name',
-}: CardPagePropsType) => {
+export const CardPage = () => {
   const [isShowAnswer, setIsShowAnswer] = useState<boolean>(false)
   const [previousCardId, setPreviousCardId] = useState<string | undefined>()
+
+  const { deckId, deckName } = useParams<{ deckId: string; deckName: string }>()
 
   const { data } = useGetRandomCardWithQuery({ deckId, previousCardId })
 
@@ -55,7 +50,7 @@ export const CardPage = ({
     <div className={s.wrapper}>
       <Card className={s.card}>
         <Typography htmlTag={'h2'} variant={'h1'} className={s.title}>
-          Learn &quot;${deckName}&quot;
+          Learn &quot;{deckName}&quot;
         </Typography>
         <div className={s.question}>
           <Typography htmlTag={'h3'} variant={'body1'}>

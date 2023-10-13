@@ -9,6 +9,7 @@ import editIcon from '@/assets/icons/edit_icon.svg'
 import deleteIcon from '@/assets/icons/delete_icon.svg'
 import { Column, DeckModals } from '@/features/deck-pack'
 import { Deck, Sort } from '@/services/deck-service'
+import { useNavigate } from 'react-router-dom'
 import s from './DeckTable.module.scss'
 
 type Props = {
@@ -45,26 +46,32 @@ const columns: Column[] = [
 export const DeckTable = (props: Props) => {
   const { data, className, onIconClick, sort, setSort } = props
 
+  const navigate = useNavigate()
+
   return (
     <Table className={className}>
       <SortTableHeader columns={columns} sort={sort} onSort={setSort} />
       <TableBody>
-        {data.map(item => {
+        {data.map(deck => {
           return (
-            <TableRow key={item.id}>
-              <TableCell>{item.name}</TableCell>
-              <TableCell>{item.cardsCount}</TableCell>
-              <TableCell>{new Date(item.updated).toLocaleDateString()}</TableCell>
-              <TableCell>{item.author.name}</TableCell>
+            <TableRow key={deck.id}>
+              <TableCell>{deck.name}</TableCell>
+              <TableCell>{deck.cardsCount}</TableCell>
+              <TableCell>{new Date(deck.updated).toLocaleDateString()}</TableCell>
+              <TableCell>{deck.author.name}</TableCell>
               <TableCell className={s.iconsCell}>
-                <Icon className={s.icon} srcIcon={playIcon} />
                 <Icon
-                  onClick={() => onIconClick(DeckModals.UPDATE, item)}
+                  onClick={() => navigate(`/learn/${deck.name}/${undefined}`)}
+                  className={s.icon}
+                  srcIcon={playIcon}
+                />
+                <Icon
+                  onClick={() => onIconClick(DeckModals.UPDATE, deck)}
                   className={s.icon}
                   srcIcon={editIcon}
                 />
                 <Icon
-                  onClick={() => onIconClick(DeckModals.DELETE, item)}
+                  onClick={() => onIconClick(DeckModals.DELETE, deck)}
                   className={s.icon}
                   srcIcon={deleteIcon}
                 />

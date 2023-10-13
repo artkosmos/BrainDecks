@@ -15,6 +15,7 @@ import { RecoverPassword } from '@/features/recoverPassword'
 import { CheckEmailCard } from '@/components/auth/check-email-card'
 import { ResetPassword } from '@/features/resetPassword'
 import { PageNotFound } from '@/components/ui/404'
+import { CardPage } from '@/features/CardPage'
 
 const publicRoutes: RouteObject[] = [
   {
@@ -51,6 +52,10 @@ const privateRoutes: RouteObject[] = [
   {
     path: '/cards',
     element: <Cards />,
+  },
+  {
+    path: '/learn/:deckName/:deckId',
+    element: <CardPage />,
   },
 ]
 
