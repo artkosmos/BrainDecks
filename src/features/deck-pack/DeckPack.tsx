@@ -24,6 +24,7 @@ import searchIcon from '@/assets/icons/input_search.svg'
 import { EditDeckModal } from '@/components/modals/edit-deck'
 import { DeleteDeckModal } from '@/components/modals/delete-deck'
 import { useDebounce } from '@/hooks/useDebounce.tsx'
+import { useMeQuery } from '@/services/auth-service'
 import s from './DeckPack.module.scss'
 
 export const DeckPack = () => {
@@ -34,6 +35,7 @@ export const DeckPack = () => {
   const [sliderValues, setSliderValues] = useState<number[]>([0, 52])
   const [openModal, setOpenModal] = useState<DeckModals | null>(null)
   const [sort, setSort] = useState<Sort | null>(null)
+  const [authorId, setAuthorId] = useState<string | undefined>(undefined)
 
   const selectOptions = ['10', '20', '30', '50', '100']
 
@@ -60,6 +62,7 @@ export const DeckPack = () => {
   const [createDeck] = useCreateDeckMutation()
   const [deleteDeck] = useDeleteDeckMutation()
   const [updateDeck] = useUpdateDeckMutation()
+  const { data: userData } = useMeQuery()
   const { isLoading, data } = useGetDecksQuery({
     name: debouncedInputValue,
     currentPage,
@@ -67,6 +70,7 @@ export const DeckPack = () => {
     maxCardsCount: String(debouncedSliderValues[1]),
     minCardsCount: String(debouncedSliderValues[0]),
     orderBy: sortedString,
+    authorId,
   })
 
   const clearFilterHandler = () => {
@@ -87,6 +91,17 @@ export const DeckPack = () => {
     const { name, isPrivate } = values
 
     updateDeck({ id: activeDeck?.id || '', name, isPrivate })
+  }
+
+  const filterByAuthorHandler = (tabId: string) => {
+    if (tabId === '1') {
+      if (userData) {
+        setAuthorId(userData.id)
+      }
+    }
+    if (tabId === '2') {
+      setAuthorId(undefined)
+    }
   }
 
   const inputIcon = <Icon srcIcon={searchIcon} />
@@ -114,7 +129,7 @@ export const DeckPack = () => {
           leftSideIcon={inputIcon}
           onChange={e => setName(e.currentTarget.value)}
         />
-        <TabSwitcher label={'Show decks cards'} tabs={tabs} />
+        <TabSwitcher label={'Show decks cards'} setActiveTab={filterByAuthorHandler} tabs={tabs} />
         <Slider
           label={'Number of cards'}
           max={data.maxCardsCount}
