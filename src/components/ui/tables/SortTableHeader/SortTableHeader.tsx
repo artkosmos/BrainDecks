@@ -1,5 +1,3 @@
-import { Column } from '@/types/common'
-import { Sort } from '@/types/api'
 import { ComponentPropsWithoutRef } from 'react'
 import { TableHead } from '@/components/ui/tables/TableHead'
 import { TableRow } from '@/components/ui/tables/TableRow'
@@ -7,6 +5,8 @@ import { TableHeadCell } from '@/components/ui/tables/TableHeadCell'
 import sortDown from '@/assets/icons/sort_down.svg'
 import sortUp from '@/assets/icons/sort_up.svg'
 import { Icon } from '@/components/ui/icon'
+import { Column } from '@/features/deck-pack'
+import { Sort } from '@/services/deck-service'
 import s from './SortTableHeader.module.scss'
 
 type Props = Omit<

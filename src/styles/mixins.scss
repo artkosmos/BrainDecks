@@ -9,9 +9,9 @@
 @mixin flex($flexDirection: row, $alignItems, $justifyContent, $gap: 0) {
   display: flex;
   flex-direction: $flexDirection;
+  gap: $gap;
   align-items: $alignItems;
   justify-content: $justifyContent;
-  gap: $gap;
 }
 
 @mixin display-flex($display: flex) {

@@ -1,5 +1,5 @@
 import { baseApi } from '@/services/api.ts'
-import { CardResponse, ArgType } from '@/types/api'
+import { CardResponse, GetRandomCardArgs } from '@/services/cardService'
 
 export const cardApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -7,8 +7,8 @@ export const cardApi = baseApi.injectEndpoints({
       query: deckId => `v1/decks/${deckId}/learn`,
       providesTags: ['RandomCard'],
     }),
-    getRandomCardWith: builder.query<CardResponse, ArgType>({
-      query: (arg: ArgType) =>
+    getRandomCardWith: builder.query<CardResponse, GetRandomCardArgs>({
+      query: (arg: GetRandomCardArgs) =>
         `v1/decks/${arg.deckId}/learn${
           arg.previousCardId ? `?previousCardId=${arg.previousCardId}` : ''
         }`,
@@ -17,4 +17,4 @@ export const cardApi = baseApi.injectEndpoints({
   }),
 })
 
-export const { useGetRandomCardQuery, useGetRandomCardWithQuery } = cardApi
+export const { useGetRandomCardWithQuery } = cardApi

@@ -1,8 +1,3 @@
-export type Sort = {
-  key: string
-  direction: 'asc' | 'desc'
-} | null
-
 export type CardResponse = {
   id: string
   deckId: string
@@ -19,7 +14,7 @@ export type CardResponse = {
   updated: string
 }
 
-export type ArgType = {
-  deckId: string
+export type GetRandomCardArgs = {
+  deckId: string | undefined
   previousCardId?: string
 }
