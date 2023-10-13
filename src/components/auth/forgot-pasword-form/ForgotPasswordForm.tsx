@@ -6,7 +6,7 @@ import { ControlledInput } from '@/components/ui/controlled/controlledInput'
 import { Typography } from '@/components/ui/typography'
 import { forgotPasswordSchema } from '@/schemes'
 import { ForgotPasswordFields } from '@/types/common'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import s from './ForgotPasswordForm.module.scss'
 
 type Props = {
@@ -25,8 +25,6 @@ export const ForgotPasswordForm = (props: Props) => {
     mode: 'onSubmit',
     defaultValues: { email: '' },
   })
-
-  const navigate = useNavigate()
 
   const onSubmitHandler = handleSubmit(data => {
     onSubmit(data)
@@ -62,10 +60,11 @@ export const ForgotPasswordForm = (props: Props) => {
           Did you remember your password?
         </Typography>
         <Button
+          as={Link}
+          to={'/login'}
           aria-label={'try to login if you have remembered your password'}
           type={'submit'}
           variant={'link'}
-          onClick={() => navigate('/login')}
         >
           <Typography className={s.link} variant={'subtitle2'}>
             Try logging in

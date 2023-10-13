@@ -1,10 +1,10 @@
 import { useGetRandomCardWithQuery } from '@/services/cardService/cardApi'
-import s from './CardPage.module.scss'
 import { Card } from '@/components/ui/card'
 import { Typography } from '@/components/ui/typography'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 import { RadioGroup } from '@/components/ui/radioGroup'
+import s from './CardPage.module.scss'
 
 type CardPagePropsType = {
   deckId?: string //TODO remove '?'

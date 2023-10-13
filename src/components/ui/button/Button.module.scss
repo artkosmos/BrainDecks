@@ -2,13 +2,6 @@
 
 .button {
   @include display-flex;
-  @include custom-text-style(
-    var(--font-family-primary),
-    var(--font-size-m),
-    var(--font-weight-bold),
-    var(--line-height-m),
-    var(color-light-100)
-  );
 
   cursor: pointer;
 

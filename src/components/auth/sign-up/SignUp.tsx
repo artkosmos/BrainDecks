@@ -11,7 +11,7 @@ import crossedEye from '@/assets/icons/eye_crossed.svg'
 import eye from '@/assets/icons/eye.svg'
 import { Icon } from '@/components/ui/icon'
 import { CreateAccountFields } from '@/types/common'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import s from './signUp.module.scss'
 
 type Props = {
@@ -29,8 +29,6 @@ export const SignUp = ({ onSubmit }: Props) => {
     resolver: zodResolver(createAccountSchema),
   })
 
-  const navigate = useNavigate()
-
   const onSubmitHandler = handleSubmit(data => {
     onSubmit(data)
   })
@@ -40,7 +38,7 @@ export const SignUp = ({ onSubmit }: Props) => {
   return (
     <Card aria-label={'registration form'} className={s.container}>
       <div>
-        <Typography variant={'h1'} color={'light'} className={s.signTypography}>
+        <Typography variant={'h1'} className={s.signTypography}>
           Sign Up
         </Typography>
         <form onSubmit={onSubmitHandler}>
@@ -97,7 +95,8 @@ export const SignUp = ({ onSubmit }: Props) => {
               Already have an account?
             </Typography>
             <Button
-              onClick={() => navigate('/login')}
+              as={Link}
+              to={'/login'}
               type={'button'}
               aria-label={'back to login page'}
               variant={'link'}

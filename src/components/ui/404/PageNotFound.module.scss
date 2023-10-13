@@ -4,5 +4,9 @@
   @include flex(column, center, center, 32px);
 
   width: 100vw;
-  height: calc(100vh - 60px);
+  height: calc(100vh - 100px);
+}
+
+.link {
+  text-decoration-line: none;
 }
