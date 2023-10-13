@@ -23,7 +23,7 @@ import { AddNewDeckModal } from '@/components/modals/add-new-deck'
 import searchIcon from '@/assets/icons/input_search.svg'
 import { EditDeckModal } from '@/components/modals/edit-deck'
 import { DeleteDeckModal } from '@/components/modals/delete-deck'
-import { useDebounce } from '@/hooks/useDebounce.tsx'
+import { useDebounce } from '@/hooks'
 import { useMeQuery } from '@/services/auth-service'
 import s from './DeckPack.module.scss'
 
@@ -32,7 +32,7 @@ export const DeckPack = () => {
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [activeDeck, setActiveDeck] = useState<Deck | undefined>()
   const [itemsPerPage, setItemsPerPage] = useState<number>(10)
-  const [sliderValues, setSliderValues] = useState<number[]>([0, 52])
+  const [sliderValues, setSliderValues] = useState<number[]>([0, 61])
   const [openModal, setOpenModal] = useState<DeckModals | null>(null)
   const [sort, setSort] = useState<Sort | null>(null)
   const [authorId, setAuthorId] = useState<string | undefined>(undefined)
@@ -75,7 +75,7 @@ export const DeckPack = () => {
 
   const clearFilterHandler = () => {
     setName('')
-    setSliderValues([0, 52])
+    setSliderValues([0, 61])
   }
 
   const openModalHandler = (value: DeckModals | null, item?: Deck) => {
