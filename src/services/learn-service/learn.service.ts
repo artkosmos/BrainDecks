@@ -1,7 +1,7 @@
 import { baseApi } from '@/services/api.ts'
-import { CardResponse, GetRandomCardArgs } from '@/services/cardService'
+import { CardResponse, GetRandomCardArgs } from ''
 
-export const cardApi = baseApi.injectEndpoints({
+export const learnService = baseApi.injectEndpoints({
   endpoints: builder => ({
     getRandomCard: builder.query<CardResponse, string>({
       query: deckId => `v1/decks/${deckId}/learn`,
@@ -17,4 +17,4 @@ export const cardApi = baseApi.injectEndpoints({
   }),
 })
 
-export const { useGetRandomCardWithQuery } = cardApi
+export const { useGetRandomCardWithQuery } = learnService

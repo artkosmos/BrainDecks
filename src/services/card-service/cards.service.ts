@@ -4,9 +4,9 @@ import {
   GetCardsResponse,
   PatchResponse,
   PostCardPayload,
-} from '@/features/cards/Types.ts'
+} from '@/services/card-service'
 
-export const cardsApi = baseApi.injectEndpoints({
+export const cardsService = baseApi.injectEndpoints({
   endpoints: builder => ({
     getCards: builder.query<GetCardsResponse, GetCardsPayload>({
       query: ({ packId, ...rest }) => ({
@@ -48,4 +48,4 @@ export const {
   usePostCardMutation,
   usePatchCardMutation,
   useDeleteCardMutation,
-} = cardsApi
+} = cardsService
