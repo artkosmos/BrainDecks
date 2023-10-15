@@ -8,7 +8,6 @@ import { Button } from '@/components/ui/button'
 import { Typography } from '@/components/ui/typography'
 import { Modal } from '@/components/ui/modal'
 import { DeckModals } from '@/features/deck-pack'
-import { ChangeEvent } from 'react'
 import s from './AddNewDeckModal.module.scss'
 
 type Props = {
@@ -19,11 +18,9 @@ type Props = {
 
 export const AddNewDeckModal = ({ onSubmit, open, setOpen }: Props) => {
   const {
-    register,
     control,
     handleSubmit,
     reset,
-    setValue,
     formState: { errors },
   } = useForm<NewDeckNameFields>({
     resolver: zodResolver(newDeckNameSchema),
@@ -32,7 +29,6 @@ export const AddNewDeckModal = ({ onSubmit, open, setOpen }: Props) => {
   })
 
   const onSubmitHandler = handleSubmit(data => {
-    console.log(data)
     onSubmit(data)
     setOpen(null)
   })

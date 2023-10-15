@@ -16,6 +16,7 @@ import {
   Deck,
   GetDeckQueryParams,
   Sort,
+  CreateDeckArgs,
 } from '@/services/deck-service'
 import { NewDeckNameFields } from '@/types/common'
 import { DeckModals } from '@/features/deck-pack'
@@ -88,8 +89,12 @@ export const DeckPack = () => {
     deleteDeck({ id: activeDeck?.id || '' })
   }
 
-  const updateDeckHandler = (values: NewDeckNameFields) => {
-    const { name, isPrivate } = values
+  const createDeckHandler = (data: CreateDeckArgs) => {
+    createDeck(data)
+  }
+
+  const updateDeckHandler = (data: NewDeckNameFields) => {
+    const { name, isPrivate } = data
 
     updateDeck({ id: activeDeck?.id || '', name, isPrivate })
   }
@@ -153,7 +158,7 @@ export const DeckPack = () => {
         setCurrentPage={setCurrentPage}
         setItemsPerPage={setItemsPerPage}
       />
-      <AddNewDeckModal open={openModal} setOpen={setOpenModal} onSubmit={createDeck} />
+      <AddNewDeckModal open={openModal} setOpen={setOpenModal} onSubmit={createDeckHandler} />
       <EditDeckModal
         activeItem={activeDeck}
         open={openModal}
