@@ -1,13 +1,13 @@
-import { useGetRandomCardWithQuery } from '@/services/cardService/cardApi'
+import { useGetRandomCardWithQuery } from '@/services/learn-service/learn.service.ts'
 import { Card } from '@/components/ui/card'
 import { Typography } from '@/components/ui/typography'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 import { RadioGroup } from '@/components/ui/radioGroup'
 import { useParams } from 'react-router-dom'
-import s from './CardPage.module.scss'
+import s from './LearnCard.module.scss'
 
-export const CardPage = () => {
+export const LearnCard = () => {
   const [isShowAnswer, setIsShowAnswer] = useState<boolean>(false)
   const [previousCardId, setPreviousCardId] = useState<string | undefined>()
 

@@ -1,27 +1,26 @@
-import s from './cards.module.scss'
+import s from './CardsPack.module.scss'
 
 import { ChangeEvent, memo, useState } from 'react'
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 import { Typography } from '@/components/ui/typography'
 import headerLogo from '@/assets/icons/cardsLogo.png'
 import { Pagination } from '@/components/ui/pagination'
+import { Input } from '@/components/ui/input'
+import { AddEditNewCardModal } from '@/components/modals/add-edit-new-card/AddEditNewCardModal.tsx'
+import { CardsModals } from '@/types/common'
+import { Button } from '@/components/ui/button'
+import { CardData } from '@/services/card-service/types.ts'
+import { PackOptions } from '@/components/modals/pack-options/PackOptions.tsx'
+import { CardsTable } from '@/features/cards-pack/cards-table'
 import {
   useGetCardsQuery,
   usePatchCardMutation,
   usePostCardMutation,
-} from '@/features/cards/CardsApi.ts'
-import { Input } from '@/components/ui/input'
-import { AddEditNewCardModal } from '@/components/modals/cards/add-edit-new-card/AddEditNewCardModal.tsx'
-import { CardsModals } from '@/types/common'
-import { Button } from '@/components/ui/button'
-import { CardData } from '@/features/cards/Types.ts'
-import { PackOptions } from '@/components/modals/cards/pack-options/PackOptions.tsx'
-import CardsTable from '@/features/cards/cards-table/CardsTable.tsx'
+} from '@/services/card-service'
 
-export const Cards = memo(() => {
+export const CardsPack = memo(() => {
   const [inputValue, setInputValue] = useState<string>('')
   const [itemData, setItemData] = useState<null | CardData>(null)
   const [openModal, setModalState] = useState<CardsModals | null>(null)
@@ -31,15 +30,12 @@ export const Cards = memo(() => {
   const [editCard] = usePatchCardMutation({})
   let temporaryPackId = 'clncye7q80smlvo2qvhrs59uo'
 
-  console.log('1', openModal)
-
   const { data } = useGetCardsQuery({
     packId: temporaryPackId,
     currentPage,
     itemsPerPage: itemsOnPage,
   })
 
-  console.log(data)
   const selectOptions = ['10', '20', '30', '50', '100']
 
   if (!data) {

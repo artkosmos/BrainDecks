@@ -42,11 +42,11 @@ export const DeckPack = () => {
   const tabs: TabType[] = [
     {
       id: '1',
-      title: 'My Cards',
+      title: 'My CardsPack',
     },
     {
       id: '2',
-      title: 'All Cards',
+      title: 'All CardsPack',
     },
   ]
 

@@ -8,7 +8,7 @@ import { Icon } from '@/components/ui/icon'
 import deleteIcon from '@/assets/icons/delete_icon.svg'
 import playIcon from '@/assets/icons/play_icon.svg'
 import s from '@/components/ui/dropDownMenu/DropDownMenu.stories.module.scss'
-import styles from './packOptions.module.scss'
+import styles from './PackOptions.module.scss'
 
 export const PackOptions = () => {
   const buttonRef = useRef<ElementRef<'button'>>(null)

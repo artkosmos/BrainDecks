@@ -1,3 +1,4 @@
+import s from './CardsTable.module.scss'
 import { Table } from '@/components/ui/tables'
 import { TableHead } from '@/components/ui/tables/TableHead'
 import { TableRow } from '@/components/ui/tables/TableRow'
@@ -7,11 +8,10 @@ import { TableCell } from '@/components/ui/tables/TableCell'
 import { Icon } from '@/components/ui/icon'
 import deleteIcon from '@/assets/icons/delete_icon.svg'
 import { CardsModals } from '@/types/common'
-import { DeleteCard } from '@/components/modals/cards/delete-card/DeleteCard.tsx'
+import { DeleteCard } from '@/components/modals/delete-card/DeleteCard.tsx'
 import editIcon from '@/assets/icons/edit_icon.svg'
-import { AddEditNewCardModal } from '@/components/modals/cards/add-edit-new-card/AddEditNewCardModal.tsx'
-import { CardData } from '@/features/cards/Types.ts'
-import s from './cardsTable.module.scss'
+import { AddEditNewCardModal } from '@/components/modals/add-edit-new-card/AddEditNewCardModal.tsx'
+import { CardData } from '@/services/card-service/types.ts'
 
 type TablePropsType = {
   inputSearchData: CardData[]
@@ -22,7 +22,7 @@ type TablePropsType = {
   editCardHandler: (question: string, answer: string) => void
 }
 
-const CardsTable = (props: TablePropsType) => {
+export const CardsTable = (props: TablePropsType) => {
   const {
     editCardHandler,
     setModalState,
@@ -84,5 +84,3 @@ const CardsTable = (props: TablePropsType) => {
     </Table>
   )
 }
-
-export default CardsTable

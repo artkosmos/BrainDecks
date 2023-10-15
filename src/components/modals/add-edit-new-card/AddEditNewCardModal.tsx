@@ -1,6 +1,3 @@
-// eslint-disable-next-line import/default
-import React from 'react'
-
 import { Modal } from '@/components/ui/modal'
 import { Typography } from '@/components/ui/typography'
 import { Button } from '@/components/ui/button'
@@ -10,6 +7,7 @@ import { ControlledSelector } from '@/components/ui/controlled/controlledSelect'
 import { ControlledInput } from '@/components/ui/controlled/controlledInput'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { newCardSchema } from '@/schemes'
+import { memo } from 'react'
 
 type AddEditNewCardPropsType = {
   open: CardsModals | null
@@ -18,7 +16,7 @@ type AddEditNewCardPropsType = {
   editCard?: (question: string, answer: string) => void
 }
 
-export const AddEditNewCardModal = React.memo(
+export const AddEditNewCardModal = memo(
   ({ open, setModalState, createCard, editCard }: AddEditNewCardPropsType) => {
     const { control, handleSubmit } = useForm<NewCardField>({
       resolver: zodResolver(newCardSchema),

@@ -6,16 +6,16 @@ import {
   RouterProvider,
 } from 'react-router-dom'
 import { DeckPack } from '@/features/deck-pack'
-import { Cards } from '@/features/cards/Cards.tsx'
 import { Login } from '@/features/login'
 import { useMeQuery } from '@/services/auth-service/auth-service.ts'
 import { Header } from '@/components/ui/header'
 import { Registration } from '@/features/registration'
-import { RecoverPassword } from '@/features/recoverPassword'
 import { CheckEmailCard } from '@/components/auth/check-email-card'
-import { ResetPassword } from '@/features/resetPassword'
 import { PageNotFound } from '@/components/ui/404'
-import { CardPage } from '@/features/CardPage'
+import { ResetPassword } from '@/features/reset-password'
+import { RecoverPassword } from '@/features/recover-password'
+import { LearnCard } from '@/features/card-learn'
+import { CardsPack } from '@/features/cards-pack'
 
 const publicRoutes: RouteObject[] = [
   {
@@ -51,11 +51,11 @@ const privateRoutes: RouteObject[] = [
   },
   {
     path: '/cards',
-    element: <Cards />,
+    element: <CardsPack />,
   },
   {
     path: '/learn/:deckName/:deckId',
-    element: <CardPage />,
+    element: <LearnCard />,
   },
 ]
 
