@@ -1,10 +1,10 @@
-import s from './DeleteCard.module.scss'
 import { Modal } from '@/components/ui/modal'
 import { Typography } from '@/components/ui/typography'
 import * as Dialog from '@radix-ui/react-dialog'
 import { CardsModals } from '@/types/common'
 import { Button } from '@/components/ui/button'
 import { useDeleteCardMutation } from '@/services/card-service'
+import s from './DeleteCard.module.scss'
 
 type DeleteCardProps = {
   open: CardsModals | null

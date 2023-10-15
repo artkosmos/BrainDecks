@@ -1,5 +1,3 @@
-import s from './CardsPack.module.scss'
-
 import { ChangeEvent, memo, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
@@ -8,17 +6,18 @@ import { Typography } from '@/components/ui/typography'
 import headerLogo from '@/assets/icons/cardsLogo.png'
 import { Pagination } from '@/components/ui/pagination'
 import { Input } from '@/components/ui/input'
-import { AddEditNewCardModal } from '@/components/modals/add-edit-new-card/AddEditNewCardModal.tsx'
 import { CardsModals } from '@/types/common'
 import { Button } from '@/components/ui/button'
-import { CardData } from '@/services/card-service/types.ts'
 import { PackOptions } from '@/components/modals/pack-options/PackOptions.tsx'
+import { AddEditNewCardModal } from '@/components/modals/add-edit-new-card/AddEditNewCardModal.tsx'
 import { CardsTable } from '@/features/cards-pack/cards-table'
 import {
+  CardData,
   useGetCardsQuery,
   usePatchCardMutation,
   usePostCardMutation,
 } from '@/services/card-service'
+import s from './CardsPack.module.scss'
 
 export const CardsPack = memo(() => {
   const [inputValue, setInputValue] = useState<string>('')
@@ -59,18 +58,18 @@ export const CardsPack = memo(() => {
       await postCard({ answer, question, packId: temporaryPackId })
       setModalState(null)
     } catch (e) {
-      console.log(e)
+      return
     }
   }
 
-  const editCardhandler = async (question: string, answer: string) => {
+  const editCardHandler = async (question: string, answer: string) => {
     try {
       await editCard({ question, answer, packId: itemData ? itemData.id : '' })
       setModalState(null)
 
       return 1
     } catch (e) {
-      console.log(e)
+      return
     }
   }
   const mutateCardHandler = (item: CardData, mutationType: CardsModals) => {
@@ -119,7 +118,7 @@ export const CardsPack = memo(() => {
         <CardsTable
           mutateCardHandler={mutateCardHandler}
           setModalState={setModalState}
-          editCardHandler={editCardhandler}
+          editCardHandler={editCardHandler}
           inputSearchData={inputSearchData}
           itemData={itemData}
           openModal={openModal}

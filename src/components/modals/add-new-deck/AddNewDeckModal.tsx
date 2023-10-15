@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Typography } from '@/components/ui/typography'
 import { Modal } from '@/components/ui/modal'
 import { DeckModals } from '@/features/deck-pack'
+import { ChangeEvent } from 'react'
 import s from './AddNewDeckModal.module.scss'
 
 type Props = {
@@ -18,9 +19,11 @@ type Props = {
 
 export const AddNewDeckModal = ({ onSubmit, open, setOpen }: Props) => {
   const {
+    register,
     control,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors },
   } = useForm<NewDeckNameFields>({
     resolver: zodResolver(newDeckNameSchema),
@@ -29,6 +32,7 @@ export const AddNewDeckModal = ({ onSubmit, open, setOpen }: Props) => {
   })
 
   const onSubmitHandler = handleSubmit(data => {
+    console.log(data)
     onSubmit(data)
     setOpen(null)
   })
@@ -44,6 +48,7 @@ export const AddNewDeckModal = ({ onSubmit, open, setOpen }: Props) => {
         Add New Deck
       </Typography>
       <form onSubmit={onSubmitHandler} className={s.newDeckForm}>
+        <ControlledInput control={control} name={'cover'} type={'file'} />
         <ControlledInput
           placeholder={''}
           aria-label={'enter new deck name'}

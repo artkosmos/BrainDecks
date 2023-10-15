@@ -42,11 +42,12 @@ export const DeckPack = () => {
   const tabs: TabType[] = [
     {
       id: '1',
-      title: 'My CardsPack',
+      title: 'My Decks',
     },
     {
       id: '2',
-      title: 'All CardsPack',
+      title: 'All Decks',
+      defaultTab: true,
     },
   ]
 
@@ -124,6 +125,7 @@ export const DeckPack = () => {
       </div>
       <div className={s.tableSettings}>
         <Input
+          value={name}
           placeholder={'Search'}
           className={s.searchInput}
           leftSideIcon={inputIcon}

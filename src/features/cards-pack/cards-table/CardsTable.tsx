@@ -1,4 +1,3 @@
-import s from './CardsTable.module.scss'
 import { Table } from '@/components/ui/tables'
 import { TableHead } from '@/components/ui/tables/TableHead'
 import { TableRow } from '@/components/ui/tables/TableRow'
@@ -8,10 +7,11 @@ import { TableCell } from '@/components/ui/tables/TableCell'
 import { Icon } from '@/components/ui/icon'
 import deleteIcon from '@/assets/icons/delete_icon.svg'
 import { CardsModals } from '@/types/common'
-import { DeleteCard } from '@/components/modals/delete-card/DeleteCard.tsx'
 import editIcon from '@/assets/icons/edit_icon.svg'
+import { CardData } from '@/services/card-service'
 import { AddEditNewCardModal } from '@/components/modals/add-edit-new-card/AddEditNewCardModal.tsx'
-import { CardData } from '@/services/card-service/types.ts'
+import { DeleteCard } from '@/components/modals/delete-card'
+import s from './CardsTable.module.scss'
 
 type TablePropsType = {
   inputSearchData: CardData[]
