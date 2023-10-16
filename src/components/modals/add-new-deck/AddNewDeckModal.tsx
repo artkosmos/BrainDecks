@@ -8,6 +8,11 @@ import { Button } from '@/components/ui/button'
 import { Typography } from '@/components/ui/typography'
 import { Modal } from '@/components/ui/modal'
 import { DeckModals } from '@/features/deck-pack'
+import { Icon } from '@/components/ui/icon'
+import coverIcon from '@/assets/icons/cover_icon.svg'
+import { Label } from '@radix-ui/react-label'
+import { clsx } from 'clsx'
+import s1 from '@/components/ui/button/Button.module.scss'
 import s from './AddNewDeckModal.module.scss'
 
 type Props = {
@@ -30,7 +35,7 @@ export const AddNewDeckModal = ({ onSubmit, open, setOpen }: Props) => {
 
   const onSubmitHandler = handleSubmit(data => {
     onSubmit(data)
-    setOpen(null)
+    cancelModalHandler()
   })
 
   const cancelModalHandler = () => {
@@ -38,13 +43,19 @@ export const AddNewDeckModal = ({ onSubmit, open, setOpen }: Props) => {
     reset({ name: '' })
   }
 
+  const coverButtonStyle = clsx(s1.button, s1.secondary, s1.fullWidth, s.coverButton)
+
   return (
-    <Modal className={s.modal} open={open === DeckModals.CREATE} setModalState={setOpen}>
+    <Modal className={s.modal} open={open === DeckModals.CREATE} closeCallBack={cancelModalHandler}>
       <Typography className={s.title} variant={'h2'}>
         Add New Deck
       </Typography>
       <form onSubmit={onSubmitHandler} className={s.newDeckForm}>
-        <ControlledInput control={control} name={'cover'} type={'file'} />
+        <ControlledInput hidden control={control} name={'cover'} type={'file'} id={'cover'} />
+        <Label htmlFor={'cover'} className={coverButtonStyle}>
+          <Icon srcIcon={coverIcon} />
+          <Typography variant={'subtitle2'}>Change Cover</Typography>
+        </Label>
         <ControlledInput
           placeholder={''}
           aria-label={'enter new deck name'}

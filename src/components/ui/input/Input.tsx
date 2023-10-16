@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef } from 'react'
+import { ComponentPropsWithoutRef, forwardRef } from 'react'
 import { clsx } from 'clsx'
 import { Typography } from '@/components/ui/typography'
 import s from './Input.module.scss'
@@ -8,35 +8,31 @@ export type AdditionalTypeToInput = {
   rightSideIcon?: JSX.Element
   errorMessage?: string
   label?: string
-  value?: string
   name?: string
   callBack?: (value: boolean) => void
   callBackValue?: boolean
-  autoFocusValue?: boolean
 }
 
 export type InputPropsType = ComponentPropsWithoutRef<'input'> & AdditionalTypeToInput
 
-export const Input = (props: InputPropsType) => {
-  let {
+export const Input = forwardRef<HTMLInputElement, InputPropsType>((props, ref) => {
+  const {
     name,
     label,
     errorMessage,
     leftSideIcon,
     rightSideIcon,
     disabled,
-    value,
-    onChange,
     className,
     callBack,
     callBackValue,
-    autoFocusValue,
     ...rest
   } = props
 
   const showPasswordHandler = () => {
     callBack?.(!callBackValue)
   }
+
   const inputClassName = clsx(s.input, errorMessage && s.errorInput)
 
   const wrapperClassName = clsx(s.inputWrapper, className)
@@ -49,16 +45,7 @@ export const Input = (props: InputPropsType) => {
       <div>
         <div className={leftSideIcon ? s.inputIcon : s.defaultInputWithoutIcon}>
           {leftSideIcon && <span className={s.searchIcon}>{leftSideIcon}</span>}
-          <input
-            type="text"
-            placeholder={name}
-            disabled={disabled}
-            value={value}
-            onChange={onChange}
-            className={inputClassName}
-            autoFocus={autoFocusValue}
-            {...rest}
-          />
+          <input type="text" disabled={disabled} className={inputClassName} ref={ref} {...rest} />
           {rightSideIcon && (
             <span className={s.rightSideIcon} onClick={showPasswordHandler}>
               {rightSideIcon}
@@ -75,4 +62,4 @@ export const Input = (props: InputPropsType) => {
       </div>
     </div>
   )
-}
+})
