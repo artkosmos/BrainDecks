@@ -1,1 +1,1 @@
-export * from './AddNewCardModal.tsx'
+export * from './AddEditNewCardModal.tsx'

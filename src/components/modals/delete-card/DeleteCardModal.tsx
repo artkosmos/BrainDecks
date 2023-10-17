@@ -4,12 +4,13 @@ import { CardsModals } from '@/types/common'
 import { Button } from '@/components/ui/button'
 
 type Props = {
+  cardName: string | undefined
   openModal: CardsModals | null
   setOpenModal: (value: CardsModals | null) => void
   deleteCallBack: () => void
   cardQuestion?: string
 }
-export const DeleteCardModal = ({ openModal, setOpenModal, deleteCallBack }: Props) => {
+export const DeleteCardModal = ({ openModal, setOpenModal, deleteCallBack, cardName }: Props) => {
   const cancelModalHandler = () => {
     setOpenModal(null)
   }
@@ -23,7 +24,7 @@ export const DeleteCardModal = ({ openModal, setOpenModal, deleteCallBack }: Pro
     <Modal open={openModal === CardsModals.DELETE} closeCallBack={cancelModalHandler}>
       <Typography variant={'h2'}>Delete Card</Typography>
       <Typography variant={'body1'}>
-        Do you really want to remove <Typography variant={'subtitle1'}>Pack Name</Typography>?
+        Do you really want to remove <Typography variant={'subtitle1'}>{cardName}</Typography>?
       </Typography>
       <Button onClick={cancelModalHandler}>Cancel</Button>
       <Button onClick={deleteCardHandler}>Delete Card</Button>

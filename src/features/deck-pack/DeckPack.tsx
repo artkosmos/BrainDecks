@@ -86,7 +86,7 @@ export const DeckPack = () => {
   }
 
   const deleteDeckHandler = () => {
-    deleteDeck({ id: activeDeck?.id || '' })
+    deleteDeck({ id: activeDeck?.id })
   }
 
   const createDeckHandler = (data: CreateDeckArgs) => {
@@ -164,7 +164,11 @@ export const DeckPack = () => {
         setOpen={setOpenModal}
         onSubmit={updateDeckHandler}
       />
-      <DeleteDeckModal deleteCallBack={deleteDeckHandler} open={openModal} setOpen={setOpenModal} />
+      <DeleteDeckModal
+        deleteCallBack={deleteDeckHandler}
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+      />
     </div>
   )
 }

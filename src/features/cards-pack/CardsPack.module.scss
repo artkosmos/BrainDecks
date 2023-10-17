@@ -23,23 +23,14 @@
       margin-top: 15px;
     }
 
-    .backToCards {
-      cursor: pointer;
-      margin-bottom: 20px;
-      font-family: var(--font-family-primary);
-      font-size: 20px;
+    .previousPage {
+      gap: 5px;
+      padding-left: 0;
+      text-decoration-line: none;
+      border: none;
 
-      .backToPacks {
-        @include custom-text-style(
-          var(--font-family-primary),
-          14px,
-          400,
-          24px,
-          var(--color-light-100)
-        );
-
-        position: absolute;
-        margin-left: 10px;
+      &:hover {
+        text-decoration-line: underline;
       }
     }
 
@@ -64,4 +55,8 @@
       margin-top: 25px;
     }
   }
+}
+
+.table {
+  margin-top: 24px;
 }

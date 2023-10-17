@@ -35,12 +35,12 @@ export const AddEditNewCardModal = memo(
 
     const onSubmitHandler = handleSubmit(data => {
       if (createCardSubmit) {
-        console.log(data)
         createCardSubmit(data)
       }
       if (editCardSubmit) {
         editCardSubmit(data)
       }
+      reset({ question: '', answer: '' })
     })
 
     const closeModalHandler = () => {

@@ -5,22 +5,26 @@ import { DeckModals } from '@/features/deck-pack'
 import s from './DeleteDeckModal.module.scss'
 
 type Props = {
-  open: DeckModals | null
-  setOpen: (value: DeckModals | null) => void
+  openModal: DeckModals | null
+  setOpenModal: (value: DeckModals | null) => void
   deleteCallBack: () => void
 }
-export const DeleteDeckModal = ({ open, setOpen, deleteCallBack }: Props) => {
+export const DeleteDeckModal = ({ openModal, setOpenModal, deleteCallBack }: Props) => {
   const cancelModalHandler = () => {
-    setOpen(null)
+    setOpenModal(null)
   }
 
   const onDelete = () => {
     deleteCallBack()
-    setOpen(null)
+    setOpenModal(null)
   }
 
   return (
-    <Modal className={s.modal} open={open === DeckModals.DELETE} setModalState={setOpen}>
+    <Modal
+      className={s.modal}
+      open={openModal === DeckModals.DELETE}
+      closeCallBack={cancelModalHandler}
+    >
       <Typography className={s.title} variant={'h2'}>
         Delete Deck
       </Typography>
