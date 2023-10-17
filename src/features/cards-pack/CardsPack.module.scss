@@ -6,12 +6,8 @@
   align-items: center;
   justify-content: center;
 
-  width: 1000px;
-  height: auto;
-  padding: 5%;
-
-  background-color: var(--color-dark-900);
-  border-radius: 10px;
+  width: 1006px;
+  margin-top: 24px;
 
   .insideContainer {
     display: flex;
@@ -20,7 +16,6 @@
     justify-content: flex-start;
 
     width: 100%;
-    padding: 20px;
 
     .packImg {
       @include size(170px, 107px);

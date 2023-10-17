@@ -1,5 +1,4 @@
-// get
-export type CardData = {
+export type Card = {
   id: string
   question: string
   answer: string
@@ -15,8 +14,8 @@ export type CardData = {
   userId: string
 }
 
-export type GetCardsResponse = {
-  items: [CardData]
+export type CardsResponseData = {
+  items: [Card]
   pagination: {
     currentPage: number
     itemsPerPage: number
@@ -24,19 +23,22 @@ export type GetCardsResponse = {
     totalItems: number
   }
 }
-export type GetCardsPayload = {
-  packId: string
+
+type Field = 'question' | 'answer' | 'updated' | 'grade'
+
+type Direction = 'asc' | 'desc'
+
+export type GetCardsQueryParams = {
+  id: string | undefined
   question?: string
   answer?: string
-  orderBy?: string
+  orderBy?: `${Field}-${Direction}` | null
   currentPage?: number
   itemsPerPage?: number
 }
 
-//post
-
-export type PostCardPayload = {
-  packId: string
+export type CreateCardArgs = {
+  deckId: string | undefined
   question: string
   answer: string
   questionImg?: string
@@ -45,7 +47,6 @@ export type PostCardPayload = {
   answerVideo?: string
 }
 
-//put
 export type PatchResponse = {
   id: string
   deckId: string
@@ -61,4 +62,3 @@ export type PatchResponse = {
   created: string
   updated: string
 }
-//delete

@@ -1,32 +1,31 @@
 import { baseApi } from '@/services/api.ts'
 import {
-  GetCardsPayload,
-  GetCardsResponse,
+  CardsResponseData,
+  CreateCardArgs,
+  GetCardsQueryParams,
   PatchResponse,
-  PostCardPayload,
 } from '@/services/card-service'
 
 export const cardsService = baseApi.injectEndpoints({
   endpoints: builder => ({
-    getCards: builder.query<GetCardsResponse, GetCardsPayload>({
-      query: ({ packId, ...rest }) => ({
-        url: `v1/decks/${packId}/cards`,
-        params: rest,
+    getCards: builder.query<CardsResponseData, GetCardsQueryParams>({
+      query: ({ id, ...rest }) => ({
+        url: `v1/decks/${id}/cards`,
+        params: rest ?? {},
       }),
       providesTags: ['Cards'],
-      // body,
     }),
-    postCard: builder.mutation<any, PostCardPayload>({
-      query: ({ packId, ...rest }) => ({
-        url: `v1/decks/${packId}/cards`,
+    createCard: builder.mutation<any, CreateCardArgs>({
+      query: ({ deckId, ...rest }) => ({
+        url: `v1/decks/${deckId}/cards`,
         method: 'POST',
         body: rest,
       }),
       invalidatesTags: ['Cards'],
     }),
-    patchCard: builder.mutation<PatchResponse, PostCardPayload>({
-      query: ({ packId, ...rest }) => ({
-        url: `v1/cards/${packId}`,
+    patchCard: builder.mutation<PatchResponse, CreateCardArgs>({
+      query: ({ deckId, ...rest }) => ({
+        url: `v1/cards/${deckId}`,
         method: 'PATCH',
         body: rest,
       }),
@@ -45,7 +44,7 @@ export const cardsService = baseApi.injectEndpoints({
 
 export const {
   useGetCardsQuery,
-  usePostCardMutation,
   usePatchCardMutation,
   useDeleteCardMutation,
+  useCreateCardMutation,
 } = cardsService

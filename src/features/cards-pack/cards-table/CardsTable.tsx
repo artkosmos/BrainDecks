@@ -1,51 +1,57 @@
 import { Table } from '@/components/ui/tables'
-import { TableHead } from '@/components/ui/tables/TableHead'
 import { TableRow } from '@/components/ui/tables/TableRow'
-import { TableHeadCell } from '@/components/ui/tables/TableHeadCell'
 import { TableBody } from '@/components/ui/tables/TableBody'
 import { TableCell } from '@/components/ui/tables/TableCell'
-import { Icon } from '@/components/ui/icon'
-import deleteIcon from '@/assets/icons/delete_icon.svg'
 import { CardsModals } from '@/types/common'
+import { Card } from '@/services/card-service'
+import { SortTableHeader } from '@/components/ui/tables/SortTableHeader'
+import { Column } from '@/features/deck-pack'
+import { Sort } from '@/services/deck-service'
 import editIcon from '@/assets/icons/edit_icon.svg'
-import { CardData } from '@/services/card-service'
-import { AddEditNewCardModal } from '@/components/modals/add-edit-new-card/AddEditNewCardModal.tsx'
-import { DeleteCard } from '@/components/modals/delete-card'
+import deleteIcon from '@/assets/icons/delete_icon.svg'
+import { Icon } from '@/components/ui/icon'
 import s from './CardsTable.module.scss'
 
-type TablePropsType = {
-  inputSearchData: CardData[]
-  mutateCardHandler: (item: CardData, mutationType: CardsModals) => void
-  openModal: CardsModals | null
-  setModalState: (openType: CardsModals | null) => void
-  itemData: null | CardData
-  editCardHandler: (question: string, answer: string) => void
+type Props = {
+  onIconClick: (value: CardsModals | null, item: Card) => void
+  data: Card[]
+  sort?: Sort
+  setSort?: (value: any) => void
+  className?: string
 }
 
-export const CardsTable = (props: TablePropsType) => {
-  const {
-    editCardHandler,
-    setModalState,
-    openModal,
-    mutateCardHandler,
-    itemData,
-    inputSearchData,
-  } = props
+export const CardsTable = (props: Props) => {
+  const { data, sort, setSort } = props
+
+  const columns: Column[] = [
+    {
+      key: 'question',
+      title: 'Question',
+    },
+    {
+      key: 'answer',
+      title: 'Answer',
+    },
+    {
+      key: 'updated',
+      title: 'Last Updated',
+    },
+    {
+      key: 'grade',
+      title: 'Grade',
+    },
+    {
+      key: '',
+      title: '',
+    },
+  ]
 
   return (
     <Table className={s.table}>
-      <TableHead>
-        <TableRow>
-          <TableHeadCell>Question</TableHeadCell>
-          <TableHeadCell>Answer</TableHeadCell>
-          <TableHeadCell>Last Updated</TableHeadCell>
-          <TableHeadCell>Grade</TableHeadCell>
-          <TableHeadCell className={s.actionTableCell}></TableHeadCell>
-        </TableRow>
-      </TableHead>
+      <SortTableHeader columns={columns} sort={sort} onSort={setSort} />
 
       <TableBody>
-        {inputSearchData.map(item => {
+        {data.map(item => {
           return (
             <TableRow key={item.id}>
               <TableCell>{item.question}</TableCell>
@@ -53,29 +59,19 @@ export const CardsTable = (props: TablePropsType) => {
               <TableCell>{new Date(item.updated).toLocaleDateString()}</TableCell>
               <TableCell>{item.grade}</TableCell>
               <TableCell className={s.actions}>
-                <Icon
-                  className={s.icon}
-                  srcIcon={deleteIcon}
-                  alt={'delete icon'}
-                  onClick={() => mutateCardHandler(item, CardsModals.DELETE)}
-                />
-                <DeleteCard
-                  open={openModal}
-                  setModalState={setModalState}
-                  cardId={itemData?.id}
-                  cardQuestion={itemData?.question}
-                />
-                <Icon
-                  className={s.icon}
-                  srcIcon={editIcon}
-                  onClick={() => mutateCardHandler(item, CardsModals.UPDATE)}
-                  alt={'edit icon'}
-                />
-                <AddEditNewCardModal
-                  open={openModal}
-                  setModalState={setModalState}
-                  editCard={editCardHandler}
-                />
+                <Icon className={s.icon} srcIcon={deleteIcon} alt={'delete'} onClick={() => {}} />
+                <Icon className={s.icon} srcIcon={editIcon} onClick={() => {}} alt={'edit'} />
+                {/*<DeleteCard*/}
+                {/*  open={openModal}*/}
+                {/*  setModalState={setModalState}*/}
+                {/*  cardId={data?.id}*/}
+                {/*  cardQuestion={data?.question}*/}
+                {/*/>*/}
+                {/*<AddEditNewCardModal*/}
+                {/*  open={openModal}*/}
+                {/*  setModalState={setModalState}*/}
+                {/*  editCard={editCardHandler}*/}
+                {/*/>*/}
               </TableCell>
             </TableRow>
           )

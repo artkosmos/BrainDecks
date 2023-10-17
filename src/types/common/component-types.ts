@@ -5,7 +5,7 @@ import {
   createNewPasswordSchema,
   forgotPasswordSchema,
   logInSchema,
-  newCardSchema,
+  addNewCardSchema,
   newDeckNameSchema,
 } from '@/schemes'
 
@@ -15,7 +15,7 @@ export type CreateNewPasswordFields = z.infer<typeof createNewPasswordSchema>
 
 export type NewDeckNameFields = z.infer<typeof newDeckNameSchema>
 
-export type NewCardField = z.infer<typeof newCardSchema>
+export type NewCardFields = z.infer<typeof addNewCardSchema>
 
 export type LogInFields = z.infer<typeof logInSchema>
 

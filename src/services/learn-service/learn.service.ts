@@ -1,5 +1,5 @@
 import { baseApi } from '@/services/api.ts'
-import { CardResponse, GetRandomCardArgs } from ''
+import { CardResponse, GetRandomCardArgs } from '@/services/learn-service'
 
 export const learnService = baseApi.injectEndpoints({
   endpoints: builder => ({

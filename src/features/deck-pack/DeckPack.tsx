@@ -150,7 +150,6 @@ export const DeckPack = () => {
       </div>
       <DeckTable data={data.items} onIconClick={openModalHandler} sort={sort} setSort={setSort} />
       <Pagination
-        className={s.pagination}
         options={selectOptions}
         totalCount={data.pagination.totalItems}
         currentPage={data.pagination.currentPage}

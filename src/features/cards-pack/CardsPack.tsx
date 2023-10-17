@@ -1,39 +1,59 @@
-import { ChangeEvent, memo, useState } from 'react'
+import { ChangeEvent, useMemo, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { Typography } from '@/components/ui/typography'
-import headerLogo from '@/assets/icons/cardsLogo.png'
+import searchIcon from '@/assets/icons/input_search.svg'
 import { Pagination } from '@/components/ui/pagination'
 import { Input } from '@/components/ui/input'
-import { CardsModals } from '@/types/common'
+import { CardsModals, NewCardFields } from '@/types/common'
 import { Button } from '@/components/ui/button'
 import { PackOptions } from '@/components/modals/pack-options/PackOptions.tsx'
 import { AddEditNewCardModal } from '@/components/modals/add-edit-new-card/AddEditNewCardModal.tsx'
 import { CardsTable } from '@/features/cards-pack/cards-table'
 import {
-  CardData,
+  Card,
+  GetCardsQueryParams,
+  useCreateCardMutation,
   useGetCardsQuery,
   usePatchCardMutation,
-  usePostCardMutation,
 } from '@/services/card-service'
+import { useDebounce } from '@/hooks'
+import { Icon } from '@/components/ui/icon'
+import { Sort } from '@/services/deck-service'
 import s from './CardsPack.module.scss'
 
-export const CardsPack = memo(() => {
-  const [inputValue, setInputValue] = useState<string>('')
-  const [itemData, setItemData] = useState<null | CardData>(null)
-  const [openModal, setModalState] = useState<CardsModals | null>(null)
+export const CardsPack = () => {
+  const [question, setQuestion] = useState<string>('')
+  const [openModal, setOpenModal] = useState<CardsModals | null>(null)
   const [currentPage, setCurrentPage] = useState(1)
-  const [itemsOnPage, setItemsOnPage] = useState(10)
-  const [postCard] = usePostCardMutation({})
-  const [editCard] = usePatchCardMutation({})
-  let temporaryPackId = 'clncye7q80smlvo2qvhrs59uo'
+  const [itemsPerPage, setItemsPerPage] = useState(10)
+  const [activeCard, setActiveCard] = useState<Card | undefined>()
+  const [sort, setSort] = useState<Sort | null>(null)
 
+  const debouncedInputValue = useDebounce(question)
+
+  const { deckId, deckName } = useParams<{ deckId: string; deckName: string }>()
+
+  const sortedString = useMemo(() => {
+    if (!sort) return null
+
+    return `${sort.key}-${sort.direction}` as GetCardsQueryParams['orderBy']
+  }, [sort])
+
+  const [createCard] = useCreateCardMutation({})
+  const [editCard] = usePatchCardMutation({})
   const { data } = useGetCardsQuery({
-    packId: temporaryPackId,
+    id: deckId,
+    question: debouncedInputValue,
     currentPage,
-    itemsPerPage: itemsOnPage,
+    itemsPerPage,
+    orderBy: sortedString,
   })
+
+  // useEffect(() => {
+  //   setActiveCard(data.items)
+  // }, [])
 
   const selectOptions = ['10', '20', '30', '50', '100']
 
@@ -42,46 +62,42 @@ export const CardsPack = memo(() => {
   }
 
   const changeSearchValue = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.currentTarget.value)
+    setQuestion(e.currentTarget.value)
   }
 
-  const inputSearchData = data.items.filter(elements => {
-    if (inputValue !== '') {
-      return elements.question.includes(inputValue)
-    } else {
-      return elements
-    }
-  })
+  // const editCardHandler = async (question: string, answer: string) => {
+  //   try {
+  //     await editCard({ question, answer, packId: itemData ? itemData.id : '' })
+  //     setModalState(null)
+  //
+  //     return 1
+  //   } catch (e) {
+  //     return
+  //   }
+  // }
+  // const mutateCardHandler = (item: Card, mutationType: CardsModals) => {
+  //   setModalState(mutationType)
+  //   setItemData(item)
+  // }
 
-  const addNewCardHandler = async (question: string, answer: string) => {
-    try {
-      await postCard({ answer, question, packId: temporaryPackId })
-      setModalState(null)
-    } catch (e) {
-      return
-    }
+  const openModalHandler = (value: CardsModals | null, item?: Card) => {
+    setOpenModal(value)
+    setActiveCard(item)
   }
 
-  const editCardHandler = async (question: string, answer: string) => {
-    try {
-      await editCard({ question, answer, packId: itemData ? itemData.id : '' })
-      setModalState(null)
+  const createCardHandler = (data: NewCardFields) => {
+    const { question, answer } = data
 
-      return 1
-    } catch (e) {
-      return
-    }
+    createCard({ deckId, question, answer })
   }
-  const mutateCardHandler = (item: CardData, mutationType: CardsModals) => {
-    setModalState(mutationType)
-    setItemData(item)
-  }
+
+  const inputIcon = <Icon srcIcon={searchIcon} />
 
   return (
     <div className={s.packContainer}>
       <div className={s.insideContainer}>
         <span>
-          <Link to={'/decks'} style={{ textDecoration: 'none', color: 'black' }}>
+          <Link to={'/'} style={{ textDecoration: 'none', color: 'black' }}>
             <label className={s.backToCards}>
               <FontAwesomeIcon icon={faArrowLeft} style={{ color: '#ffffff' }} />
               <Typography className={s.backToPacks} variant={'body2'}>
@@ -93,45 +109,44 @@ export const CardsPack = memo(() => {
 
         <span className={s.packAddName}>
           <Typography className={s.packName} variant={'large'}>
-            {'packName'}
+            {deckName}
             <span style={{ marginLeft: '10px' }}>
               <PackOptions />
               {/*тут ^ будет коллбек по откртию модалок */}
             </span>
           </Typography>
-          <Button onClick={() => setModalState(CardsModals.CREATE)}>Add New Card</Button>
-          <AddEditNewCardModal
-            open={openModal}
-            setModalState={setModalState}
-            createCard={addNewCardHandler}
-          />
+          <Button onClick={() => openModalHandler(CardsModals.CREATE)}>Add New Card</Button>
         </span>
-        <img className={s.packImg} src={headerLogo} alt="" />
         <div className={s.searchContainer}>
           <Input
             className={s.input}
-            name={'Search input'}
+            placeholder={'Search question'}
+            leftSideIcon={inputIcon}
             onChange={changeSearchValue}
-            value={inputValue}
+            value={question}
           />
         </div>
         <CardsTable
-          mutateCardHandler={mutateCardHandler}
-          setModalState={setModalState}
-          editCardHandler={editCardHandler}
-          inputSearchData={inputSearchData}
-          itemData={itemData}
-          openModal={openModal}
+          onIconClick={openModalHandler}
+          data={data.items}
+          sort={sort}
+          setSort={setSort}
         />
       </div>
       <Pagination
+        className={s.pagination}
         currentPage={data.pagination.currentPage}
         pageSize={data.pagination.itemsPerPage}
         totalCount={data.pagination.totalItems}
         options={selectOptions}
-        setItemsPerPage={setItemsOnPage}
+        setItemsPerPage={setItemsPerPage}
         setCurrentPage={setCurrentPage}
+      />
+      <AddEditNewCardModal
+        open={openModal}
+        setOpenModal={setOpenModal}
+        createCardSubmit={createCardHandler}
       />
     </div>
   )
-})
+}

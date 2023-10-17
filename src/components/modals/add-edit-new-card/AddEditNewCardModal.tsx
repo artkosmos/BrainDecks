@@ -1,56 +1,59 @@
 import { Modal } from '@/components/ui/modal'
 import { Typography } from '@/components/ui/typography'
 import { Button } from '@/components/ui/button'
-import { CardsModals, NewCardField } from '@/types/common'
+import { CardsModals, NewCardFields } from '@/types/common'
 import { useForm } from 'react-hook-form'
 import { ControlledSelector } from '@/components/ui/controlled/controlledSelect'
 import { ControlledInput } from '@/components/ui/controlled/controlledInput'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { newCardSchema } from '@/schemes'
+import { addNewCardSchema } from '@/schemes'
 import { memo } from 'react'
 
-type AddEditNewCardPropsType = {
+type Props = {
   open: CardsModals | null
-  setModalState: (value: CardsModals | null) => void
-  createCard?: (question: string, answer: string) => void
-  editCard?: (question: string, answer: string) => void
+  setOpenModal: (value: CardsModals | null) => void
+  createCardSubmit?: (data: NewCardFields) => void
+  editCardSubmit?: (data: NewCardFields) => void
 }
 
 export const AddEditNewCardModal = memo(
-  ({ open, setModalState, createCard, editCard }: AddEditNewCardPropsType) => {
-    const { control, handleSubmit } = useForm<NewCardField>({
-      resolver: zodResolver(newCardSchema),
+  ({ open, setOpenModal, createCardSubmit, editCardSubmit }: Props) => {
+    const { control, handleSubmit, reset } = useForm<NewCardFields>({
+      resolver: zodResolver(addNewCardSchema),
       mode: 'onSubmit',
 
       defaultValues: {
         selectCardFormat: 'text',
+        question: '',
+        answer: '',
       },
     })
 
-    const openModalType = open === CardsModals.CREATE || open === CardsModals.UPDATE
-    const name = open === CardsModals.CREATE ? 'Add New Card' : 'Edit Card'
+    const modalTitle = open === CardsModals.CREATE ? 'Add New Card' : 'Edit Card'
+    const submitButtonText = open === CardsModals.CREATE ? 'Add Card' : 'Save Changes'
     const data = ['text', 'image']
-    const onSubmitHandler = handleSubmit(data => {
-      const { Question, Answer } = data
 
-      if (createCard) {
-        createCard(Question, Answer)
+    const onSubmitHandler = handleSubmit(data => {
+      if (createCardSubmit) {
+        console.log(data)
+        createCardSubmit(data)
       }
-      if (editCard) {
-        editCard(Question, Answer)
+      if (editCardSubmit) {
+        editCardSubmit(data)
       }
     })
-    const closeModal = () => {
-      setModalState(null)
+
+    const closeModalHandler = () => {
+      setOpenModal(null)
+      reset({ question: '', answer: '' })
     }
 
     return (
       <Modal
-        // open={open === (CardsModals.CREATE || CardsModals.UPDATE)}
-        open={openModalType}
-        setModalState={setModalState}
+        open={open === CardsModals.CREATE || open === CardsModals.UPDATE}
+        closeCallBack={closeModalHandler}
       >
-        <Typography>{name}</Typography>
+        <Typography variant={'h2'}>{modalTitle}</Typography>
         <form onSubmit={onSubmitHandler}>
           <ControlledSelector
             label={'Chose a question format'}
@@ -58,12 +61,13 @@ export const AddEditNewCardModal = memo(
             control={control}
             selectData={data}
           ></ControlledSelector>
-          <ControlledInput name={'Question'} label={'Question'} control={control}></ControlledInput>
-          <ControlledInput name={'Answer'} label={'Answer'} control={control}></ControlledInput>
-          <Button onClick={closeModal}>Cancel</Button>
+          <ControlledInput name={'question'} label={'Question'} control={control}></ControlledInput>
+          <ControlledInput name={'answer'} label={'Answer'} control={control}></ControlledInput>
+          <Button type={'button'} onClick={closeModalHandler}>
+            <Typography variant={'subtitle2'}>Cancel</Typography>
+          </Button>
           <Button type={'submit'} variant={'primary'}>
-            {/*onClick={addNewCardHandler}*/}
-            <Typography variant={'h2'}>{name}</Typography>
+            <Typography variant={'subtitle2'}>{submitButtonText}</Typography>
           </Button>
         </form>
       </Modal>

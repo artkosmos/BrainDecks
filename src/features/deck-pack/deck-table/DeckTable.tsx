@@ -55,7 +55,12 @@ export const DeckTable = (props: Props) => {
         {data.map(deck => {
           return (
             <TableRow key={deck.id}>
-              <TableCell>{deck.name}</TableCell>
+              <TableCell
+                className={s.deckName}
+                onClick={() => navigate(`/cards/${deck.name}/${deck.id}`)}
+              >
+                {deck.name}
+              </TableCell>
               <TableCell>{deck.cardsCount}</TableCell>
               <TableCell>{new Date(deck.updated).toLocaleDateString()}</TableCell>
               <TableCell>{deck.author.name}</TableCell>
@@ -64,16 +69,19 @@ export const DeckTable = (props: Props) => {
                   onClick={() => navigate(`/learn/${deck.name}/${undefined}`)}
                   className={s.icon}
                   srcIcon={playIcon}
+                  alt={'play'}
                 />
                 <Icon
                   onClick={() => onIconClick(DeckModals.UPDATE, deck)}
                   className={s.icon}
                   srcIcon={editIcon}
+                  alt={'edit'}
                 />
                 <Icon
                   onClick={() => onIconClick(DeckModals.DELETE, deck)}
                   className={s.icon}
                   srcIcon={deleteIcon}
+                  alt={'delete'}
                 />
               </TableCell>
             </TableRow>

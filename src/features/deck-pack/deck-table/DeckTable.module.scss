@@ -11,3 +11,15 @@
     margin-right: 0;
   }
 }
+
+.deckName {
+  cursor: pointer;
+
+  &:hover {
+    color: var(--color-accent-300);
+  }
+
+  &:active {
+    color: var(--color-accent-700);
+  }
+}
