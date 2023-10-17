@@ -32,7 +32,7 @@ export const cardsService = baseApi.injectEndpoints({
       invalidatesTags: ['Cards'],
     }),
     deleteCard: builder.mutation<void, { id: string | undefined }>({
-      query: id => ({
+      query: ({ id }) => ({
         url: `v1/cards/${id}`,
         method: 'DELETE',
       }),

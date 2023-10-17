@@ -1,28 +1,27 @@
 import { ChangeEvent, useMemo, useState } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { Link, useParams } from 'react-router-dom'
-import { Typography } from '@/components/ui/typography'
 import searchIcon from '@/assets/icons/input_search.svg'
+import leftArrow from '@/assets/icons/prevoius_page.svg'
+import { Typography } from '@/components/ui/typography'
 import { Pagination } from '@/components/ui/pagination'
 import { Input } from '@/components/ui/input'
-import { CardsModals, NewCardFields } from '@/types/common'
+import { EmptyCardsPack } from '@/features/empty-cards-pack'
 import { Button } from '@/components/ui/button'
+import { DeleteCardModal } from '@/components/modals/delete-card'
 import { PackOptions } from '@/components/modals/pack-options/PackOptions.tsx'
 import { AddEditNewCardModal } from '@/components/modals/add-edit-new-card/AddEditNewCardModal.tsx'
 import { CardsTable } from '@/features/cards-pack/cards-table'
+import { Icon } from '@/components/ui/icon'
+import { Sort } from '@/services/deck-service'
+import { CardsModals, NewCardFields } from '@/types/common'
 import {
   Card,
   GetCardsQueryParams,
   useCreateCardMutation,
   useDeleteCardMutation,
   useGetCardsQuery,
-  usePatchCardMutation,
 } from '@/services/card-service'
 import { useDebounce } from '@/hooks'
-import { Icon } from '@/components/ui/icon'
-import { Sort } from '@/services/deck-service'
-import { DeleteCardModal } from '@/components/modals/delete-card'
 import s from './CardsPack.module.scss'
 
 export const CardsPack = () => {
@@ -43,10 +42,10 @@ export const CardsPack = () => {
     return `${sort.key}-${sort.direction}` as GetCardsQueryParams['orderBy']
   }, [sort])
 
-  const [createCard] = useCreateCardMutation({})
-  const [editCard] = usePatchCardMutation({})
+  const [createCard] = useCreateCardMutation()
+  // const [editCard] = usePatchCardMutation()
   const [deleteCard] = useDeleteCardMutation()
-  const { data } = useGetCardsQuery({
+  const { data, isLoading } = useGetCardsQuery({
     id: deckId,
     question: debouncedInputValue,
     currentPage,
@@ -54,15 +53,8 @@ export const CardsPack = () => {
     orderBy: sortedString,
   })
 
-  // useEffect(() => {
-  //   setActiveCard(data.items)
-  // }, [])
-
   const selectOptions = ['10', '20', '30', '50', '100']
-
-  if (!data) {
-    return null
-  }
+  const inputIcon = <Icon srcIcon={searchIcon} />
 
   const changeSearchValue = (e: ChangeEvent<HTMLInputElement>) => {
     setQuestion(e.currentTarget.value)
@@ -77,28 +69,40 @@ export const CardsPack = () => {
     const { question, answer } = data
 
     createCard({ deckId, question, answer })
+    setOpenModal(null)
   }
 
   const deleteCardHandler = () => {
     deleteCard({ id: activeCard?.id })
   }
 
-  const inputIcon = <Icon srcIcon={searchIcon} />
+  if (isLoading) {
+    return <div style={{ textAlign: 'center' }}>Loading...</div>
+  }
+
+  if (!data) {
+    return <div style={{ textAlign: 'center' }}>NO DATA RECEIVED</div>
+  }
+
+  if (!data.items.length) {
+    return (
+      <EmptyCardsPack
+        openModal={openModal}
+        deckName={deckName}
+        deckId={deckId}
+        setOpenModal={openModalHandler}
+        createDeck={createCardHandler}
+      />
+    )
+  }
 
   return (
     <div className={s.packContainer}>
       <div className={s.insideContainer}>
-        <span>
-          <Link to={'/'} style={{ textDecoration: 'none', color: 'black' }}>
-            <label className={s.backToCards}>
-              <FontAwesomeIcon icon={faArrowLeft} style={{ color: '#ffffff' }} />
-              <Typography className={s.backToPacks} variant={'body2'}>
-                Back to Packs List
-              </Typography>
-            </label>
-          </Link>
-        </span>
-
+        <Button as={Link} to={'/'} variant={'link'} className={s.previousPage}>
+          <Icon srcIcon={leftArrow} alt={'arrow'} />
+          <Typography variant={'body2'}>Back to Deck List</Typography>
+        </Button>
         <span className={s.packAddName}>
           <Typography className={s.packName} variant={'large'}>
             {deckName}
@@ -141,6 +145,7 @@ export const CardsPack = () => {
         createCardSubmit={createCardHandler}
       />
       <DeleteCardModal
+        cardName={activeCard?.question}
         openModal={openModal}
         setOpenModal={setOpenModal}
         cardQuestion={activeCard?.question}
