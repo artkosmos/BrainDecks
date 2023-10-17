@@ -21,7 +21,7 @@ type Props = {
 }
 
 export const CardsTable = (props: Props) => {
-  const { data, sort, setSort } = props
+  const { data, sort, setSort, onIconClick, className } = props
 
   const columns: Column[] = [
     {
@@ -47,7 +47,7 @@ export const CardsTable = (props: Props) => {
   ]
 
   return (
-    <Table className={s.table}>
+    <Table className={className}>
       <SortTableHeader columns={columns} sort={sort} onSort={setSort} />
 
       <TableBody>
@@ -59,19 +59,18 @@ export const CardsTable = (props: Props) => {
               <TableCell>{new Date(item.updated).toLocaleDateString()}</TableCell>
               <TableCell>{item.grade}</TableCell>
               <TableCell className={s.actions}>
-                <Icon className={s.icon} srcIcon={deleteIcon} alt={'delete'} onClick={() => {}} />
-                <Icon className={s.icon} srcIcon={editIcon} onClick={() => {}} alt={'edit'} />
-                {/*<DeleteCard*/}
-                {/*  open={openModal}*/}
-                {/*  setModalState={setModalState}*/}
-                {/*  cardId={data?.id}*/}
-                {/*  cardQuestion={data?.question}*/}
-                {/*/>*/}
-                {/*<AddEditNewCardModal*/}
-                {/*  open={openModal}*/}
-                {/*  setModalState={setModalState}*/}
-                {/*  editCard={editCardHandler}*/}
-                {/*/>*/}
+                <Icon
+                  className={s.icon}
+                  srcIcon={deleteIcon}
+                  alt={'delete'}
+                  onClick={() => onIconClick(CardsModals.DELETE, item)}
+                />
+                <Icon
+                  className={s.icon}
+                  srcIcon={editIcon}
+                  onClick={() => onIconClick(CardsModals.UPDATE, item)}
+                  alt={'edit'}
+                />
               </TableCell>
             </TableRow>
           )

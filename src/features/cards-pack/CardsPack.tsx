@@ -15,12 +15,14 @@ import {
   Card,
   GetCardsQueryParams,
   useCreateCardMutation,
+  useDeleteCardMutation,
   useGetCardsQuery,
   usePatchCardMutation,
 } from '@/services/card-service'
 import { useDebounce } from '@/hooks'
 import { Icon } from '@/components/ui/icon'
 import { Sort } from '@/services/deck-service'
+import { DeleteCardModal } from '@/components/modals/delete-card'
 import s from './CardsPack.module.scss'
 
 export const CardsPack = () => {
@@ -43,6 +45,7 @@ export const CardsPack = () => {
 
   const [createCard] = useCreateCardMutation({})
   const [editCard] = usePatchCardMutation({})
+  const [deleteCard] = useDeleteCardMutation()
   const { data } = useGetCardsQuery({
     id: deckId,
     question: debouncedInputValue,
@@ -65,21 +68,6 @@ export const CardsPack = () => {
     setQuestion(e.currentTarget.value)
   }
 
-  // const editCardHandler = async (question: string, answer: string) => {
-  //   try {
-  //     await editCard({ question, answer, packId: itemData ? itemData.id : '' })
-  //     setModalState(null)
-  //
-  //     return 1
-  //   } catch (e) {
-  //     return
-  //   }
-  // }
-  // const mutateCardHandler = (item: Card, mutationType: CardsModals) => {
-  //   setModalState(mutationType)
-  //   setItemData(item)
-  // }
-
   const openModalHandler = (value: CardsModals | null, item?: Card) => {
     setOpenModal(value)
     setActiveCard(item)
@@ -89,6 +77,10 @@ export const CardsPack = () => {
     const { question, answer } = data
 
     createCard({ deckId, question, answer })
+  }
+
+  const deleteCardHandler = () => {
+    deleteCard({ id: activeCard?.id })
   }
 
   const inputIcon = <Icon srcIcon={searchIcon} />
@@ -127,6 +119,7 @@ export const CardsPack = () => {
           />
         </div>
         <CardsTable
+          className={s.table}
           onIconClick={openModalHandler}
           data={data.items}
           sort={sort}
@@ -146,6 +139,12 @@ export const CardsPack = () => {
         open={openModal}
         setOpenModal={setOpenModal}
         createCardSubmit={createCardHandler}
+      />
+      <DeleteCardModal
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        cardQuestion={activeCard?.question}
+        deleteCallBack={deleteCardHandler}
       />
     </div>
   )
