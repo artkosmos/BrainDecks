@@ -18,8 +18,7 @@ import {
   Sort,
   CreateDeckArgs,
 } from '@/services/deck-service'
-import { NewDeckNameFields } from '@/types/common'
-import { DeckModals } from '@/features/deck-pack'
+import { DeckModals, NewDeckFields } from '@/features/deck-pack'
 import { AddNewDeckModal } from '@/components/modals/add-new-deck'
 import searchIcon from '@/assets/icons/input_search.svg'
 import { EditDeckModal } from '@/components/modals/edit-deck'
@@ -93,7 +92,7 @@ export const DeckPack = () => {
     createDeck(data)
   }
 
-  const updateDeckHandler = (data: NewDeckNameFields) => {
+  const updateDeckHandler = (data: NewDeckFields) => {
     const { name, isPrivate } = data
 
     updateDeck({ id: activeDeck?.id || '', name, isPrivate })
@@ -157,14 +156,19 @@ export const DeckPack = () => {
         setCurrentPage={setCurrentPage}
         setItemsPerPage={setItemsPerPage}
       />
-      <AddNewDeckModal open={openModal} setOpen={setOpenModal} onSubmit={createDeckHandler} />
+      <AddNewDeckModal
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        onSubmit={createDeckHandler}
+      />
       <EditDeckModal
         activeItem={activeDeck}
-        open={openModal}
-        setOpen={setOpenModal}
+        openModal={openModal}
+        setOpenModal={setOpenModal}
         onSubmit={updateDeckHandler}
       />
       <DeleteDeckModal
+        deckName={activeDeck?.name}
         deleteCallBack={deleteDeckHandler}
         openModal={openModal}
         setOpenModal={setOpenModal}

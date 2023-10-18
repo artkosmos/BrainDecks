@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 import { Icon } from '@/components/ui/icon'
 import leftArrow from '@/assets/icons/prevoius_page.svg'
 import { Typography } from '@/components/ui/typography'
-import { CardsModals, NewCardFields } from '@/types/common'
 import { clsx } from 'clsx'
-import { AddEditNewCardModal } from '@/components/modals/add-edit-new-card'
+import { AddNewCardModal } from '@/components/modals/add-new-card'
+import { CardsModals, NewCardFields } from '@/features/cards-pack'
 import s from './EmptyCardsPack.module.scss'
 
 type Props = {
@@ -39,11 +39,7 @@ export const EmptyCardsPack = (props: Props) => {
           <Typography variant={'subtitle2'}>Add New Card</Typography>
         </Button>
       </div>
-      <AddEditNewCardModal
-        open={openModal}
-        setOpenModal={setOpenModal}
-        createCardSubmit={createDeck}
-      />
+      <AddNewCardModal open={openModal} setOpenModal={setOpenModal} onSubmit={createDeck} />
     </div>
   )
 }

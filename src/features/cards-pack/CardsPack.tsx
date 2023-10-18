@@ -11,9 +11,10 @@ import { DeleteCardModal } from '@/components/modals/delete-card'
 import { PackOptions } from '@/components/modals/pack-options/PackOptions.tsx'
 import { AddNewCardModal } from '@/components/modals/add-new-card/AddNewCardModal.tsx'
 import { CardsTable } from '@/features/cards-pack/cards-table'
+import { EditCardModal } from '@/components/modals/edit-card'
 import { Icon } from '@/components/ui/icon'
 import { Sort } from '@/services/deck-service'
-import { CardsModals, NewCardFields } from '@/types/common'
+import { CardsModals, NewCardFields, SelectOptions } from '@/features/cards-pack/types.ts'
 import {
   Card,
   GetCardsQueryParams,
@@ -24,7 +25,6 @@ import {
 } from '@/services/card-service'
 import { useDebounce } from '@/hooks'
 import s from './CardsPack.module.scss'
-import { EditCardModal } from '@/components/modals/edit-card'
 
 export const CardsPack = () => {
   const [question, setQuestion] = useState<string>('')
@@ -55,8 +55,8 @@ export const CardsPack = () => {
     orderBy: sortedString,
   })
 
-  const paginationSelectOptions = ['10', '20', '30', '50', '100']
-  const cardSelectOptions = ['text', 'image']
+  const paginationSelectOptions: SelectOptions = ['10', '20', '30', '50', '100']
+  const cardSelectOptions: SelectOptions = ['text', 'image']
   const inputIcon = <Icon srcIcon={searchIcon} />
 
   const changeSearchValue = (e: ChangeEvent<HTMLInputElement>) => {
@@ -150,13 +150,13 @@ export const CardsPack = () => {
         setCurrentPage={setCurrentPage}
       />
       <AddNewCardModal
-        open={openModal}
+        openModal={openModal}
         setOpenModal={setOpenModal}
         onSubmit={createCardHandler}
         selectOptions={cardSelectOptions}
       />
       <EditCardModal
-        open={openModal}
+        openModal={openModal}
         setOpenModal={setOpenModal}
         onSubmit={updateCardHandler}
         activeCard={activeCard}

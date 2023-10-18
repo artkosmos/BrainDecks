@@ -1,7 +1,6 @@
 import { Modal } from '@/components/ui/modal'
 import { Typography } from '@/components/ui/typography'
 import { Button } from '@/components/ui/button'
-import { CardsModals, NewCardFields } from '@/types/common'
 import { useForm } from 'react-hook-form'
 import { ControlledSelector } from '@/components/ui/controlled/controlledSelect'
 import { ControlledInput } from '@/components/ui/controlled/controlledInput'
@@ -9,6 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { addNewCardSchema } from '@/schemes'
 import { useEffect } from 'react'
 import { Card } from '@/services/card-service'
+import { CardsModals, NewCardFields } from '@/features/cards-pack'
 
 type Props = {
   open: CardsModals | null

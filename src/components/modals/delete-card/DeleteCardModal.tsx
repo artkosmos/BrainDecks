@@ -1,7 +1,7 @@
 import { Modal } from '@/components/ui/modal'
 import { Typography } from '@/components/ui/typography'
-import { CardsModals } from '@/types/common'
 import { Button } from '@/components/ui/button'
+import { CardsModals } from '@/features/cards-pack'
 
 type Props = {
   cardName: string | undefined
