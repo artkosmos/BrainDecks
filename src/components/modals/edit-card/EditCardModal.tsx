@@ -9,9 +9,11 @@ import { addNewCardSchema } from '@/schemes'
 import { useEffect } from 'react'
 import { Card } from '@/services/card-service'
 import { CardsModals, NewCardFields } from '@/features/cards-pack'
+import s from '@/components/modals/add-new-card/AddNewCardModal.module.scss'
+import s1 from '@/components/modals/edit-deck/EditDeckModal.module.scss'
 
 type Props = {
-  open: CardsModals | null
+  openModal: CardsModals | null
   setOpenModal: (value: CardsModals | null) => void
   onSubmit?: (data: NewCardFields) => void
   activeCard: Card | undefined
@@ -19,7 +21,7 @@ type Props = {
 }
 
 export const EditCardModal = (props: Props) => {
-  const { open, setOpenModal, onSubmit, activeCard, selectOptions } = props
+  const { openModal, setOpenModal, onSubmit, activeCard, selectOptions } = props
 
   const { control, handleSubmit, reset } = useForm<NewCardFields>({
     resolver: zodResolver(addNewCardSchema),
@@ -54,9 +56,15 @@ export const EditCardModal = (props: Props) => {
   }
 
   return (
-    <Modal open={open === CardsModals.UPDATE} closeCallBack={closeModalHandler}>
-      <Typography variant={'h2'}>Edit Card</Typography>
-      <form onSubmit={onSubmitHandler}>
+    <Modal
+      className={s1.modal}
+      open={openModal === CardsModals.UPDATE}
+      closeCallBack={closeModalHandler}
+    >
+      <Typography className={s1.title} variant={'h2'}>
+        Edit Card
+      </Typography>
+      <form className={s1.form} onSubmit={onSubmitHandler}>
         <ControlledSelector
           label={'Chose a question format'}
           name={'selectCardFormat'}
@@ -65,17 +73,25 @@ export const EditCardModal = (props: Props) => {
         ></ControlledSelector>
         <ControlledInput
           autoFocus
+          className={s.questionInput}
           name={'question'}
           label={'Question'}
           control={control}
         ></ControlledInput>
-        <ControlledInput name={'answer'} label={'Answer'} control={control}></ControlledInput>
-        <Button type={'button'} onClick={closeModalHandler}>
-          <Typography variant={'subtitle2'}>Cancel</Typography>
-        </Button>
-        <Button type={'submit'} variant={'primary'}>
-          <Typography variant={'subtitle2'}>Save Changes</Typography>
-        </Button>
+        <ControlledInput
+          className={s.answerInput}
+          name={'answer'}
+          label={'Answer'}
+          control={control}
+        ></ControlledInput>
+        <div className={s1.buttonArea}>
+          <Button variant={'secondary'} type={'button'} onClick={closeModalHandler}>
+            <Typography variant={'subtitle2'}>Cancel</Typography>
+          </Button>
+          <Button type={'submit'} variant={'primary'}>
+            <Typography variant={'subtitle2'}>Save Changes</Typography>
+          </Button>
+        </div>
       </form>
     </Modal>
   )
