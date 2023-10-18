@@ -39,7 +39,7 @@ export const EmptyCardsPack = (props: Props) => {
           <Typography variant={'subtitle2'}>Add New Card</Typography>
         </Button>
       </div>
-      <AddNewCardModal open={openModal} setOpenModal={setOpenModal} onSubmit={createDeck} />
+      <AddNewCardModal openModal={openModal} setOpenModal={setOpenModal} onSubmit={createDeck} />
     </div>
   )
 }

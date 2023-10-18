@@ -13,7 +13,7 @@ export const LearnCard = () => {
 
   const { deckId, deckName } = useParams<{ deckId: string; deckName: string }>()
 
-  const { data } = useGetRandomCardWithQuery({ deckId, previousCardId })
+  const { data, isLoading } = useGetRandomCardWithQuery({ deckId, previousCardId })
 
   const onShowAnswer = () => {
     setIsShowAnswer(true)
@@ -45,6 +45,10 @@ export const LearnCard = () => {
       value: '4',
     },
   ]
+
+  if (isLoading) {
+    return <div style={{ textAlign: 'center' }}>Loading...</div>
+  }
 
   return (
     <div className={s.wrapper}>
