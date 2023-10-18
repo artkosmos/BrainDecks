@@ -29,7 +29,7 @@ type Field = 'question' | 'answer' | 'updated' | 'grade'
 type Direction = 'asc' | 'desc'
 
 export type GetCardsQueryParams = {
-  id: string | undefined
+  id: string
   question?: string
   answer?: string
   orderBy?: `${Field}-${Direction}` | null
@@ -38,7 +38,7 @@ export type GetCardsQueryParams = {
 }
 
 export type CreateCardArgs = {
-  deckId: string | undefined
+  id: string
   question: string
   answer: string
   questionImg?: string
@@ -47,7 +47,9 @@ export type CreateCardArgs = {
   answerVideo?: string
 }
 
-export type PatchResponse = {
+export type UpdateCardArgs = Pick<GetCardsQueryParams, 'id'> & Omit<CreateCardArgs, 'deckId'>
+
+export type UpdateCardResponseData = {
   id: string
   deckId: string
   userId: string

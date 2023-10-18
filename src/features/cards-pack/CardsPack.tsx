@@ -9,7 +9,7 @@ import { EmptyCardsPack } from '@/features/empty-cards-pack'
 import { Button } from '@/components/ui/button'
 import { DeleteCardModal } from '@/components/modals/delete-card'
 import { PackOptions } from '@/components/modals/pack-options/PackOptions.tsx'
-import { AddEditNewCardModal } from '@/components/modals/add-edit-new-card/AddEditNewCardModal.tsx'
+import { AddNewCardModal } from '@/components/modals/add-new-card/AddNewCardModal.tsx'
 import { CardsTable } from '@/features/cards-pack/cards-table'
 import { Icon } from '@/components/ui/icon'
 import { Sort } from '@/services/deck-service'
@@ -19,10 +19,12 @@ import {
   GetCardsQueryParams,
   useCreateCardMutation,
   useDeleteCardMutation,
+  useEditCardMutation,
   useGetCardsQuery,
 } from '@/services/card-service'
 import { useDebounce } from '@/hooks'
 import s from './CardsPack.module.scss'
+import { EditCardModal } from '@/components/modals/edit-card'
 
 export const CardsPack = () => {
   const [question, setQuestion] = useState<string>('')
@@ -43,17 +45,18 @@ export const CardsPack = () => {
   }, [sort])
 
   const [createCard] = useCreateCardMutation()
-  // const [editCard] = usePatchCardMutation()
+  const [editCard] = useEditCardMutation()
   const [deleteCard] = useDeleteCardMutation()
   const { data, isLoading } = useGetCardsQuery({
-    id: deckId,
+    id: deckId || '',
     question: debouncedInputValue,
     currentPage,
     itemsPerPage,
     orderBy: sortedString,
   })
 
-  const selectOptions = ['10', '20', '30', '50', '100']
+  const paginationSelectOptions = ['10', '20', '30', '50', '100']
+  const cardSelectOptions = ['text', 'image']
   const inputIcon = <Icon srcIcon={searchIcon} />
 
   const changeSearchValue = (e: ChangeEvent<HTMLInputElement>) => {
@@ -68,7 +71,14 @@ export const CardsPack = () => {
   const createCardHandler = (data: NewCardFields) => {
     const { question, answer } = data
 
-    createCard({ deckId, question, answer })
+    createCard({ id: deckId || '', question, answer })
+    setOpenModal(null)
+  }
+
+  const updateCardHandler = (data: NewCardFields) => {
+    const { question, answer } = data
+
+    editCard({ id: activeCard?.id || '', question, answer })
     setOpenModal(null)
   }
 
@@ -135,14 +145,22 @@ export const CardsPack = () => {
         currentPage={data.pagination.currentPage}
         pageSize={data.pagination.itemsPerPage}
         totalCount={data.pagination.totalItems}
-        options={selectOptions}
+        options={paginationSelectOptions}
         setItemsPerPage={setItemsPerPage}
         setCurrentPage={setCurrentPage}
       />
-      <AddEditNewCardModal
+      <AddNewCardModal
         open={openModal}
         setOpenModal={setOpenModal}
-        createCardSubmit={createCardHandler}
+        onSubmit={createCardHandler}
+        selectOptions={cardSelectOptions}
+      />
+      <EditCardModal
+        open={openModal}
+        setOpenModal={setOpenModal}
+        onSubmit={updateCardHandler}
+        activeCard={activeCard}
+        selectOptions={cardSelectOptions}
       />
       <DeleteCardModal
         cardName={activeCard?.question}

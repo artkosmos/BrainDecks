@@ -3,7 +3,8 @@ import {
   CardsResponseData,
   CreateCardArgs,
   GetCardsQueryParams,
-  PatchResponse,
+  UpdateCardArgs,
+  UpdateCardResponseData,
 } from '@/services/card-service'
 
 export const cardsService = baseApi.injectEndpoints({
@@ -16,16 +17,16 @@ export const cardsService = baseApi.injectEndpoints({
       providesTags: ['Cards'],
     }),
     createCard: builder.mutation<any, CreateCardArgs>({
-      query: ({ deckId, ...rest }) => ({
-        url: `v1/decks/${deckId}/cards`,
+      query: ({ id, ...rest }) => ({
+        url: `v1/decks/${id}/cards`,
         method: 'POST',
         body: rest,
       }),
       invalidatesTags: ['Cards'],
     }),
-    patchCard: builder.mutation<PatchResponse, CreateCardArgs>({
-      query: ({ deckId, ...rest }) => ({
-        url: `v1/cards/${deckId}`,
+    editCard: builder.mutation<UpdateCardResponseData, UpdateCardArgs>({
+      query: ({ id, ...rest }) => ({
+        url: `v1/cards/${id}`,
         method: 'PATCH',
         body: rest,
       }),
@@ -43,7 +44,7 @@ export const cardsService = baseApi.injectEndpoints({
 
 export const {
   useGetCardsQuery,
-  usePatchCardMutation,
+  useEditCardMutation,
   useDeleteCardMutation,
   useCreateCardMutation,
 } = cardsService
