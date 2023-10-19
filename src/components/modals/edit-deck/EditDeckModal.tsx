@@ -64,7 +64,6 @@ export const EditDeckModal = ({ onSubmit, openModal, setOpenModal, activeItem }:
       <form onSubmit={onSubmitHandler} className={s.form}>
         <ControlledInput
           aria-label={'enter new deck name'}
-          className={s.input}
           control={control}
           name={'name'}
           label={'Name Deck'}
@@ -72,7 +71,7 @@ export const EditDeckModal = ({ onSubmit, openModal, setOpenModal, activeItem }:
         />
         <ControlledCheckbox
           className={s.checkbox}
-          label={'Private pack'}
+          label={'Private deck'}
           control={control}
           name={'isPrivate'}
         />

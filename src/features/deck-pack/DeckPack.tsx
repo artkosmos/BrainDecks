@@ -133,6 +133,7 @@ export const DeckPack = () => {
           placeholder={'Search'}
           className={s.searchInput}
           leftSideIcon={inputIcon}
+          withoutError
           onChange={e => setName(e.currentTarget.value)}
         />
         <TabSwitcher label={'Show decks cards'} setActiveTab={filterByAuthorHandler} tabs={tabs} />

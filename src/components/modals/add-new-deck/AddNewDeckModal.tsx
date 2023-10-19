@@ -54,14 +54,20 @@ export const AddNewDeckModal = ({ onSubmit, openModal, setOpenModal }: Props) =>
         Add New Deck
       </Typography>
       <form onSubmit={onSubmitHandler} className={s.form}>
-        <ControlledInput hidden control={control} name={'cover'} type={'file'} id={'cover'} />
+        <ControlledInput
+          withoutError
+          hidden
+          control={control}
+          name={'cover'}
+          type={'file'}
+          id={'cover'}
+        />
         <Label htmlFor={'cover'} className={coverButtonStyle}>
           <Icon srcIcon={coverIcon} />
           <Typography variant={'subtitle2'}>Change Cover</Typography>
         </Label>
         <ControlledInput
           aria-label={'enter new deck name'}
-          className={s.input}
           control={control}
           name={'name'}
           label={'Name Deck'}
@@ -69,7 +75,7 @@ export const AddNewDeckModal = ({ onSubmit, openModal, setOpenModal }: Props) =>
         />
         <ControlledCheckbox
           className={s.checkbox}
-          label={'Private pack'}
+          label={'Private deck'}
           control={control}
           name={'isPrivate'}
         />

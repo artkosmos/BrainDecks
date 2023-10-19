@@ -75,8 +75,10 @@ export const LearnCard = () => {
             <RadioGroup options={rating} />
           </div>
         )}
-        <Button onClick={isShowAnswer ? nextQuestion : onShowAnswer}>
-          {isShowAnswer ? 'Next Question' : 'Show Answer'}
+        <Button fullWidth onClick={isShowAnswer ? nextQuestion : onShowAnswer}>
+          <Typography variant={'subtitle2'}>
+            {isShowAnswer ? 'Next Question' : 'Show Answer'}
+          </Typography>
         </Button>
       </Card>
     </div>

@@ -7,6 +7,7 @@ export type AdditionalTypeToInput = {
   leftSideIcon?: JSX.Element
   rightSideIcon?: JSX.Element
   errorMessage?: string
+  withoutError?: boolean
   label?: string
   name?: string
   callBack?: (value: boolean) => void
@@ -26,6 +27,7 @@ export const Input = forwardRef<HTMLInputElement, InputPropsType>((props, ref) =
     className,
     callBack,
     callBackValue,
+    withoutError,
     ...rest
   } = props
 
@@ -52,11 +54,13 @@ export const Input = forwardRef<HTMLInputElement, InputPropsType>((props, ref) =
             </span>
           )}
         </div>
-        <div className={s.errorPlace}>
-          <Typography className={s.error} variant={'caption'}>
-            {errorMessage}
-          </Typography>
-        </div>
+        {!withoutError && (
+          <div className={s.errorPlace}>
+            <Typography className={s.error} variant={'caption'}>
+              {errorMessage}
+            </Typography>
+          </div>
+        )}
       </div>
     </div>
   )

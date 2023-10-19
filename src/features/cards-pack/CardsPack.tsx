@@ -130,6 +130,7 @@ export const CardsPack = () => {
             leftSideIcon={inputIcon}
             onChange={changeSearchValue}
             value={question}
+            withoutError
           />
         </div>
         <CardsTable
