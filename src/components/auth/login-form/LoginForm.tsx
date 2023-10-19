@@ -37,25 +37,21 @@ export const LoginForm = ({ onSubmit }: Props) => {
   const inputEyeIcon = showPassword ? <Icon srcIcon={crossedEye} /> : <Icon srcIcon={eye} />
 
   return (
-    <Card className={s.container} aria-label={'login form'}>
+    <Card className={s.logInCard} aria-label={'login form'}>
       <Typography className={s.title} variant={'h1'} color={'light'}>
         Sign In
       </Typography>
       <form onSubmit={onSubmitHandler} className={s.form}>
         <ControlledInput
           aria-label={'enter your email'}
-          className={s.input}
           name={'email'}
           control={control}
           label={'Email'}
           placeholder={'Enter your email'}
+          errorMessage={errors.email?.message}
         />
-        <Typography variant={'body2'} className={s.error}>
-          {errors?.email?.message}
-        </Typography>
         <ControlledInput
           aria-label={'enter your password'}
-          className={s.input}
           type={showPassword ? 'text' : 'password'}
           name={'password'}
           placeholder={'Enter your password'}
@@ -64,6 +60,7 @@ export const LoginForm = ({ onSubmit }: Props) => {
           rightSideIcon={inputEyeIcon}
           callBack={setShowPassword}
           callBackValue={showPassword}
+          errorMessage={errors.password?.message}
         />
         <div className={s.checkBox}>
           <ControlledCheckbox
@@ -95,7 +92,6 @@ export const LoginForm = ({ onSubmit }: Props) => {
           to={'/registration'}
           aria-label={'registration link'}
           variant={'link'}
-          className={s.signUpLink}
         >
           <Typography className={s.signUpText} variant={'subtitle2'}>
             Sign up

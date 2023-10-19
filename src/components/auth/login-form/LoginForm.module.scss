@@ -1,18 +1,15 @@
 @import '@/styles/mixins';
 
-.container {
+.logInCard {
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  margin-top: 36px;
   padding: 33px 36px 29px;
 
   .title {
     align-self: center;
-  }
-
-  .error {
-    align-self: flex-start;
-    color: var(--color-danger-300);
   }
 
   .form {
@@ -22,13 +19,8 @@
     justify-content: center;
   }
 
-  .input {
-    margin-top: 24px;
-  }
-
   .checkBox {
     align-self: flex-start;
-    margin-top: 12px;
   }
 
   .forgotTypography {
@@ -56,9 +48,5 @@
   .signUpText {
     color: var(--color-accent-500);
     text-decoration-line: underline;
-  }
-
-  .signUpLink {
-    margin-top: 11px;
   }
 }

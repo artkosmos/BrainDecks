@@ -53,7 +53,6 @@ export const CreateNewPasswordForm = (props: Props) => {
         <ControlledInput
           aria-label={'enter new password'}
           type={inputType}
-          className={s.input}
           placeholder={'Enter your password'}
           control={control}
           name={'password'}

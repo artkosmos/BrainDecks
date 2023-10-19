@@ -1,9 +1,11 @@
 @import '/src/styles/mixins';
 
-.container {
+.signInCard {
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  margin-top: 36px;
   padding: 33px 36px 29px;
 
   .title {
@@ -17,10 +19,6 @@
     justify-content: center;
   }
 
-  .signInButton {
-    margin-top: 11px;
-  }
-
   .signInText {
     color: var(--color-accent-500);
     text-decoration-line: underline;
@@ -31,10 +29,6 @@
     color: var(--color-light-900);
   }
 
-  .input {
-    margin-top: 24px;
-  }
-
   .button {
     margin-top: 36px;
   }
@@ -42,15 +36,5 @@
   .prompt {
     margin-top: 5px;
     color: var(--color-dark-100);
-  }
-
-  .errorPlace {
-    align-self: flex-start;
-    width: max-content;
-    height: 24px;
-  }
-
-  .error {
-    color: var(--color-danger-300);
   }
 }

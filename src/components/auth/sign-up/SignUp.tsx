@@ -26,6 +26,7 @@ export const SignUp = ({ onSubmit }: Props) => {
     formState: { errors },
   } = useForm<CreateAccountFields>({
     resolver: zodResolver(createAccountSchema),
+    defaultValues: { email: '', name: '', password: '' },
   })
 
   const onSubmitHandler = handleSubmit(data => {
@@ -35,7 +36,7 @@ export const SignUp = ({ onSubmit }: Props) => {
   const inputEyeIcon = showPassword ? <Icon srcIcon={crossedEye} /> : <Icon srcIcon={eye} />
 
   return (
-    <Card aria-label={'registration form'} className={s.container}>
+    <Card aria-label={'registration form'} className={s.signInCard}>
       <Typography variant={'h1'} className={s.title}>
         Sign Up
       </Typography>
@@ -47,24 +48,16 @@ export const SignUp = ({ onSubmit }: Props) => {
           label={'Email'}
           className={s.input}
           placeholder={'Enter your email'}
+          errorMessage={errors?.email?.message}
         />
-        <div className={s.errorPlace}>
-          <Typography className={s.error} variant={'body2'}>
-            {errors?.email?.message}
-          </Typography>
-        </div>
         <ControlledInput
           aria-label={'enter your nick name'}
           name={'name'}
           control={control}
           label={'Nickname'}
           placeholder={'Enter desired nickname'}
+          errorMessage={errors?.name?.message}
         />
-        <div className={s.errorPlace}>
-          <Typography className={s.error} variant={'body2'}>
-            {errors?.name?.message}
-          </Typography>
-        </div>
         <ControlledInput
           aria-label={'enter your password'}
           type={showPassword ? 'text' : 'password'}
@@ -75,12 +68,8 @@ export const SignUp = ({ onSubmit }: Props) => {
           callBack={setShowPassword}
           callBackValue={showPassword}
           rightSideIcon={inputEyeIcon}
+          errorMessage={errors?.password?.message}
         />
-        <div className={s.errorPlace}>
-          <Typography className={s.error} variant={'body2'}>
-            {errors?.password?.message}
-          </Typography>
-        </div>
         <ControlledInput
           aria-label={'confirm your password'}
           type={showPassword ? 'text' : 'password'}
@@ -91,12 +80,8 @@ export const SignUp = ({ onSubmit }: Props) => {
           callBack={setShowPassword}
           callBackValue={showPassword}
           rightSideIcon={inputEyeIcon}
+          errorMessage={errors?.confirm?.message}
         />
-        <div className={s.errorPlace}>
-          <Typography className={s.error} variant={'body2'}>
-            {errors?.confirm?.message}
-          </Typography>
-        </div>
         <Typography variant={'caption'} className={s.prompt}>
           Password must be at least 8 characters and includes at least one digit, one letter and one
           special symbol
@@ -118,7 +103,6 @@ export const SignUp = ({ onSubmit }: Props) => {
           type={'button'}
           aria-label={'back to login page'}
           variant={'link'}
-          className={s.signInButton}
         >
           <Typography className={s.signInText} variant={'subtitle2'}>
             Sign In

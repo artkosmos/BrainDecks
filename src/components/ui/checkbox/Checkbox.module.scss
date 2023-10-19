@@ -11,7 +11,7 @@
 }
 
 .root {
-  @include size(14px, 14px);
+  @include size(18px, 18px);
   @include flex-row-center;
 
   cursor: pointer;

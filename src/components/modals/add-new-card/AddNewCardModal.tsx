@@ -2,9 +2,10 @@ import { Modal } from '@/components/ui/modal'
 import { Typography } from '@/components/ui/typography'
 import { Button } from '@/components/ui/button'
 import { useForm } from 'react-hook-form'
-import { ControlledSelector } from '@/components/ui/controlled/controlledSelect'
 import { ControlledInput } from '@/components/ui/controlled/controlledInput'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Selector } from '@/components/ui/select'
+import { useState } from 'react'
 import { addNewCardSchema } from '@/schemes'
 import { CardsModals, NewCardFields } from '@/features/cards-pack'
 import s from './AddNewCardModal.module.scss'
@@ -18,7 +19,14 @@ type Props = {
 }
 
 export const AddNewCardModal = ({ openModal, setOpenModal, onSubmit, selectOptions }: Props) => {
-  const { control, handleSubmit, reset } = useForm<NewCardFields>({
+  const [cardType, setCardType] = useState('text')
+
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<NewCardFields>({
     resolver: zodResolver(addNewCardSchema),
     mode: 'onSubmit',
 
@@ -48,27 +56,28 @@ export const AddNewCardModal = ({ openModal, setOpenModal, onSubmit, selectOptio
         Add New Card
       </Typography>
       <form className={s1.form} onSubmit={onSubmitHandler}>
-        <ControlledSelector
-          contentClassName={s.selector1}
-          triggerClassName={s.selector2}
+        <Selector
+          className={s.selector}
+          value={cardType}
+          setSelectedValue={setCardType}
           label={'Chose a question format'}
-          name={'selectCardFormat'}
-          control={control}
           selectData={selectOptions}
-        ></ControlledSelector>
+        />
         <ControlledInput
           className={s.questionInput}
           autoFocus
           name={'question'}
           label={'Question'}
           control={control}
-        ></ControlledInput>
+          errorMessage={errors.question?.message}
+        />
         <ControlledInput
           className={s.answerInput}
           name={'answer'}
           label={'Answer'}
           control={control}
-        ></ControlledInput>
+          errorMessage={errors.answer?.message}
+        />
         <div className={s1.buttonArea}>
           <Button type={'button'} variant={'secondary'} onClick={closeModalHandler}>
             <Typography variant={'subtitle2'}>Cancel</Typography>

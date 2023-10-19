@@ -31,7 +31,7 @@ export const ForgotPasswordForm = (props: Props) => {
   })
 
   return (
-    <Card className={s.card}>
+    <Card className={s.forgotCard}>
       <form className={s.form} onSubmit={onSubmitHandler}>
         <Typography className={s.title} variant={'large'}>
           Forgot your password?

@@ -124,7 +124,7 @@ export const DeckPack = () => {
       <div className={s.deckNameAndButton}>
         <Typography variant={'large'}>Deck&apos;s list</Typography>
         <Button onClick={() => openModalHandler(DeckModals.CREATE)}>
-          <Typography>Add new deck</Typography>
+          <Typography variant={'subtitle2'}>Add new deck</Typography>
         </Button>
       </div>
       <div className={s.tableSettings}>

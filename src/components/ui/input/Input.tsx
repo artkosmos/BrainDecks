@@ -52,13 +52,11 @@ export const Input = forwardRef<HTMLInputElement, InputPropsType>((props, ref) =
             </span>
           )}
         </div>
-        {errorMessage !== '' && (
-          <div>
-            <Typography variant={'body2'} className={s.error}>
-              {errorMessage}
-            </Typography>
-          </div>
-        )}
+        <div className={s.errorPlace}>
+          <Typography className={s.error} variant={'caption'}>
+            {errorMessage}
+          </Typography>
+        </div>
       </div>
     </div>
   )
