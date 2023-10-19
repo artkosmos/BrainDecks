@@ -3,10 +3,9 @@ import { TableRow } from '@/components/ui/tables/TableRow'
 import { TableBody } from '@/components/ui/tables/TableBody'
 import { TableCell } from '@/components/ui/tables/TableCell'
 import { SortTableHeader } from '@/components/ui/tables/SortTableHeader'
-import { Icon } from '@/components/ui/icon'
-import playIcon from '@/assets/icons/play_icon.svg'
-import editIcon from '@/assets/icons/edit_icon.svg'
-import deleteIcon from '@/assets/icons/delete_icon.svg'
+import { PlayCardIcon } from '@/assets/icons/components/PlayCardIcon.tsx'
+import { EditIcon } from '@/assets/icons/components/EditIcon.tsx'
+import { DeleteIcon } from '@/assets/icons/components/DeleteIcon.tsx'
 import { Column, DeckModals } from '@/features/deck-pack'
 import { Deck, Sort } from '@/services/deck-service'
 import { useNavigate } from 'react-router-dom'
@@ -65,24 +64,20 @@ export const DeckTable = (props: Props) => {
               <TableCell>{new Date(deck.updated).toLocaleDateString()}</TableCell>
               <TableCell>{deck.author.name}</TableCell>
               <TableCell className={s.iconsCell}>
-                <Icon
-                  onClick={() => navigate(`/learn/${deck.name}/${deck.id}`)}
-                  className={s.icon}
-                  srcIcon={playIcon}
-                  alt={'play'}
-                />
-                <Icon
-                  onClick={() => onIconClick(DeckModals.UPDATE, deck)}
-                  className={s.icon}
-                  srcIcon={editIcon}
-                  alt={'edit'}
-                />
-                <Icon
-                  onClick={() => onIconClick(DeckModals.DELETE, deck)}
-                  className={s.icon}
-                  srcIcon={deleteIcon}
-                  alt={'delete'}
-                />
+                <div className={s.iconsWrapper}>
+                  <PlayCardIcon
+                    className={s.icon}
+                    onClick={() => navigate(`/learn/${deck.name}/${deck.id}`)}
+                  />
+                  <EditIcon
+                    onClick={() => onIconClick(DeckModals.UPDATE, deck)}
+                    className={s.icon}
+                  />
+                  <DeleteIcon
+                    onClick={() => onIconClick(DeckModals.DELETE, deck)}
+                    className={s.icon}
+                  />
+                </div>
               </TableCell>
             </TableRow>
           )

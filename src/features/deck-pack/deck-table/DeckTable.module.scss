@@ -1,15 +1,31 @@
 .iconsCell {
   width: min-content;
   text-align: end;
+  vertical-align: middle;
 }
 
 .icon {
-  cursor: pointer;
-  margin-right: 10px;
+  &:hover {
+    cursor: pointer;
 
-  &:last-child {
-    margin-right: 0;
+    path {
+      fill: var(--color-accent-300);
+    }
   }
+
+  &:active {
+    path {
+      fill: var(--color-accent-700);
+    }
+  }
+}
+
+.iconsWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .deckName {
