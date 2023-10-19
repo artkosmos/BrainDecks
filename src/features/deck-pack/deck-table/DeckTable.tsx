@@ -66,7 +66,7 @@ export const DeckTable = (props: Props) => {
               <TableCell>{deck.author.name}</TableCell>
               <TableCell className={s.iconsCell}>
                 <Icon
-                  onClick={() => navigate(`/learn/${deck.name}/${undefined}`)}
+                  onClick={() => navigate(`/learn/${deck.name}/${deck.id}`)}
                   className={s.icon}
                   srcIcon={playIcon}
                   alt={'play'}

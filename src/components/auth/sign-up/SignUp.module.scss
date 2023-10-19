@@ -1,0 +1,46 @@
+@import '/src/styles/mixins';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 33px 36px 29px;
+
+  .title {
+    align-self: center;
+  }
+
+  .error {
+    align-self: flex-start;
+    color: var(--color-danger-300);
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .signInButton {
+    margin-top: 11px;
+  }
+
+  .signInText {
+    color: var(--color-accent-500);
+    text-decoration-line: underline;
+  }
+
+  .question {
+    margin-top: 20px;
+    color: var(--color-light-900);
+  }
+
+  .input {
+    margin-top: 24px;
+  }
+
+  .button {
+    margin-top: 60px;
+  }
+}
