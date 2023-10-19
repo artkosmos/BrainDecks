@@ -1,7 +1,6 @@
 import { ChangeEvent, useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import searchIcon from '@/assets/icons/input_search.svg'
-import leftArrow from '@/assets/icons/prevoius_page.svg'
 import { Typography } from '@/components/ui/typography'
 import { Pagination } from '@/components/ui/pagination'
 import { Input } from '@/components/ui/input'
@@ -13,6 +12,7 @@ import { AddNewCardModal } from '@/components/modals/add-new-card/AddNewCardModa
 import { CardsTable } from '@/features/cards-pack/cards-table'
 import { EditCardModal } from '@/components/modals/edit-card'
 import { Icon } from '@/components/ui/icon'
+import { PreviousPage } from '@/assets/icons/components/PreviousPage.tsx'
 import { Sort } from '@/services/deck-service'
 import { CardsModals, NewCardFields, SelectOptions } from '@/features/cards-pack/types.ts'
 import {
@@ -110,7 +110,7 @@ export const CardsPack = () => {
     <div className={s.packContainer}>
       <div className={s.insideContainer}>
         <Button as={Link} to={'/'} variant={'link'} className={s.previousPage}>
-          <Icon srcIcon={leftArrow} alt={'arrow'} />
+          <PreviousPage className={s.arrow} />
           <Typography variant={'body2'}>Back to Deck List</Typography>
         </Button>
         <span className={s.packAddName}>

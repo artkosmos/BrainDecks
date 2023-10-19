@@ -9,21 +9,6 @@
   margin: 24px auto 0;
 }
 
-.previousPage {
-  gap: 5px;
-
-  width: max-content;
-  padding-left: 0;
-
-  text-decoration-line: none;
-
-  border: none;
-
-  &:hover {
-    text-decoration-line: underline;
-  }
-}
-
 .buttonAndDescription {
   display: flex;
   flex-direction: column;

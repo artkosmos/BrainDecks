@@ -1,12 +1,12 @@
 import { Button } from '@/components/ui/button'
 import { Link } from 'react-router-dom'
-import { Icon } from '@/components/ui/icon'
-import leftArrow from '@/assets/icons/prevoius_page.svg'
 import { Typography } from '@/components/ui/typography'
 import { clsx } from 'clsx'
 import { AddNewCardModal } from '@/components/modals/add-new-card'
 import { CardsModals, NewCardFields } from '@/features/cards-pack'
+import { PreviousPage } from '@/assets/icons/components/PreviousPage.tsx'
 import s from './EmptyCardsPack.module.scss'
+import s1 from '@/features/cards-pack/CardsPack.module.scss'
 
 type Props = {
   openModal: CardsModals | null
@@ -24,8 +24,8 @@ export const EmptyCardsPack = (props: Props) => {
 
   return (
     <div className={contentClassName}>
-      <Button as={Link} to={'/'} variant={'link'} className={s.previousPage}>
-        <Icon srcIcon={leftArrow} alt={'arrow'} />
+      <Button as={Link} to={'/'} variant={'link'} className={s1.previousPage}>
+        <PreviousPage className={s1.arrow} />
         <Typography variant={'body2'}>Back to Deck List</Typography>
       </Button>
       <Typography className={s.deckName} variant={'large'}>
