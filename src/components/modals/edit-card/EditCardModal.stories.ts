@@ -16,7 +16,8 @@ type Story = StoryObj<typeof meta>
 
 export const EditCard: Story = {
   args: {
-    openModal: CardsModals.DELETE,
+    openModal: CardsModals.UPDATE,
     activeCard: undefined,
+    selectOptions: ['text', 'images'],
   },
 }

@@ -17,5 +17,6 @@ type Story = StoryObj<typeof meta>
 export const DeleteDeck: Story = {
   args: {
     openModal: DeckModals.DELETE,
+    deckName: 'Some Deck',
   },
 }
