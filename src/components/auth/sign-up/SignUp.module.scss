@@ -10,11 +10,6 @@
     align-self: center;
   }
 
-  .error {
-    align-self: flex-start;
-    color: var(--color-danger-300);
-  }
-
   .form {
     display: flex;
     flex-direction: column;
@@ -41,6 +36,21 @@
   }
 
   .button {
-    margin-top: 60px;
+    margin-top: 36px;
+  }
+
+  .prompt {
+    margin-top: 5px;
+    color: var(--color-dark-100);
+  }
+
+  .errorPlace {
+    align-self: flex-start;
+    width: max-content;
+    height: 24px;
+  }
+
+  .error {
+    color: var(--color-danger-300);
   }
 }

@@ -48,12 +48,25 @@ export const SignUp = ({ onSubmit }: Props) => {
           className={s.input}
           placeholder={'Enter your email'}
         />
-        <Typography className={s.error} variant={'body2'}>
-          {errors?.email?.message}
-        </Typography>
+        <div className={s.errorPlace}>
+          <Typography className={s.error} variant={'body2'}>
+            {errors?.email?.message}
+          </Typography>
+        </div>
+        <ControlledInput
+          aria-label={'enter your nick name'}
+          name={'name'}
+          control={control}
+          label={'Nickname'}
+          placeholder={'Enter desired nickname'}
+        />
+        <div className={s.errorPlace}>
+          <Typography className={s.error} variant={'body2'}>
+            {errors?.name?.message}
+          </Typography>
+        </div>
         <ControlledInput
           aria-label={'enter your password'}
-          className={s.input}
           type={showPassword ? 'text' : 'password'}
           name={'password'}
           control={control}
@@ -63,12 +76,13 @@ export const SignUp = ({ onSubmit }: Props) => {
           callBackValue={showPassword}
           rightSideIcon={inputEyeIcon}
         />
-        <Typography variant={'body2'} className={s.error}>
-          {errors?.password?.message}
-        </Typography>
+        <div className={s.errorPlace}>
+          <Typography className={s.error} variant={'body2'}>
+            {errors?.password?.message}
+          </Typography>
+        </div>
         <ControlledInput
           aria-label={'confirm your password'}
-          className={s.input}
           type={showPassword ? 'text' : 'password'}
           name={'confirmPassword'}
           placeholder={'Confirm your password'}
@@ -78,8 +92,14 @@ export const SignUp = ({ onSubmit }: Props) => {
           callBackValue={showPassword}
           rightSideIcon={inputEyeIcon}
         />
-        <Typography variant={'body2'} className={s.error}>
-          {errors?.confirm?.message}
+        <div className={s.errorPlace}>
+          <Typography className={s.error} variant={'body2'}>
+            {errors?.confirm?.message}
+          </Typography>
+        </div>
+        <Typography variant={'caption'} className={s.prompt}>
+          Password must be at least 8 characters and includes at least one digit, one letter and one
+          special symbol
         </Typography>
         <Button
           aria-label={'commit registration'}

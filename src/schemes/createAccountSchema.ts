@@ -10,6 +10,7 @@ export const createAccountSchema = z
       .regex(/[0-9]/, { message: 'Password must contain at least one digit' })
       .regex(/[^a-zA-Z0-9]/, { message: 'Password must contain at least one symbol' }),
     confirmPassword: z.string().min(8).optional(),
+    name: z.string().min(3),
   })
   .refine(data => data.password === data.confirmPassword, {
     message: "Passwords don't match",
