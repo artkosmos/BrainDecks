@@ -20,6 +20,11 @@
   }
 }
 
+.disableIcon {
+  pointer-events: none;
+  opacity: 0.3;
+}
+
 .iconsWrapper {
   display: flex;
   flex-direction: row;

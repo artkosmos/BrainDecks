@@ -37,8 +37,8 @@ export const DeckPack = () => {
   const [sort, setSort] = useState<Sort | null>(null)
   const [authorId, setAuthorId] = useState<string | undefined>(undefined)
 
+  const inputIcon = <Icon srcIcon={searchIcon} />
   const selectOptions = ['10', '20', '30', '50', '100']
-
   const tabs: TabType[] = [
     {
       id: '1',
@@ -109,8 +109,6 @@ export const DeckPack = () => {
     }
   }
 
-  const inputIcon = <Icon srcIcon={searchIcon} />
-
   if (isLoading) {
     return <div style={{ textAlign: 'center' }}>Loading...</div>
   }
@@ -148,7 +146,13 @@ export const DeckPack = () => {
           <Typography variant={'subtitle2'}>Clear filter</Typography>
         </Button>
       </div>
-      <DeckTable data={data.items} onIconClick={openModalHandler} sort={sort} setSort={setSort} />
+      <DeckTable
+        data={data.items}
+        onIconClick={openModalHandler}
+        sort={sort}
+        setSort={setSort}
+        currentUserId={userData?.id}
+      />
       <Pagination
         options={selectOptions}
         totalCount={data.pagination.totalItems}

@@ -17,6 +17,7 @@ type Props = {
   data: Deck[]
   sort?: Sort
   setSort?: (value: any) => void
+  currentUserId?: string
 }
 
 const columns: Column[] = [
@@ -43,7 +44,7 @@ const columns: Column[] = [
 ]
 
 export const DeckTable = (props: Props) => {
-  const { data, className, onIconClick, sort, setSort } = props
+  const { data, className, onIconClick, sort, setSort, currentUserId } = props
 
   const navigate = useNavigate()
 
@@ -71,11 +72,11 @@ export const DeckTable = (props: Props) => {
                   />
                   <EditIcon
                     onClick={() => onIconClick(DeckModals.UPDATE, deck)}
-                    className={s.icon}
+                    className={currentUserId === deck.author.id ? s.icon : s.disableIcon}
                   />
                   <DeleteIcon
                     onClick={() => onIconClick(DeckModals.DELETE, deck)}
-                    className={s.icon}
+                    className={currentUserId === deck.author.id ? s.icon : s.disableIcon}
                   />
                 </div>
               </TableCell>
