@@ -1,5 +1,5 @@
 import { ChangeEvent, useMemo, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useLocation, useParams } from 'react-router-dom'
 import searchIcon from '@/assets/icons/input_search.svg'
 import { Typography } from '@/components/ui/typography'
 import { Pagination } from '@/components/ui/pagination'
@@ -13,6 +13,7 @@ import { CardsTable } from '@/features/cards-pack/cards-table'
 import { EditCardModal } from '@/components/modals/edit-card'
 import { Icon } from '@/components/ui/icon'
 import { PreviousPage } from '@/assets/icons/components/PreviousPage.tsx'
+import { useDebounce } from '@/hooks'
 import { Sort } from '@/services/deck-service'
 import { CardsModals, NewCardFields, SelectOptions } from '@/features/cards-pack/types.ts'
 import {
@@ -23,7 +24,6 @@ import {
   useEditCardMutation,
   useGetCardsQuery,
 } from '@/services/card-service'
-import { useDebounce } from '@/hooks'
 import s from './CardsPack.module.scss'
 
 export const CardsPack = () => {
@@ -36,7 +36,9 @@ export const CardsPack = () => {
 
   const debouncedInputValue = useDebounce(question)
 
-  const { deckId, deckName } = useParams<{ deckId: string; deckName: string }>()
+  const { deckName } = useParams<{ deckName: string }>()
+
+  const location = useLocation()
 
   const sortedString = useMemo(() => {
     if (!sort) return null
@@ -48,7 +50,7 @@ export const CardsPack = () => {
   const [editCard] = useEditCardMutation()
   const [deleteCard] = useDeleteCardMutation()
   const { data, isLoading } = useGetCardsQuery({
-    id: deckId || '',
+    id: location.state.id || '',
     question: debouncedInputValue,
     currentPage,
     itemsPerPage,
@@ -71,7 +73,7 @@ export const CardsPack = () => {
   const createCardHandler = (data: NewCardFields) => {
     const { question, answer } = data
 
-    createCard({ id: deckId || '', question, answer })
+    createCard({ id: location.state.id || '', question, answer })
     setOpenModal(null)
   }
 
@@ -98,8 +100,8 @@ export const CardsPack = () => {
     return (
       <EmptyCardsPack
         openModal={openModal}
-        deckName={deckName}
-        deckId={deckId}
+        deckName={deckName || ''}
+        deckId={location.state.id || ''}
         setOpenModal={openModalHandler}
         createDeck={createCardHandler}
       />

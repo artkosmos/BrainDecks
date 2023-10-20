@@ -56,7 +56,7 @@ export const DeckTable = (props: Props) => {
             <TableRow key={deck.id}>
               <TableCell
                 className={s.deckName}
-                onClick={() => navigate(`/cards/${deck.name}/${deck.id}`)}
+                onClick={() => navigate(`${deck.name}/cards`, { state: { id: deck.id } })}
               >
                 {deck.name}
               </TableCell>
@@ -67,7 +67,7 @@ export const DeckTable = (props: Props) => {
                 <div className={s.iconsWrapper}>
                   <PlayCardIcon
                     className={s.icon}
-                    onClick={() => navigate(`/learn/${deck.name}/${deck.id}`)}
+                    onClick={() => navigate(`${deck.name}/learn`, { state: { id: deck.id } })}
                   />
                   <EditIcon
                     onClick={() => onIconClick(DeckModals.UPDATE, deck)}

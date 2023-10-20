@@ -11,8 +11,8 @@ import s1 from '@/features/cards-pack/CardsPack.module.scss'
 type Props = {
   openModal: CardsModals | null
   createDeck: (data: NewCardFields) => void
-  deckId: string | undefined
-  deckName: string | undefined
+  deckId: string
+  deckName: string
   setOpenModal: (value: CardsModals | null) => void
   className?: string
 }

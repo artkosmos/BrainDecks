@@ -4,16 +4,20 @@ import { Typography } from '@/components/ui/typography'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 import { RadioGroup } from '@/components/ui/radioGroup'
-import { useParams } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 import s from './LearnCard.module.scss'
 
 export const LearnCard = () => {
   const [isShowAnswer, setIsShowAnswer] = useState<boolean>(false)
   const [previousCardId, setPreviousCardId] = useState<string | undefined>()
 
-  const { deckId, deckName } = useParams<{ deckId: string; deckName: string }>()
+  const { deckName } = useParams<{ deckName: string }>()
+  const location = useLocation()
 
-  const { data, isLoading } = useGetRandomCardWithQuery({ deckId, previousCardId })
+  const { data, isLoading } = useGetRandomCardWithQuery({
+    deckId: location.state.id,
+    previousCardId,
+  })
 
   const onShowAnswer = () => {
     setIsShowAnswer(true)
