@@ -58,7 +58,7 @@ export const CardsPack = () => {
   })
 
   const paginationSelectOptions: SelectOptions = ['10', '20', '30', '50', '100']
-  const cardSelectOptions: SelectOptions = ['text', 'image']
+  const cardSelectOptions: SelectOptions = ['text', 'picture']
   const inputIcon = <Icon srcIcon={searchIcon} />
 
   const changeSearchValue = (e: ChangeEvent<HTMLInputElement>) => {
@@ -71,16 +71,12 @@ export const CardsPack = () => {
   }
 
   const createCardHandler = (data: NewCardFields) => {
-    const { question, answer } = data
-
-    createCard({ id: location.state.id || '', question, answer })
+    createCard({ id: location.state.id || '', ...data })
     setOpenModal(null)
   }
 
   const updateCardHandler = (data: NewCardFields) => {
-    const { question, answer } = data
-
-    editCard({ id: activeCard?.id || '', question, answer })
+    editCard({ id: activeCard?.id || '', ...data })
     setOpenModal(null)
   }
 

@@ -7,10 +7,15 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { addNewCardSchema } from '@/schemes'
 import { useEffect, useState } from 'react'
 import { Selector } from '@/components/ui/select'
+import { Label } from '@radix-ui/react-label'
+import { Icon } from '@/components/ui/icon'
+import { clsx } from 'clsx'
+import coverIcon from '@/assets/icons/cover_icon.svg'
 import { Card } from '@/services/card-service'
 import { CardsModals, NewCardFields } from '@/features/cards-pack'
-import s from '@/components/modals/add-new-card/AddNewCardModal.module.scss'
+import s from './EditCardModal.module.scss'
 import s1 from '@/components/modals/edit-deck/EditDeckModal.module.scss'
+import s2 from '@/components/ui/button/Button.module.scss'
 
 type Props = {
   openModal: CardsModals | null
@@ -60,7 +65,10 @@ export const EditCardModal = (props: Props) => {
   const closeModalHandler = () => {
     setOpenModal(null)
     resetFormFields()
+    setCardType('text')
   }
+
+  const coverButtonStyle = clsx(s2.button, s2.secondary, s2.fullWidth, s.coverButton)
 
   return (
     <Modal
@@ -79,14 +87,46 @@ export const EditCardModal = (props: Props) => {
           label={'Chose a question format'}
           selectData={selectOptions}
         />
+        {cardType === 'picture' && (
+          <>
+            <ControlledInput
+              withoutError
+              hidden
+              control={control}
+              name={'questionImg'}
+              type={'file'}
+              id={'questionImg'}
+            />
+            <Label htmlFor={'questionImg'} className={coverButtonStyle}>
+              <Icon srcIcon={coverIcon} />
+              <Typography variant={'subtitle2'}>Change Question Cover</Typography>
+            </Label>
+          </>
+        )}
         <ControlledInput
-          autoFocus
           className={s.questionInput}
+          autoFocus
           name={'question'}
           label={'Question'}
           control={control}
           errorMessage={errors.question?.message}
         />
+        {cardType === 'picture' && (
+          <>
+            <ControlledInput
+              withoutError
+              hidden
+              control={control}
+              name={'answerImg'}
+              type={'file'}
+              id={'answerImg'}
+            />
+            <Label htmlFor={'answerImg'} className={coverButtonStyle}>
+              <Icon srcIcon={coverIcon} />
+              <Typography variant={'subtitle2'}>Change Answer Cover</Typography>
+            </Label>
+          </>
+        )}
         <ControlledInput
           className={s.answerInput}
           name={'answer'}
