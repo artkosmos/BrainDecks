@@ -57,7 +57,9 @@ export const DeckTable = (props: Props) => {
             <TableRow key={deck.id}>
               <TableCell
                 className={s.deckName}
-                onClick={() => navigate(`${deck.name}/cards`, { state: { id: deck.id } })}
+                onClick={() =>
+                  navigate(`${deck.name}/cards`, { state: { id: deck.id, author: deck.author.id } })
+                }
               >
                 {deck.name}
               </TableCell>

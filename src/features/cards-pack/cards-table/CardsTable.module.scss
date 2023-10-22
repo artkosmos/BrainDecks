@@ -11,3 +11,10 @@
     margin-right: 10px;
   }
 }
+
+.starWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+}

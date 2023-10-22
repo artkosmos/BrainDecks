@@ -2,15 +2,17 @@ import { Table } from '@/components/ui/tables'
 import { TableRow } from '@/components/ui/tables/TableRow'
 import { TableBody } from '@/components/ui/tables/TableBody'
 import { TableCell } from '@/components/ui/tables/TableCell'
+import { EditIcon } from '@/assets/icons/components/EditIcon.tsx'
+import { useLocation } from 'react-router-dom'
+import { RatingStar } from '@/assets/icons/components/RatingStar.tsx'
+import { DeleteIcon } from '@/assets/icons/components/DeleteIcon.tsx'
 import { Card } from '@/services/card-service'
 import { SortTableHeader } from '@/components/ui/tables/SortTableHeader'
 import { Column } from '@/features/deck-pack'
 import { Sort } from '@/services/deck-service'
-import editIcon from '@/assets/icons/edit_icon.svg'
-import deleteIcon from '@/assets/icons/delete_icon.svg'
-import { Icon } from '@/components/ui/icon'
 import { CardsModals } from '@/features/cards-pack'
 import s from './CardsTable.module.scss'
+import s1 from '@/features/deck-pack/deck-table/DeckTable.module.scss'
 
 type Props = {
   onIconClick: (value: CardsModals | null, item: Card) => void
@@ -18,10 +20,13 @@ type Props = {
   sort?: Sort
   setSort?: (value: any) => void
   className?: string
+  currentUserId?: string
 }
 
 export const CardsTable = (props: Props) => {
-  const { data, sort, setSort, onIconClick, className } = props
+  const { data, sort, setSort, onIconClick, className, currentUserId } = props
+
+  const location = useLocation()
 
   const columns: Column[] = [
     {
@@ -46,32 +51,42 @@ export const CardsTable = (props: Props) => {
     },
   ]
 
+  if (currentUserId !== location.state.author) {
+    columns.pop()
+  }
+
   return (
     <Table className={className}>
       <SortTableHeader columns={columns} sort={sort} onSort={setSort} />
 
       <TableBody>
         {data.map(item => {
+          const rating = Array.from({ length: 5 }, (_, index) => (
+            <RatingStar key={index} selected={item.grade > index} />
+          ))
+
           return (
             <TableRow key={item.id}>
               <TableCell>{item.question}</TableCell>
               <TableCell>{item.answer}</TableCell>
               <TableCell>{new Date(item.updated).toLocaleDateString()}</TableCell>
-              <TableCell>{item.grade}</TableCell>
-              <TableCell className={s.actions}>
-                <Icon
-                  className={s.icon}
-                  srcIcon={deleteIcon}
-                  alt={'delete'}
-                  onClick={() => onIconClick(CardsModals.DELETE, item)}
-                />
-                <Icon
-                  className={s.icon}
-                  srcIcon={editIcon}
-                  onClick={() => onIconClick(CardsModals.UPDATE, item)}
-                  alt={'edit'}
-                />
+              <TableCell>
+                <div className={s.starWrapper}>{rating}</div>
               </TableCell>
+              {currentUserId === location.state.author && (
+                <TableCell className={s.actions}>
+                  <div className={s1.iconsWrapper}>
+                    <EditIcon
+                      onClick={() => onIconClick(CardsModals.UPDATE, item)}
+                      className={s1.icon}
+                    />
+                    <DeleteIcon
+                      onClick={() => onIconClick(CardsModals.DELETE, item)}
+                      className={s1.icon}
+                    />
+                  </div>
+                </TableCell>
+              )}
             </TableRow>
           )
         })}

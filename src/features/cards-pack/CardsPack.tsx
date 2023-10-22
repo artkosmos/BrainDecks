@@ -25,6 +25,7 @@ import {
   useGetCardsQuery,
 } from '@/services/card-service'
 import s from './CardsPack.module.scss'
+import { useMeQuery } from '@/services/auth-service'
 
 export const CardsPack = () => {
   const [question, setQuestion] = useState<string>('')
@@ -49,6 +50,7 @@ export const CardsPack = () => {
   const [createCard] = useCreateCardMutation()
   const [editCard] = useEditCardMutation()
   const [deleteCard] = useDeleteCardMutation()
+  const { data: userData } = useMeQuery()
   const { data, isLoading } = useGetCardsQuery({
     id: location.state.id || '',
     question: debouncedInputValue,
@@ -137,6 +139,7 @@ export const CardsPack = () => {
           data={data.items}
           sort={sort}
           setSort={setSort}
+          currentUserId={userData?.id}
         />
       </div>
       <Pagination
