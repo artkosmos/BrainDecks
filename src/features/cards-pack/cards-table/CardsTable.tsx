@@ -6,8 +6,10 @@ import { EditIcon } from '@/assets/icons/components/EditIcon.tsx'
 import { useLocation } from 'react-router-dom'
 import { RatingStar } from '@/assets/icons/components/RatingStar.tsx'
 import { DeleteIcon } from '@/assets/icons/components/DeleteIcon.tsx'
+import { TableHead } from '@/components/ui/tables/TableHead'
+import { TableHeadCellWithSort } from '@/components/ui/tables/SortTableHeader'
+import { TableHeadCell } from '@/components/ui/tables/TableHeadCell'
 import { Card } from '@/services/card-service'
-import { SortTableHeader } from '@/components/ui/tables/SortTableHeader'
 import { Column } from '@/features/deck-pack'
 import { Sort } from '@/services/deck-service'
 import { CardsModals } from '@/features/cards-pack'
@@ -45,20 +47,18 @@ export const CardsTable = (props: Props) => {
       key: 'grade',
       title: 'Grade',
     },
-    {
-      key: '',
-      title: '',
-    },
   ]
 
-  if (currentUserId !== location.state.author) {
-    columns.pop()
-  }
+  const isMyCards = currentUserId === location.state.author
 
   return (
     <Table className={className}>
-      <SortTableHeader columns={columns} sort={sort} onSort={setSort} />
-
+      <TableHead>
+        <TableRow>
+          <TableHeadCellWithSort columns={columns} sort={sort} onSort={setSort} />
+          {isMyCards && <TableHeadCell />}
+        </TableRow>
+      </TableHead>
       <TableBody>
         {data.map(item => {
           const rating = Array.from({ length: 5 }, (_, index) => (
@@ -73,7 +73,7 @@ export const CardsTable = (props: Props) => {
               <TableCell>
                 <div className={s.starWrapper}>{rating}</div>
               </TableCell>
-              {currentUserId === location.state.author && (
+              {isMyCards && (
                 <TableCell className={s.actions}>
                   <div className={s1.iconsWrapper}>
                     <EditIcon

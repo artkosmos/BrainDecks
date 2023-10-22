@@ -2,10 +2,12 @@ import { Table } from '@/components/ui/tables'
 import { TableRow } from '@/components/ui/tables/TableRow'
 import { TableBody } from '@/components/ui/tables/TableBody'
 import { TableCell } from '@/components/ui/tables/TableCell'
-import { SortTableHeader } from '@/components/ui/tables/SortTableHeader'
+import { TableHeadCellWithSort } from '@/components/ui/tables/SortTableHeader'
 import { PlayCardIcon } from '@/assets/icons/components/PlayCardIcon.tsx'
+import { TableHead } from '@/components/ui/tables/TableHead'
 import { EditIcon } from '@/assets/icons/components/EditIcon.tsx'
 import { DeleteIcon } from '@/assets/icons/components/DeleteIcon.tsx'
+import { TableHeadCell } from '@/components/ui/tables/TableHeadCell'
 import { Column, DeckModals } from '@/features/deck-pack'
 import { Deck, Sort } from '@/services/deck-service'
 import { useNavigate } from 'react-router-dom'
@@ -37,10 +39,6 @@ const columns: Column[] = [
     key: 'created',
     title: 'Created by',
   },
-  {
-    key: '',
-    title: '',
-  },
 ]
 
 export const DeckTable = (props: Props) => {
@@ -50,7 +48,12 @@ export const DeckTable = (props: Props) => {
 
   return (
     <Table className={className}>
-      <SortTableHeader columns={columns} sort={sort} onSort={setSort} />
+      <TableHead>
+        <TableRow>
+          <TableHeadCellWithSort columns={columns} sort={sort} onSort={setSort} />
+          <TableHeadCell />
+        </TableRow>
+      </TableHead>
       <TableBody>
         {data.map(deck => {
           return (
