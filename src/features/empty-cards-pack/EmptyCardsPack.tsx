@@ -1,9 +1,9 @@
 import { Button } from '@/components/ui/button'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { Typography } from '@/components/ui/typography'
 import { clsx } from 'clsx'
 import { AddNewCardModal } from '@/components/modals/add-new-card'
-import { CardsModals, NewCardFields } from '@/features/cards-pack'
+import { CardsModals, NewCardFields, SelectOptions } from '@/features/cards-pack'
 import { PreviousPage } from '@/assets/icons/components/PreviousPage.tsx'
 import s from './EmptyCardsPack.module.scss'
 import s1 from '@/features/cards-pack/CardsPack.module.scss'
@@ -15,12 +15,23 @@ type Props = {
   deckName: string
   setOpenModal: (value: CardsModals | null) => void
   className?: string
+  currentUserId?: string
 }
 
 export const EmptyCardsPack = (props: Props) => {
-  const { deckName, setOpenModal, className, openModal, createDeck } = props
+  const { deckName, setOpenModal, className, openModal, createDeck, currentUserId } = props
+
+  const location = useLocation()
+
+  const cardSelectOptions: SelectOptions = ['text', 'picture']
 
   const contentClassName = clsx(s.contentWrapper, className)
+
+  const isMyDeck = currentUserId === location.state.author
+
+  const descriptionText = isMyDeck
+    ? 'Your deck is empty. Click add new card to fill this deck.'
+    : 'This deck is empty. User has not added any card to this deck yet.'
 
   return (
     <div className={contentClassName}>
@@ -33,13 +44,20 @@ export const EmptyCardsPack = (props: Props) => {
       </Typography>
       <div className={s.buttonAndDescription}>
         <Typography variant={'body1'} className={s.description}>
-          This pack is empty. Click add new card to fill this pack
+          {descriptionText}
         </Typography>
-        <Button className={s.button} onClick={() => setOpenModal(CardsModals.CREATE)}>
-          <Typography variant={'subtitle2'}>Add New Card</Typography>
-        </Button>
+        {isMyDeck && (
+          <Button className={s.button} onClick={() => setOpenModal(CardsModals.CREATE)}>
+            <Typography variant={'subtitle2'}>Add New Card</Typography>
+          </Button>
+        )}
       </div>
-      <AddNewCardModal openModal={openModal} setOpenModal={setOpenModal} onSubmit={createDeck} />
+      <AddNewCardModal
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        onSubmit={createDeck}
+        selectOptions={cardSelectOptions}
+      />
     </div>
   )
 }

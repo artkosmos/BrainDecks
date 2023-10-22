@@ -102,6 +102,7 @@ export const CardsPack = () => {
         deckId={location.state.id || ''}
         setOpenModal={openModalHandler}
         createDeck={createCardHandler}
+        currentUserId={userData?.id}
       />
     )
   }
