@@ -1,45 +1,30 @@
-import { ReactNode } from 'react'
+import { ComponentPropsWithoutRef, ReactNode } from 'react'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
-// import s from './DropDownMenu.module.scss'
+import { clsx } from 'clsx'
+import s from './DropDownMenu.module.scss'
 
-type SideType = 'top' | 'right' | 'bottom' | 'left' | undefined
-type AlignType = 'start' | 'center' | 'end'
-
-export type DropDownMenuPropsType = {
-  open?: boolean
-  onOpenChange?: (open: boolean) => void
+export type Props = {
   children?: ReactNode
-  className?: string
-  container?: HTMLElement | null
-  side?: SideType
-  sideOffset?: number
-  align?: AlignType
-  alignOffset?: number
-}
+  trigger?: ReactNode
+} & ComponentPropsWithoutRef<typeof DropdownMenu.Root> &
+  ComponentPropsWithoutRef<typeof DropdownMenu.Content> &
+  ComponentPropsWithoutRef<typeof DropdownMenu.Portal>
 
-export const DropDownMenu = (props: DropDownMenuPropsType) => {
-  const {
-    open,
-    onOpenChange,
-    children,
-    className,
-    container,
-    side = undefined,
-    sideOffset = 0,
-    align = 'center',
-    alignOffset = 0,
-  } = props
+export const DropDownMenu = (props: Props) => {
+  const { open, onOpenChange, container, children, trigger, className, ...rest } = props
+
+  const contentClassName = clsx(s.dropDownContent, className)
 
   return (
-    <DropdownMenu.Root open={open} onOpenChange={onOpenChange}>
+    <DropdownMenu.Root open={open} onOpenChange={onOpenChange} {...rest}>
+      <DropdownMenu.Trigger asChild>{trigger}</DropdownMenu.Trigger>
       <DropdownMenu.Portal container={container}>
         <DropdownMenu.Content
-          className={className}
-          sideOffset={sideOffset}
-          side={side}
-          align={align}
-          alignOffset={alignOffset}
-          avoidCollisions
+          className={contentClassName}
+          align={'end'}
+          sideOffset={15}
+          alignOffset={-14}
+          {...rest}
         >
           {children}
         </DropdownMenu.Content>
