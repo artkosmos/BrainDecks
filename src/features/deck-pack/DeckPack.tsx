@@ -1,7 +1,7 @@
 import { Typography } from '@/components/ui/typography'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { TabSwitcher, TabType } from '@/components/ui/tabSwitcher'
+import { TabSwitcher } from '@/components/ui/tabSwitcher'
 import { Slider } from '@/components/ui/slider'
 import { Icon } from '@/components/ui/icon'
 import deleteIcon from '@/assets/icons/delete_icon.svg'
@@ -18,6 +18,7 @@ import {
   Sort,
   CreateDeckArgs,
 } from '@/services/deck-service'
+import { decksTabs, paginationSelectOptions } from '@/options'
 import { DeckModals, NewDeckFields } from '@/features/deck-pack'
 import { AddNewDeckModal } from '@/components/modals/add-new-deck'
 import searchIcon from '@/assets/icons/input_search.svg'
@@ -38,18 +39,6 @@ export const DeckPack = () => {
   const [authorId, setAuthorId] = useState<string | undefined>(undefined)
 
   const inputIcon = <Icon srcIcon={searchIcon} />
-  const selectOptions = ['10', '20', '30', '50', '100']
-  const tabs: TabType[] = [
-    {
-      id: '1',
-      title: 'My Decks',
-    },
-    {
-      id: '2',
-      title: 'All Decks',
-      defaultTab: true,
-    },
-  ]
 
   const sortedString = useMemo(() => {
     if (!sort) return null
@@ -134,7 +123,11 @@ export const DeckPack = () => {
           withoutError
           onChange={e => setName(e.currentTarget.value)}
         />
-        <TabSwitcher label={'Show decks cards'} setActiveTab={filterByAuthorHandler} tabs={tabs} />
+        <TabSwitcher
+          label={'Show decks cards'}
+          setActiveTab={filterByAuthorHandler}
+          tabs={decksTabs}
+        />
         <Slider
           label={'Number of cards'}
           max={data.maxCardsCount}
@@ -154,7 +147,7 @@ export const DeckPack = () => {
         currentUserId={userData?.id}
       />
       <Pagination
-        options={selectOptions}
+        options={paginationSelectOptions}
         totalCount={data.pagination.totalItems}
         currentPage={data.pagination.currentPage}
         pageSize={data.pagination.itemsPerPage}

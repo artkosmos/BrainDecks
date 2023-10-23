@@ -12,7 +12,7 @@ import { TableHeadCell } from '@/components/ui/tables/TableHeadCell'
 import { Card } from '@/services/card-service'
 import { Column } from '@/features/deck-pack'
 import { Sort } from '@/services/deck-service'
-import { CardsModals } from '@/features/cards-pack'
+import { CardsModals } from '@/features/cards-pack/types'
 import s from './CardsTable.module.scss'
 import s1 from '@/features/deck-pack/deck-table/DeckTable.module.scss'
 

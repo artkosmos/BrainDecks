@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { Meta, StoryObj } from '@storybook/react'
 import { DropDownMenu } from './'
-// import s from './DropDownMenu.stories.module.scss'
+import { Icon } from '@/components/ui/icon'
+import dots from '@/assets/icons/dots.svg'
+import s from '@/features/cards-pack/CardsPack.module.scss'
 
 const meta = {
   title: 'Components/DropDownMenu',
@@ -27,7 +29,13 @@ const PreviewDropDown = () => {
     setIsShow(open)
   }
 
-  const options = ['PLAY', 'EDIT', 'DELETE']
+  const dropDownTrigger = <Icon srcIcon={dots} className={s.triggerIcon} />
 
-  return <DropDownMenu open={isShow} onOpenChange={onOpenChange} dropDownOptions={options} />
+  return (
+    <DropDownMenu trigger={dropDownTrigger} open={isShow} onOpenChange={onOpenChange}>
+      <div>Play</div>
+      <div>Edit</div>
+      <div>Delete</div>
+    </DropDownMenu>
+  )
 }

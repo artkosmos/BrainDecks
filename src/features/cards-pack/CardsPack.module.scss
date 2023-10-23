@@ -47,7 +47,7 @@
       margin-top: 15px;
     }
 
-    .packAddName {
+    .deckNameAndButtonWrapper {
       display: flex;
       flex-direction: row;
       align-items: flex-start;
@@ -56,10 +56,12 @@
       width: 100%;
       margin-top: 33px;
 
-      .packName {
-        display: flex;
-        font-size: 22px;
-        font-weight: 600;
+      .deckNameWrapper {
+        display: inline-flex;
+        flex-direction: row;
+        gap: 15px;
+        align-items: center;
+        justify-content: center;
       }
     }
 
@@ -72,4 +74,8 @@
 
 .table {
   margin-top: 24px;
+}
+
+.triggerIcon {
+  transform: rotate(90deg) scale(0.7);
 }

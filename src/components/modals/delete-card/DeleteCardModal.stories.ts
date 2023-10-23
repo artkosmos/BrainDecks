@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { CardsModals } from '@/features/cards-pack'
+import { CardsModals } from '@/features/cards-pack/types'
 import { DeleteCardModal } from '@/components/modals/delete-card'
 
 const meta = {

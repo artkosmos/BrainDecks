@@ -17,7 +17,9 @@ export const DropDownMenu = (props: Props) => {
 
   return (
     <DropdownMenu.Root open={open} onOpenChange={onOpenChange} {...rest}>
-      <DropdownMenu.Trigger asChild>{trigger}</DropdownMenu.Trigger>
+      <DropdownMenu.Trigger asChild>
+        <button className={s.triggerButton}>{trigger}</button>
+      </DropdownMenu.Trigger>
       <DropdownMenu.Portal container={container}>
         <DropdownMenu.Content
           className={contentClassName}

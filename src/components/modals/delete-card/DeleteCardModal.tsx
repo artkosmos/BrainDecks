@@ -1,7 +1,7 @@
 import { Modal } from '@/components/ui/modal'
 import { Typography } from '@/components/ui/typography'
 import { Button } from '@/components/ui/button'
-import { CardsModals } from '@/features/cards-pack'
+import { CardsModals } from '@/features/cards-pack/types'
 import s1 from '@/components/modals/delete-deck/DeleteDeckModal.module.scss'
 import s from './DeleteCardModal.module.scss'
 

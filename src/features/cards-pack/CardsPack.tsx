@@ -1,21 +1,24 @@
 import { ChangeEvent, useMemo, useState } from 'react'
 import { Link, useLocation, useParams } from 'react-router-dom'
-import searchIcon from '@/assets/icons/input_search.svg'
 import { Typography } from '@/components/ui/typography'
 import { Pagination } from '@/components/ui/pagination'
 import { Input } from '@/components/ui/input'
 import { EmptyCardsPack } from '@/features/empty-cards-pack'
 import { Button } from '@/components/ui/button'
 import { DeleteCardModal } from '@/components/modals/delete-card'
-import { PackOptions } from '@/components/modals/pack-options/PackOptions.tsx'
 import { AddNewCardModal } from '@/components/modals/add-new-card/AddNewCardModal.tsx'
 import { CardsTable } from '@/features/cards-pack/cards-table'
 import { EditCardModal } from '@/components/modals/edit-card'
+import { DropDownMenu } from '@/components/ui/dropDownMenu'
+import { DropDownItem } from '@/components/ui/dropDownMenu/dropDownItem'
+import { PlayCardIcon } from '@/assets/icons/components/PlayCardIcon.tsx'
+import { EditIcon } from '@/assets/icons/components/EditIcon.tsx'
+import { DeleteIcon } from '@/assets/icons/components/DeleteIcon.tsx'
 import { Icon } from '@/components/ui/icon'
 import { PreviousPage } from '@/assets/icons/components/PreviousPage.tsx'
 import { useDebounce } from '@/hooks'
 import { Sort } from '@/services/deck-service'
-import { CardsModals, NewCardFields, SelectOptions } from '@/features/cards-pack/types.ts'
+import { CardsModals, NewCardFields } from '@/features/cards-pack/types'
 import {
   Card,
   GetCardsQueryParams,
@@ -24,8 +27,11 @@ import {
   useEditCardMutation,
   useGetCardsQuery,
 } from '@/services/card-service'
-import s from './CardsPack.module.scss'
 import { useMeQuery } from '@/services/auth-service'
+import { cardSelectOptions, paginationSelectOptions } from '@/options'
+import dots from '@/assets/icons/dots.svg'
+import searchIcon from '@/assets/icons/input_search.svg'
+import s from './CardsPack.module.scss'
 
 export const CardsPack = () => {
   const [question, setQuestion] = useState<string>('')
@@ -58,10 +64,6 @@ export const CardsPack = () => {
     itemsPerPage,
     orderBy: sortedString,
   })
-
-  const paginationSelectOptions: SelectOptions = ['10', '20', '30', '50', '100']
-  const cardSelectOptions: SelectOptions = ['text', 'picture']
-  const inputIcon = <Icon srcIcon={searchIcon} />
 
   const changeSearchValue = (e: ChangeEvent<HTMLInputElement>) => {
     setQuestion(e.currentTarget.value)
@@ -107,6 +109,9 @@ export const CardsPack = () => {
     )
   }
 
+  const dropDownTrigger = <Icon srcIcon={dots} className={s.triggerIcon} />
+  const inputIcon = <Icon srcIcon={searchIcon} />
+
   return (
     <div className={s.packContainer}>
       <div className={s.insideContainer}>
@@ -114,16 +119,26 @@ export const CardsPack = () => {
           <PreviousPage className={s.arrow} />
           <Typography variant={'body2'}>Back to Deck List</Typography>
         </Button>
-        <span className={s.packAddName}>
-          <Typography className={s.packName} variant={'large'}>
-            {deckName}
-            <span style={{ marginLeft: '10px' }}>
-              <PackOptions />
-              {/*тут ^ будет коллбек по откртию модалок */}
-            </span>
-          </Typography>
+        <div className={s.deckNameAndButtonWrapper}>
+          <div className={s.deckNameWrapper}>
+            <Typography variant={'large'}>{deckName}</Typography>
+            <DropDownMenu trigger={dropDownTrigger}>
+              <DropDownItem>
+                <PlayCardIcon width={15} height={15} />
+                Learn
+              </DropDownItem>
+              <DropDownItem>
+                <EditIcon width={15} height={15} />
+                Edit
+              </DropDownItem>
+              <DropDownItem>
+                <DeleteIcon width={15} height={15} />
+                Delete
+              </DropDownItem>
+            </DropDownMenu>
+          </div>
           <Button onClick={() => openModalHandler(CardsModals.CREATE)}>Add New Card</Button>
-        </span>
+        </div>
         <div className={s.searchContainer}>
           <Input
             className={s.input}

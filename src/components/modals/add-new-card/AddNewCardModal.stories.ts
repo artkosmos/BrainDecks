@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { AddNewCardModal } from './AddNewCardModal.tsx'
-import { CardsModals } from '@/features/cards-pack'
+import { CardsModals } from '@/features/cards-pack/types'
 
 const meta = {
   title: 'Modals/AddNewCard',
