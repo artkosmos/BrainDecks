@@ -15,7 +15,7 @@ type Props = {
   openModal: DeckModals | null
   setOpenModal: (value: DeckModals | null) => void
   onSubmit?: (values: NewDeckFields) => void
-  activeItem: Deck | undefined
+  activeItem?: Deck | undefined
 }
 
 export const EditDeckModal = ({ onSubmit, openModal, setOpenModal, activeItem }: Props) => {

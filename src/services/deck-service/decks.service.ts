@@ -20,6 +20,15 @@ export const DecksService = baseApi.injectEndpoints({
         },
         providesTags: ['Decks'],
       }),
+      getDeck: builder.query<Deck, { id: string | undefined }>({
+        query: ({ id }) => {
+          return {
+            url: `v1/decks/${id}`,
+            params: id ?? {},
+          }
+        },
+        providesTags: ['Deck'],
+      }),
       createDeck: builder.mutation<Deck, CreateDeckArgs>({
         query: data => {
           const formData = new FormData()
@@ -44,7 +53,7 @@ export const DecksService = baseApi.injectEndpoints({
           url: `v1/decks/${id}`,
           method: 'DELETE',
         }),
-        invalidatesTags: ['Decks'],
+        invalidatesTags: ['Decks', 'Deck'],
       }),
       updateDeck: builder.mutation<UpdateDeckResponseData, UpdateDeckArgs>({
         query: ({ id, ...body }) => ({
@@ -52,7 +61,7 @@ export const DecksService = baseApi.injectEndpoints({
           method: 'PATCH',
           body,
         }),
-        invalidatesTags: ['Decks'],
+        invalidatesTags: ['Decks', 'Deck'],
       }),
     }
   },
@@ -60,6 +69,7 @@ export const DecksService = baseApi.injectEndpoints({
 
 export const {
   useGetDecksQuery,
+  useGetDeckQuery,
   useCreateDeckMutation,
   useDeleteDeckMutation,
   useUpdateDeckMutation,
