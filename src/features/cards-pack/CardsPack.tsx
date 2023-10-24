@@ -148,16 +148,27 @@ export const CardsPack = () => {
         <div className={s.deckNameAndButtonWrapper}>
           <div className={s.deckNameWrapper}>
             <Typography variant={'large'}>{deckData.name}</Typography>
-            <DropDownMenu trigger={dropDownTrigger}>
-              <DropDownItem onClick={learnDeckHandler}>
+            <DropDownMenu
+              sideOffset={12}
+              alignOffset={-15}
+              trigger={dropDownTrigger}
+              triggerButtonClassName={s.triggerButton}
+            >
+              <DropDownItem className={s.dropDownMenuItem} onClick={learnDeckHandler}>
                 <PlayCardIcon width={15} height={15} />
                 Learn
               </DropDownItem>
-              <DropDownItem onClick={() => setOpenDeckModal(DeckModals.UPDATE)}>
+              <DropDownItem
+                className={s.dropDownMenuItem}
+                onClick={() => setOpenDeckModal(DeckModals.UPDATE)}
+              >
                 <EditIcon width={15} height={15} />
                 Edit
               </DropDownItem>
-              <DropDownItem onClick={() => setOpenDeckModal(DeckModals.DELETE)}>
+              <DropDownItem
+                className={s.dropDownMenuItem}
+                onClick={() => setOpenDeckModal(DeckModals.DELETE)}
+              >
                 <DeleteIcon width={15} height={15} />
                 Delete
               </DropDownItem>

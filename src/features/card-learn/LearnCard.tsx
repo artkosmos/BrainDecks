@@ -11,11 +11,11 @@ export const LearnCard = () => {
   const [isShowAnswer, setIsShowAnswer] = useState<boolean>(false)
   const [previousCardId, setPreviousCardId] = useState<string | undefined>()
 
-  const { deckName } = useParams<{ deckName: string }>()
+  const { deckId } = useParams<{ deckId: string }>()
   const location = useLocation()
 
   const { data, isLoading } = useGetRandomCardWithQuery({
-    deckId: location.state.id,
+    deckId,
     previousCardId,
   })
 
@@ -58,7 +58,7 @@ export const LearnCard = () => {
     <div className={s.wrapper}>
       <Card className={s.card}>
         <Typography htmlTag={'h2'} variant={'h1'} className={s.title}>
-          Learn &quot;{deckName}&quot;
+          Learn &quot;{location.state.name}&quot;
         </Typography>
         <div className={s.question}>
           <Typography htmlTag={'h3'} variant={'body1'}>

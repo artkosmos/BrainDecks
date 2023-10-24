@@ -8,9 +8,10 @@ import { TableHead } from '@/components/ui/tables/TableHead'
 import { EditIcon } from '@/assets/icons/components/EditIcon.tsx'
 import { DeleteIcon } from '@/assets/icons/components/DeleteIcon.tsx'
 import { TableHeadCell } from '@/components/ui/tables/TableHeadCell'
-import { Column, DeckModals } from '@/features/deck-pack'
+import { DeckModals } from '@/features/deck-pack'
 import { Deck, Sort } from '@/services/deck-service'
 import { useNavigate } from 'react-router-dom'
+import { deckTableColumns } from '@/options'
 import s from './DeckTable.module.scss'
 
 type Props = {
@@ -22,25 +23,6 @@ type Props = {
   currentUserId?: string
 }
 
-const columns: Column[] = [
-  {
-    key: 'name',
-    title: 'Name',
-  },
-  {
-    key: 'cardsCount',
-    title: 'Cards',
-  },
-  {
-    key: 'updated',
-    title: 'Last Updated',
-  },
-  {
-    key: 'created',
-    title: 'Created by',
-  },
-]
-
 export const DeckTable = (props: Props) => {
   const { data, className, onIconClick, sort, setSort, currentUserId } = props
 
@@ -50,7 +32,7 @@ export const DeckTable = (props: Props) => {
     <Table className={className}>
       <TableHead>
         <TableRow>
-          <TableHeadCellWithSort columns={columns} sort={sort} onSort={setSort} />
+          <TableHeadCellWithSort columns={deckTableColumns} sort={sort} onSort={setSort} />
           <TableHeadCell />
         </TableRow>
       </TableHead>
@@ -58,12 +40,7 @@ export const DeckTable = (props: Props) => {
         {data.map(deck => {
           return (
             <TableRow key={deck.id}>
-              <TableCell
-                className={s.deckName}
-                onClick={() =>
-                  navigate(`${deck.name}/cards`, { state: { id: deck.id, author: deck.author.id } })
-                }
-              >
+              <TableCell className={s.deckName} onClick={() => navigate(`${deck.id}/cards`)}>
                 {deck.name}
               </TableCell>
               <TableCell>{deck.cardsCount}</TableCell>
@@ -73,7 +50,7 @@ export const DeckTable = (props: Props) => {
                 <div className={s.iconsWrapper}>
                   <PlayCardIcon
                     className={s.icon}
-                    onClick={() => navigate(`${deck.name}/learn`, { state: { id: deck.id } })}
+                    onClick={() => navigate(`${deck.id}/learn`, { state: { name: deck.name } })}
                   />
                   <EditIcon
                     onClick={() => onIconClick(DeckModals.UPDATE, deck)}
