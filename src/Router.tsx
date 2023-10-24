@@ -8,7 +8,6 @@ import {
 import { DeckPack } from '@/features/deck-pack'
 import { Login } from '@/features/login'
 import { useMeQuery } from '@/services/auth-service/auth-service.ts'
-import { Header } from '@/components/ui/header'
 import { Registration } from '@/features/registration'
 import { CheckEmailCard } from '@/components/auth/check-email-card'
 import { PageNotFound } from '@/components/ui/404'
@@ -16,6 +15,7 @@ import { ResetPassword } from '@/features/reset-password'
 import { RecoverPassword } from '@/features/recover-password'
 import { LearnCard } from '@/features/card-learn'
 import { CardsPack } from '@/features/cards-pack'
+import { Header } from '@/features/header'
 
 const publicRoutes: RouteObject[] = [
   {
@@ -73,14 +73,14 @@ export const Router = () => {
 }
 
 function PrivateRoutes() {
-  const { isError } = useMeQuery()
+  const { data, isError } = useMeQuery()
 
   const isAuthorized = !isError
 
   if (isAuthorized) {
     return (
       <>
-        <Header isAuth={true} />
+        <Header isAuth={true} userData={data} />
         <Outlet />
       </>
     )

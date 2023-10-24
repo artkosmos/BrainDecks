@@ -42,3 +42,33 @@
     }
   }
 }
+
+.userAvatar {
+  @include size(36px, 36px);
+
+  border-radius: 50%;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.dropDownItem {
+  &:hover {
+    cursor: pointer;
+    filter: opacity(60%);
+  }
+}
+
+.email {
+  color: var(--color-dark-100);
+}
+
+.emailAndName {
+  display: flex;
+  flex-direction: column;
+}
+
+.headerDropDown {
+  z-index: 2;
+}
