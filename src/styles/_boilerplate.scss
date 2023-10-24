@@ -1,5 +1,8 @@
 html {
+  scrollbar-color: var(--color-accent-500);
+
   box-sizing: border-box;
+
   font-size: 100%;
 
   -webkit-font-smoothing: antialiased;
@@ -38,4 +41,14 @@ body {
   color: var(--color-light-100);
 
   background-color: var(--color-dark-900);
+
+  &::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color-accent-700);
+    border-radius: 6px;
+  }
 }
