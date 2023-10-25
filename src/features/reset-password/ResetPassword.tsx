@@ -1,7 +1,7 @@
 import { CreateNewPasswordForm } from '@/components/auth/create-new-password-form'
-import { CreateNewPasswordFields } from '@/types/common'
 import { useResetPasswordMutation } from '@/services/auth-service'
 import { useParams } from 'react-router-dom'
+import { CreateNewPasswordFields } from '@/schemes/types'
 
 export const ResetPassword = () => {
   const [resetPassword, result] = useResetPasswordMutation()

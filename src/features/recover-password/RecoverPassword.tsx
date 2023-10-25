@@ -1,7 +1,7 @@
 import { ForgotPasswordForm } from '@/components/auth/forgot-pasword-form'
 import { useRecoverPasswordMutation } from '@/services/auth-service'
-import { ForgotPasswordFields } from '@/types/common'
 import { Navigate, useSearchParams } from 'react-router-dom'
+import { ForgotPasswordFields } from '@/schemes/types'
 
 export const RecoverPassword = () => {
   const [recoverPassword, result] = useRecoverPasswordMutation()

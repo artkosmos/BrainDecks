@@ -2,8 +2,8 @@ import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
 import { Label } from '@radix-ui/react-label'
 import * as Radio from '@radix-ui/react-radio-group'
 import { Typography } from '@/components/ui/typography'
-import { RadioGroupOptions } from '@/types/common'
 import { clsx } from 'clsx'
+import { RadioGroupOptions } from '@/features/card-learn/types'
 import s from './RadioGroup.module.scss'
 
 export type RadioGroupProps = {

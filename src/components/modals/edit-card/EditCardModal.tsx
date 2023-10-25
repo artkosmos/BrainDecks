@@ -7,15 +7,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { addNewCardSchema } from '@/schemes'
 import { useEffect, useState } from 'react'
 import { Selector } from '@/components/ui/select'
-import { Label } from '@radix-ui/react-label'
-import { Icon } from '@/components/ui/icon'
-import { clsx } from 'clsx'
-import coverIcon from '@/assets/icons/cover_icon.svg'
+import { ControlledFileInput } from '@/components/ui/controlled/controlledFileInput'
 import { Card } from '@/services/card-service'
 import { CardsModals, NewCardFields } from '@/features/cards-pack/types'
 import s from './EditCardModal.module.scss'
 import s1 from '@/components/modals/edit-deck/EditDeckModal.module.scss'
-import s2 from '@/components/ui/button/Button.module.scss'
 
 type Props = {
   openModal: CardsModals | null
@@ -68,8 +64,6 @@ export const EditCardModal = (props: Props) => {
     setCardType('text')
   }
 
-  const coverButtonStyle = clsx(s2.button, s2.secondary, s2.fullWidth, s.coverButton)
-
   return (
     <Modal
       className={s1.modal}
@@ -88,20 +82,13 @@ export const EditCardModal = (props: Props) => {
           selectData={selectOptions}
         />
         {cardType === 'picture' && (
-          <>
-            <ControlledInput
-              withoutError
-              hidden
-              control={control}
-              name={'questionImg'}
-              type={'file'}
-              id={'questionImg'}
-            />
-            <Label htmlFor={'questionImg'} className={coverButtonStyle}>
-              <Icon srcIcon={coverIcon} />
-              <Typography variant={'subtitle2'}>Change Question Cover</Typography>
-            </Label>
-          </>
+          <ControlledFileInput
+            className={s.fileInput}
+            control={control}
+            name={'questionImg'}
+            id={'questionImg'}
+            buttonText={'Change Question Cover'}
+          />
         )}
         <ControlledInput
           className={s.questionInput}
@@ -112,20 +99,13 @@ export const EditCardModal = (props: Props) => {
           errorMessage={errors.question?.message}
         />
         {cardType === 'picture' && (
-          <>
-            <ControlledInput
-              withoutError
-              hidden
-              control={control}
-              name={'answerImg'}
-              type={'file'}
-              id={'answerImg'}
-            />
-            <Label htmlFor={'answerImg'} className={coverButtonStyle}>
-              <Icon srcIcon={coverIcon} />
-              <Typography variant={'subtitle2'}>Change Answer Cover</Typography>
-            </Label>
-          </>
+          <ControlledFileInput
+            className={s.fileInput}
+            control={control}
+            name={'answerImg'}
+            id={'answerImg'}
+            buttonText={'Change Answer Cover'}
+          />
         )}
         <ControlledInput
           className={s.answerInput}

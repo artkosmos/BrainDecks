@@ -16,6 +16,7 @@ import { RecoverPassword } from '@/features/recover-password'
 import { LearnCard } from '@/features/card-learn'
 import { CardsPack } from '@/features/cards-pack'
 import { Header } from '@/features/header'
+import { PersonalPage } from '@/features/personal-page/PersonalPage.tsx'
 
 const publicRoutes: RouteObject[] = [
   {
@@ -60,6 +61,10 @@ const privateRoutes: RouteObject[] = [
   {
     path: '/decks/:deckId/learn',
     element: <LearnCard />,
+  },
+  {
+    path: '/user',
+    element: <PersonalPage />,
   },
 ]
 

@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/card'
 import { ControlledInput } from '@/components/ui/controlled/controlledInput'
 import { Typography } from '@/components/ui/typography'
 import { forgotPasswordSchema } from '@/schemes'
-import { ForgotPasswordFields } from '@/types/common'
+import { ForgotPasswordFields } from '@/schemes/types'
 import { Link } from 'react-router-dom'
 import s from './ForgotPasswordForm.module.scss'
 

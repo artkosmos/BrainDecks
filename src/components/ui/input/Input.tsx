@@ -1,11 +1,11 @@
-import { ComponentPropsWithoutRef, forwardRef } from 'react'
+import { ComponentPropsWithoutRef, forwardRef, ReactNode } from 'react'
 import { clsx } from 'clsx'
 import { Typography } from '@/components/ui/typography'
 import s from './Input.module.scss'
 
-export type AdditionalTypeToInput = {
-  leftSideIcon?: JSX.Element
-  rightSideIcon?: JSX.Element
+type AdditionalTypeToInput = {
+  leftSideIcon?: ReactNode
+  rightSideIcon?: ReactNode
   errorMessage?: string
   withoutError?: boolean
   label?: string
@@ -14,9 +14,9 @@ export type AdditionalTypeToInput = {
   callBackValue?: boolean
 }
 
-export type InputPropsType = ComponentPropsWithoutRef<'input'> & AdditionalTypeToInput
+export type InputProps = ComponentPropsWithoutRef<'input'> & AdditionalTypeToInput
 
-export const Input = forwardRef<HTMLInputElement, InputPropsType>((props, ref) => {
+export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   const {
     name,
     label,

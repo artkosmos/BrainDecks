@@ -9,7 +9,7 @@ import { createAccountSchema } from '@/schemes/createAccountSchema.ts'
 import crossedEye from '@/assets/icons/eye_crossed.svg'
 import eye from '@/assets/icons/eye.svg'
 import { Icon } from '@/components/ui/icon'
-import { CreateAccountFields } from '@/types/common'
+import { CreateAccountFields } from '@/schemes/types'
 import { Link } from 'react-router-dom'
 import s from './SignUp.module.scss'
 

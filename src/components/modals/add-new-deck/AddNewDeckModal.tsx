@@ -3,15 +3,11 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { newDeckNameSchema } from '@/schemes'
 import { ControlledCheckbox } from '@/components/ui/controlled/controlledCheckbox'
+import { ControlledFileInput } from '@/components/ui/controlled/controlledFileInput'
 import { Button } from '@/components/ui/button'
 import { Typography } from '@/components/ui/typography'
 import { Modal } from '@/components/ui/modal'
-import { DeckModals, NewDeckFields } from '@/features/deck-pack'
-import { Icon } from '@/components/ui/icon'
-import coverIcon from '@/assets/icons/cover_icon.svg'
-import { Label } from '@radix-ui/react-label'
-import { clsx } from 'clsx'
-import s1 from '@/components/ui/button/Button.module.scss'
+import { DeckModals, NewDeckFields } from '@/features/deck-pack/types'
 import s from './AddNewDeckModal.module.scss'
 
 type Props = {
@@ -42,8 +38,6 @@ export const AddNewDeckModal = ({ onSubmit, openModal, setOpenModal }: Props) =>
     reset({ name: '', isPrivate: false })
   }
 
-  const coverButtonStyle = clsx(s1.button, s1.secondary, s1.fullWidth, s.coverButton)
-
   return (
     <Modal
       className={s.modal}
@@ -54,18 +48,13 @@ export const AddNewDeckModal = ({ onSubmit, openModal, setOpenModal }: Props) =>
         Add New Deck
       </Typography>
       <form onSubmit={onSubmitHandler} className={s.form}>
-        <ControlledInput
-          withoutError
-          hidden
+        <ControlledFileInput
+          className={s.fileInput}
           control={control}
           name={'cover'}
-          type={'file'}
+          buttonText={'Cover Image'}
           id={'cover'}
         />
-        <Label htmlFor={'cover'} className={coverButtonStyle}>
-          <Icon srcIcon={coverIcon} />
-          <Typography variant={'subtitle2'}>Change Cover</Typography>
-        </Label>
         <ControlledInput
           aria-label={'enter new deck name'}
           control={control}

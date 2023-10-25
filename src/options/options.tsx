@@ -1,6 +1,6 @@
 import { SelectOptions } from '@/features/cards-pack/types'
 import { TabType } from '@/components/ui/tabSwitcher'
-import { Column } from '@/features/deck-pack'
+import { Column } from '@/features/deck-pack/types'
 
 export const paginationSelectOptions: SelectOptions = ['10', '20', '30', '50', '100']
 

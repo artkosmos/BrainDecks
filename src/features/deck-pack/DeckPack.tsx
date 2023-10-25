@@ -19,7 +19,7 @@ import {
   CreateDeckArgs,
 } from '@/services/deck-service'
 import { decksTabs, paginationSelectOptions } from '@/options'
-import { DeckModals, NewDeckFields } from '@/features/deck-pack'
+import { DeckModals, NewDeckFields } from '@/features/deck-pack/types'
 import { AddNewDeckModal } from '@/components/modals/add-new-deck'
 import searchIcon from '@/assets/icons/input_search.svg'
 import { EditDeckModal } from '@/components/modals/edit-deck'

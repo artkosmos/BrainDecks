@@ -56,7 +56,7 @@ export const Header = ({ isAuth, userData }: HeaderPropsType) => {
                     </Typography>
                   </div>
                 </DropDownItem>
-                <DropDownItem className={s1.dropDownMenuItem}>
+                <DropDownItem onClick={() => navigate('/user')} className={s1.dropDownMenuItem}>
                   <PersonIcon />
                   My Profile
                 </DropDownItem>

@@ -1,7 +1,7 @@
 import { SignUp } from '@/components/auth/sign-up/SignUp.tsx'
 import { useSignUpMutation } from '@/services/auth-service'
-import { CreateAccountFields } from '@/types/common'
 import { Navigate } from 'react-router-dom'
+import { CreateAccountFields } from '@/schemes/types'
 
 export const Registration = () => {
   const [signUp, result] = useSignUpMutation()

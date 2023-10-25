@@ -26,7 +26,7 @@ import {
   useUpdateDeckMutation,
 } from '@/services/deck-service'
 import { CardsModals, NewCardFields } from '@/features/cards-pack/types'
-import { DeckModals, NewDeckFields } from '@/features/deck-pack'
+import { DeckModals, NewDeckFields } from '@/features/deck-pack/types'
 import {
   Card,
   GetCardsQueryParams,

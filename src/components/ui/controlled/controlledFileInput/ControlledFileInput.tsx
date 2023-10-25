@@ -3,7 +3,7 @@ import { Icon } from '@/components/ui/icon'
 import coverIcon from '@/assets/icons/cover_icon.svg'
 import { Typography } from '@/components/ui/typography'
 import { Input, InputProps } from '@/components/ui/input'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, ReactNode, useState } from 'react'
 import { FieldValues, useController, UseControllerProps } from 'react-hook-form'
 import { clsx } from 'clsx'
 import s from './ControlledFileInput.module.scss'
@@ -11,12 +11,24 @@ import s1 from '@/components/ui/button/Button.module.scss'
 
 type Props<T extends FieldValues> = {
   imagePreviewClassName?: string
+  triggerClassName?: string
   buttonText?: string
+  trigger?: ReactNode
 } & UseControllerProps<T> &
   Omit<InputProps, 'onChange' | 'value'>
 
 export const ControlledFileInput = <T extends FieldValues>(props: Props<T>) => {
-  const { control, name, id, buttonText, className, imagePreviewClassName, ...rest } = props
+  const {
+    control,
+    name,
+    id,
+    buttonText,
+    className,
+    imagePreviewClassName,
+    trigger,
+    triggerClassName,
+    ...rest
+  } = props
 
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
 
@@ -57,10 +69,16 @@ export const ControlledFileInput = <T extends FieldValues>(props: Props<T>) => {
         id={id}
         {...rest}
       />
-      <Label htmlFor={id} className={coverButtonStyle}>
-        <Icon width={20} srcIcon={coverIcon} />
-        <Typography variant={'subtitle2'}>{buttonText}</Typography>
-      </Label>
+      {!trigger ? (
+        <Label htmlFor={id} className={coverButtonStyle}>
+          <Icon width={20} srcIcon={coverIcon} />
+          <Typography variant={'subtitle2'}>{buttonText}</Typography>
+        </Label>
+      ) : (
+        <Label htmlFor={id} className={triggerClassName}>
+          {trigger}
+        </Label>
+      )}
     </div>
   )
 }

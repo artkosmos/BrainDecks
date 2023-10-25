@@ -9,7 +9,7 @@ import { ControlledInput } from '@/components/ui/controlled/controlledInput'
 import { Icon } from '@/components/ui/icon'
 import { Typography } from '@/components/ui/typography'
 import { createNewPasswordSchema } from '@/schemes'
-import { CreateNewPasswordFields } from '@/types/common'
+import { CreateNewPasswordFields } from '@/schemes/types'
 import s from './CreateNewPassword.module.scss'
 
 type Props = {

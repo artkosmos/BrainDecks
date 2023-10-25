@@ -7,7 +7,8 @@ import { Button } from '@/components/ui/button'
 import { Typography } from '@/components/ui/typography'
 import { Modal } from '@/components/ui/modal'
 import { useEffect } from 'react'
-import { DeckModals, NewDeckFields } from '@/features/deck-pack'
+import { ControlledFileInput } from '@/components/ui/controlled/controlledFileInput'
+import { DeckModals, NewDeckFields } from '@/features/deck-pack/types'
 import { Deck } from '@/services/deck-service'
 import s from './EditDeckModal.module.scss'
 
@@ -62,6 +63,13 @@ export const EditDeckModal = ({ onSubmit, openModal, setOpenModal, activeItem }:
         Edit Deck
       </Typography>
       <form onSubmit={onSubmitHandler} className={s.form}>
+        <ControlledFileInput
+          className={s.fileInput}
+          control={control}
+          name={'name'}
+          id={'name'}
+          buttonText={'Change Deck Cover'}
+        />
         <ControlledInput
           aria-label={'enter new deck name'}
           control={control}
