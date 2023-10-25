@@ -1,87 +1,136 @@
-import { useRef, useState } from 'react'
-import { faArrowRightFromBracket, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
 import { Typography } from '@/components/ui/typography'
-import cardsLogo from '@/assets/icons/cardsLogo.png'
-import s from './personalInfo.module.scss'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { UpdatePersonalInfo } from '@/features/personal-page/types'
+import { updatePersonalInfoSchema } from '@/schemes/updatePersonalInfoSchema.ts'
+import { GetMeQueryResponseData } from '@/services/auth-service'
+import { ControlledInput } from '@/components/ui/controlled/controlledInput'
+import { Icon } from '@/components/ui/icon'
+import userIcon from '@/assets/icons/unknown.svg'
+import { SignOutIcon } from '@/assets/icons/components/SignOutIcon.tsx'
+import { EditIcon } from '@/assets/icons/components/EditIcon.tsx'
+import { CancelIcon } from '@/assets/icons/components/CancelIcon.tsx'
+import { ControlledFileInput } from '@/components/ui/controlled/controlledFileInput'
+import s from './PersonalInfo.module.scss'
 
-export const PersonalInformation = () => {
-  const [edit, setEdit] = useState(false)
+type Props = {
+  onSubmit?: any
+  userData: GetMeQueryResponseData | undefined
+}
 
-  const inputRef = useRef<HTMLInputElement | null>(null)
+export const PersonalInformation = ({ onSubmit, userData }: Props) => {
+  const [editName, setEditName] = useState<boolean>(false)
+  const [editEmail, setEditEmail] = useState<boolean>(false)
+  const [editAvatar, setEditAvatar] = useState<boolean>(false)
 
-  const handleButtonClick = () => {
-    if (inputRef.current) {
-      inputRef.current.focus()
-    }
-    setEdit(!edit)
-  }
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<UpdatePersonalInfo>({
+    resolver: zodResolver(updatePersonalInfoSchema),
+    mode: 'onSubmit',
+    defaultValues: { email: userData?.email, avatar: userData?.avatar, name: userData?.name },
+  })
 
-  const editIconHandler = () => {
-    console.log('handler')
-  }
+  const onSubmitHandler = handleSubmit(data => {
+    console.log(data)
+    onSubmit?.(data)
+  })
 
   return (
     <Card className={s.container} aria-label={'profile information'}>
-      <Typography variant={'h1'} className={s.typoInfo}>
-        Personal Information
-      </Typography>
-      <div>
-        <img className={s.userPhoto} src={cardsLogo} alt="user-photo" />
-        <span className={s.editLogo}>
-          <FontAwesomeIcon
-            aria-label={'click to edit your profile photo'}
-            icon={faPenToSquare}
-            onClick={editIconHandler}
-            style={{ cursor: 'pointer' }}
-          />
-        </span>
-      </div>
-      {edit ? (
-        <Input
-          aria-label={'double click and rename your profile name'}
-          className={s.input}
-          name={'Nick name'}
-          autoFocus={true}
-          onBlur={() => setEdit(false)}
-        />
-      ) : (
-        <div className={s.nameEmailBlock} onDoubleClick={handleButtonClick}>
-          <label>
-            name
-            <span className={s.editIcon}>
-              <FontAwesomeIcon icon={faPenToSquare} />
-            </span>
-          </label>
-          <Typography className={s.email}>email@gmail.com</Typography>
-        </div>
-      )}
+      <Typography variant={'h1'}>Personal Information</Typography>
+      <form onSubmit={onSubmitHandler} className={s.form}>
+        {editAvatar ? (
+          <div className={`${s.editWrapper} ${s.editAvatarWrapper}`}>
+            <ControlledFileInput
+              control={control}
+              name={'avatar'}
+              id={'avatar'}
+              buttonText={'Choose New Photo'}
+            />
+            <CancelIcon className={s.cancelIcon} onClick={() => setEditAvatar(false)} />
+          </div>
+        ) : (
+          <div className={s.avatarWrapper}>
+            <Icon className={s.avatar} srcIcon={userIcon} alt={'avatar'} />
+            <Button
+              variant={'secondary'}
+              className={s.avatarEditButton}
+              onClick={() => setEditAvatar(true)}
+            >
+              <EditIcon width={16} />
+            </Button>
+          </div>
+        )}
 
-      {edit ? (
-        <Button
-          aria-label={'save changes'}
-          className={s.button}
-          variant={'primary'}
-          fullWidth={true}
-        >
-          <>
-            <FontAwesomeIcon icon={faArrowRightFromBracket} />
-          </>
-          <Typography variant={'subtitle2'}>Save Changes</Typography>
-        </Button>
-      ) : (
-        <Button aria-label={'logout'} className={s.button} variant={'secondary'} fullWidth={true}>
-          <>
-            <FontAwesomeIcon icon={faArrowRightFromBracket} />
-          </>
-          {/*<NavLink to='logout'>*/}
-          <Typography variant={'subtitle2'}>Logout</Typography>
-          {/*</NavLink>*/}
-        </Button>
-      )}
+        {editName ? (
+          <div className={s.editWrapper}>
+            <ControlledInput
+              autoFocus
+              control={control}
+              name={'name'}
+              errorMessage={errors.name?.message}
+              label={'Nick Name'}
+            />
+            <CancelIcon className={s.cancelIcon} onClick={() => setEditName(false)} />
+          </div>
+        ) : (
+          <div className={s.notEditWrapper}>
+            <Typography variant={'h1'}>{userData?.name}</Typography>
+            <EditIcon width={16} className={s.editIcon} onClick={() => setEditName(true)} />
+          </div>
+        )}
+
+        {editEmail ? (
+          <div className={s.editWrapper}>
+            <ControlledInput
+              autoFocus
+              control={control}
+              name={'email'}
+              errorMessage={errors.email?.message}
+              label={'Email'}
+            />
+            <CancelIcon className={s.cancelIcon} onClick={() => setEditEmail(false)} />
+          </div>
+        ) : (
+          <div className={s.notEditWrapper}>
+            <Typography className={s.email} variant={'body2'}>
+              {userData?.email}
+            </Typography>
+            <EditIcon width={16} className={s.editIcon} onClick={() => setEditEmail(true)} />
+          </div>
+        )}
+
+        {(editName || editEmail) && (
+          <Button
+            type={'submit'}
+            className={s.submitButton}
+            aria-label={'save changes'}
+            variant={'primary'}
+            fullWidth={true}
+          >
+            <Typography variant={'subtitle2'}>Save Changes</Typography>
+          </Button>
+        )}
+
+        {!editName && !editEmail && (
+          <Button
+            type={'button'}
+            aria-label={'logout'}
+            className={s.button}
+            variant={'secondary'}
+            fullWidth={true}
+          >
+            <SignOutIcon />
+            <Typography variant={'subtitle2'}>Logout</Typography>
+          </Button>
+        )}
+      </form>
     </Card>
   )
 }

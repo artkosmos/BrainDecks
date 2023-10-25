@@ -1,0 +1,89 @@
+@import '/src/styles/mixins';
+
+.container {
+  @include display-column;
+
+  margin-top: 36px;
+  padding: 33px 36px 50px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+}
+
+.notEditWrapper {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.avatarWrapper {
+  position: relative;
+
+  .avatarEditButton {
+    position: absolute;
+    right: 25px;
+    bottom: 15px;
+
+    width: 24px;
+    height: 24px;
+    padding: 0;
+  }
+}
+
+.editWrapper {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+
+  .cancelIcon {
+    cursor: pointer;
+    transition: 0.15s ease-in-out;
+
+    &:hover {
+      transform: rotate(90deg);
+
+      path {
+        fill: var(--color-danger-500);
+        stroke: var(--color-danger-500);
+      }
+    }
+  }
+}
+
+.avatar {
+  width: 180px;
+}
+
+.editAvatarWrapper {
+  margin-top: 27px;
+}
+
+.email {
+  color: var(--color-dark-100);
+}
+
+.button {
+  margin-top: 24px;
+}
+
+.submitButton {
+  margin-top: 12px;
+}
+
+.editIcon {
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.3);
+  }
+}
