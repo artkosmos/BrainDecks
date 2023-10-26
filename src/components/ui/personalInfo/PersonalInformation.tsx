@@ -93,6 +93,7 @@ export const PersonalInformation = ({ onSubmit, userData, logOutFn }: Props) => 
                 name={'name'}
                 errorMessage={errors.name?.message}
                 label={'Nick Name'}
+                autoFocus
               />
               <CancelIcon className={s.cancelIcon} onClick={() => cancelHandler('name')} />
             </div>

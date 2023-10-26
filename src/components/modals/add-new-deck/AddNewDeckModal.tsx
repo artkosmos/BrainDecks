@@ -61,6 +61,7 @@ export const AddNewDeckModal = ({ onSubmit, openModal, setOpenModal }: Props) =>
           name={'name'}
           label={'Name Deck'}
           errorMessage={errors.name?.message}
+          autoFocus
         />
         <ControlledCheckbox
           className={s.checkbox}

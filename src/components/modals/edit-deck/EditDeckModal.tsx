@@ -76,6 +76,7 @@ export const EditDeckModal = ({ onSubmit, openModal, setOpenModal, activeItem }:
           name={'name'}
           label={'Name Deck'}
           errorMessage={errors.name?.message}
+          autoFocus
         />
         <ControlledCheckbox
           className={s.checkbox}

@@ -24,7 +24,12 @@ export const Modal = forwardRef<ElementRef<typeof Dialog.Content>, ModalProps>((
     <Dialog.Root {...rest}>
       <Dialog.Portal>
         <Dialog.Overlay className={s.overlay} />
-        <Dialog.Content ref={ref} className={contentClassName} {...rest}>
+        <Dialog.Content
+          onOpenAutoFocus={e => e.preventDefault()}
+          ref={ref}
+          className={contentClassName}
+          {...rest}
+        >
           {children}
           <Dialog.Close className={s.closeBtn} onClick={closeModalHandler} />
         </Dialog.Content>

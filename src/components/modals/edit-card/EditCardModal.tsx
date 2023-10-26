@@ -92,11 +92,11 @@ export const EditCardModal = (props: Props) => {
         )}
         <ControlledInput
           className={s.questionInput}
-          autoFocus
           name={'question'}
           label={'Question'}
           control={control}
           errorMessage={errors.question?.message}
+          autoFocus
         />
         {cardType === 'picture' && (
           <ControlledFileInput
