@@ -53,4 +53,4 @@ export type UpdateProfileResponseData = {
   updated: string
 }
 
-export type UpdateProfileArgs = { email: string; name: string; avatar: File | string }
+export type UpdateProfileArgs = { email: string; name: string; avatar?: File }

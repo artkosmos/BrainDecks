@@ -4,7 +4,7 @@ import { UpdatePersonalInfoFields } from '@/features/personal-page/types'
 
 export const PersonalPage = () => {
   const { data, isLoading } = useMeQuery()
-  const [updateProfile] = useUpdateProfileMutation()
+  const [updateProfile, { isLoading: isUpdateLoading }] = useUpdateProfileMutation()
   const [logOut] = useLogOutMutation()
 
   if (isLoading) {
@@ -19,5 +19,12 @@ export const PersonalPage = () => {
     updateProfile(data)
   }
 
-  return <PersonalInformation userData={data} logOutFn={logOut} onSubmit={updateProfileHandler} />
+  return (
+    <PersonalInformation
+      isLoading={isUpdateLoading}
+      userData={data}
+      logOutFn={logOut}
+      onSubmit={updateProfileHandler}
+    />
+  )
 }

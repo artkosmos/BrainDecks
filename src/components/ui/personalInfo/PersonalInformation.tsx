@@ -20,6 +20,7 @@ type Props = {
   logOutFn?: () => void
   onSubmit?: (data: UpdatePersonalInfoFields) => void
   userData: GetMeQueryResponseData
+  isLoading?: boolean
 }
 
 export const PersonalInformation = ({ onSubmit, userData, logOutFn }: Props) => {
@@ -34,7 +35,7 @@ export const PersonalInformation = ({ onSubmit, userData, logOutFn }: Props) => 
   } = useForm<UpdatePersonalInfoFields>({
     resolver: zodResolver(updatePersonalInfoSchema),
     mode: 'onSubmit',
-    defaultValues: { email: userData.email, avatar: userData.avatar, name: userData.name },
+    defaultValues: { email: userData.email, name: userData.name },
   })
 
   const onSubmitHandler = handleSubmit(data => {

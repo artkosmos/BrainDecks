@@ -74,7 +74,9 @@ export const authService = baseApi.injectEndpoints({
 
           formData.append('name', data.name)
           formData.append('email', data.email)
-          formData.append('avatar', data.avatar)
+          if (data.avatar) {
+            formData.append('avatar', data.avatar)
+          }
 
           return {
             url: `/v1/auth/me`,
