@@ -1,5 +1,4 @@
 import headerLogo from '@/assets/icons/cardsLogo.png'
-import unknownUser from '@/assets/icons/unknown_user.svg'
 import { Button } from '@/components/ui/button'
 import { Typography } from '@/components/ui/typography'
 import { Icon } from '@/components/ui/icon'
@@ -9,6 +8,7 @@ import { DropDownMenu } from '@/components/ui/dropDownMenu'
 import { DropDownItem } from '@/components/ui/dropDownMenu/dropDownItem'
 import { PersonIcon } from '@/assets/icons/components/PersonIcon.tsx'
 import { SignOutIcon } from '@/assets/icons/components/SignOutIcon.tsx'
+import userIcon from '@/assets/icons/unknown.svg'
 import s from './Header.module.scss'
 import s1 from '@/features/cards-pack/CardsPack.module.scss'
 
@@ -21,8 +21,10 @@ export const Header = ({ isAuth, userData }: HeaderPropsType) => {
   const [logOut] = useLogOutMutation()
   const navigate = useNavigate()
 
-  const dropDownTrigger = (
-    <Icon className={s.userAvatar} srcIcon={unknownUser} alt={'user avatar'} />
+  const dropDownTrigger = userData?.avatar ? (
+    <Icon className={`${s.userAvatar} ${s.headerAvatar}`} srcIcon={userData.avatar} />
+  ) : (
+    <Icon width={46} srcIcon={userIcon} />
   )
 
   return (
@@ -48,7 +50,11 @@ export const Header = ({ isAuth, userData }: HeaderPropsType) => {
                 trigger={dropDownTrigger}
               >
                 <DropDownItem>
-                  <Icon className={s.userAvatar} srcIcon={unknownUser} alt={'user avatar'} />
+                  <Icon
+                    className={s.userAvatar}
+                    srcIcon={userData?.avatar ? userData.avatar : userIcon}
+                    alt={'user avatar'}
+                  />
                   <div className={s.emailAndName}>
                     <Typography variant={'subtitle2'}>{userData?.name}</Typography>
                     <Typography className={s.email} variant={'caption'}>
@@ -76,8 +82,3 @@ export const Header = ({ isAuth, userData }: HeaderPropsType) => {
     </header>
   )
 }
-
-// {/*temporary button to handle log out flow*/}
-// <Button onClick={() => logOut()}>
-//   <Typography variant={'subtitle2'}>Log Out</Typography>
-// </Button>
