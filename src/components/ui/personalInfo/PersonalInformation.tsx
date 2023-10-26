@@ -4,7 +4,7 @@ import { Card } from '@/components/ui/card'
 import { Typography } from '@/components/ui/typography'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { UpdatePersonalInfo } from '@/features/personal-page/types'
+import { UpdatePersonalInfoFields } from '@/features/personal-page/types'
 import { updatePersonalInfoSchema } from '@/schemes/updatePersonalInfoSchema.ts'
 import { GetMeQueryResponseData } from '@/services/auth-service'
 import { ControlledInput } from '@/components/ui/controlled/controlledInput'
@@ -17,47 +17,63 @@ import { ControlledFileInput } from '@/components/ui/controlled/controlledFileIn
 import s from './PersonalInfo.module.scss'
 
 type Props = {
-  onSubmit?: any
-  userData: GetMeQueryResponseData | undefined
+  logOutFn?: () => void
+  onSubmit?: (data: UpdatePersonalInfoFields) => void
+  userData: GetMeQueryResponseData
 }
 
-export const PersonalInformation = ({ onSubmit, userData }: Props) => {
-  const [editName, setEditName] = useState<boolean>(false)
-  const [editEmail, setEditEmail] = useState<boolean>(false)
+export const PersonalInformation = ({ onSubmit, userData, logOutFn }: Props) => {
+  const [editInfo, setEditInfo] = useState<boolean>(false)
   const [editAvatar, setEditAvatar] = useState<boolean>(false)
 
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors },
-  } = useForm<UpdatePersonalInfo>({
+  } = useForm<UpdatePersonalInfoFields>({
     resolver: zodResolver(updatePersonalInfoSchema),
     mode: 'onSubmit',
-    defaultValues: { email: userData?.email, avatar: userData?.avatar, name: userData?.name },
+    defaultValues: { email: userData.email, avatar: userData.avatar, name: userData.name },
   })
 
   const onSubmitHandler = handleSubmit(data => {
-    console.log(data)
     onSubmit?.(data)
+    setEditInfo(false)
+    setEditAvatar(false)
   })
+
+  const cancelHandler = (field: string) => {
+    if (field === 'name') {
+      setEditInfo(false)
+      reset({ name: userData.name, email: userData.email })
+    }
+    if (field === 'avatar') {
+      setEditAvatar(false)
+    }
+  }
 
   return (
     <Card className={s.container} aria-label={'profile information'}>
       <Typography variant={'h1'}>Personal Information</Typography>
       <form onSubmit={onSubmitHandler} className={s.form}>
         {editAvatar ? (
-          <div className={`${s.editWrapper} ${s.editAvatarWrapper}`}>
+          <div className={s.editAvatarWrapper}>
             <ControlledFileInput
+              className={s.fileInput}
               control={control}
               name={'avatar'}
               id={'avatar'}
               buttonText={'Choose New Photo'}
             />
-            <CancelIcon className={s.cancelIcon} onClick={() => setEditAvatar(false)} />
+            <CancelIcon
+              className={`${s.cancelIcon} ${s.avatarCancelIcon}`}
+              onClick={() => cancelHandler('avatar')}
+            />
           </div>
         ) : (
           <div className={s.avatarWrapper}>
-            <Icon className={s.avatar} srcIcon={userIcon} alt={'avatar'} />
+            <Icon className={s.avatar} srcIcon={userData.avatar || userIcon} alt={'avatar'} />
             <Button
               variant={'secondary'}
               className={s.avatarEditButton}
@@ -68,45 +84,37 @@ export const PersonalInformation = ({ onSubmit, userData }: Props) => {
           </div>
         )}
 
-        {editName ? (
-          <div className={s.editWrapper}>
+        {editInfo ? (
+          <div className={s.editInfoWrapper}>
+            <div className={s.inputAndCancel}>
+              <ControlledInput
+                control={control}
+                name={'name'}
+                errorMessage={errors.name?.message}
+                label={'Nick Name'}
+              />
+              <CancelIcon className={s.cancelIcon} onClick={() => cancelHandler('name')} />
+            </div>
             <ControlledInput
-              autoFocus
-              control={control}
-              name={'name'}
-              errorMessage={errors.name?.message}
-              label={'Nick Name'}
-            />
-            <CancelIcon className={s.cancelIcon} onClick={() => setEditName(false)} />
-          </div>
-        ) : (
-          <div className={s.notEditWrapper}>
-            <Typography variant={'h1'}>{userData?.name}</Typography>
-            <EditIcon width={16} className={s.editIcon} onClick={() => setEditName(true)} />
-          </div>
-        )}
-
-        {editEmail ? (
-          <div className={s.editWrapper}>
-            <ControlledInput
-              autoFocus
               control={control}
               name={'email'}
               errorMessage={errors.email?.message}
               label={'Email'}
             />
-            <CancelIcon className={s.cancelIcon} onClick={() => setEditEmail(false)} />
           </div>
         ) : (
-          <div className={s.notEditWrapper}>
-            <Typography className={s.email} variant={'body2'}>
-              {userData?.email}
+          <div className={s.infoWrapper}>
+            <Typography className={s.userName} variant={'h1'}>
+              {userData.name}
+              <EditIcon width={18} className={s.editIcon} onClick={() => setEditInfo(true)} />
             </Typography>
-            <EditIcon width={16} className={s.editIcon} onClick={() => setEditEmail(true)} />
+            <Typography className={s.email} variant={'body2'}>
+              {userData.email}
+            </Typography>
           </div>
         )}
 
-        {(editName || editEmail) && (
+        {(editInfo || editAvatar) && (
           <Button
             type={'submit'}
             className={s.submitButton}
@@ -118,13 +126,14 @@ export const PersonalInformation = ({ onSubmit, userData }: Props) => {
           </Button>
         )}
 
-        {!editName && !editEmail && (
+        {!editInfo && !editAvatar && (
           <Button
             type={'button'}
             aria-label={'logout'}
             className={s.button}
             variant={'secondary'}
             fullWidth={true}
+            onClick={() => logOutFn?.()}
           >
             <SignOutIcon />
             <Typography variant={'subtitle2'}>Logout</Typography>

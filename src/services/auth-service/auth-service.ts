@@ -6,6 +6,8 @@ import {
   RecoverPasswordArgs,
   SignUpArgs,
   SignUpResponseData,
+  UpdateProfileArgs,
+  UpdateProfileResponseData,
 } from '@/services/auth-service'
 import { ResetPasswordArgs } from '@/services/deck-service'
 
@@ -66,6 +68,22 @@ export const authService = baseApi.injectEndpoints({
           }
         },
       }),
+      updateProfile: builder.mutation<UpdateProfileResponseData, UpdateProfileArgs>({
+        query: data => {
+          const formData = new FormData()
+
+          formData.append('name', data.name)
+          formData.append('email', data.email)
+          formData.append('avatar', data.avatar)
+
+          return {
+            url: `/v1/auth/me`,
+            method: 'PATCH',
+            body: formData,
+          }
+        },
+        invalidatesTags: ['Me'],
+      }),
     }
   },
 })
@@ -77,6 +95,7 @@ export const {
   useSignUpMutation,
   useRecoverPasswordMutation,
   useResetPasswordMutation,
+  useUpdateProfileMutation,
 } = authService
 
 // onQueryStarted: async (_, { getState, dispatch, queryFulfilled }) => {

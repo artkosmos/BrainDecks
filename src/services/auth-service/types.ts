@@ -42,3 +42,15 @@ export type RecoverPasswordArgs = {
 export type LogInResponseData = {
   accessToken: string
 }
+
+export type UpdateProfileResponseData = {
+  avatar: string
+  id: string
+  email: string
+  isEmailVerified: boolean
+  name: string
+  created: string
+  updated: string
+}
+
+export type UpdateProfileArgs = { email: string; name: string; avatar: File | string }

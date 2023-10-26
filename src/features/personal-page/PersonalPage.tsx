@@ -1,12 +1,23 @@
 import { PersonalInformation } from '@/components/ui/personalInfo/PersonalInformation.tsx'
-import { useMeQuery } from '@/services/auth-service'
+import { useLogOutMutation, useMeQuery, useUpdateProfileMutation } from '@/services/auth-service'
+import { UpdatePersonalInfoFields } from '@/features/personal-page/types'
 
 export const PersonalPage = () => {
   const { data, isLoading } = useMeQuery()
+  const [updateProfile] = useUpdateProfileMutation()
+  const [logOut] = useLogOutMutation()
 
   if (isLoading) {
     return <div style={{ textAlign: 'center' }}>Loading...</div>
   }
 
-  return <PersonalInformation userData={data} />
+  if (!data) {
+    return <div style={{ textAlign: 'center' }}>NO DATA RECEIVED</div>
+  }
+
+  const updateProfileHandler = (data: UpdatePersonalInfoFields) => {
+    updateProfile(data)
+  }
+
+  return <PersonalInformation userData={data} logOutFn={logOut} onSubmit={updateProfileHandler} />
 }

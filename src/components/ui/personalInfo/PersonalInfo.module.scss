@@ -16,20 +16,45 @@
   width: 100%;
 }
 
-.notEditWrapper {
+.infoWrapper {
   display: flex;
-  gap: 10px;
+  flex-direction: column;
   align-items: center;
   margin-top: 5px;
+
+  .userName {
+    position: relative;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
+    .editIcon {
+      cursor: pointer;
+      position: absolute;
+      top: 11px;
+      right: -30px;
+
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+  }
 }
 
 .avatarWrapper {
   position: relative;
 
+  width: 220px;
+  height: 220px;
+  margin-top: 27px;
+  margin-bottom: 10px;
+
+  border-radius: 50%;
+
   .avatarEditButton {
     position: absolute;
     right: 25px;
-    bottom: 15px;
+    bottom: 5px;
 
     width: 24px;
     height: 24px;
@@ -37,35 +62,59 @@
   }
 }
 
-.editWrapper {
+.editAvatarWrapper {
+  position: relative;
+
   display: flex;
   gap: 10px;
-  align-items: center;
-  justify-content: center;
 
   width: 100%;
+  margin-top: 27px;
+}
 
-  .cancelIcon {
-    cursor: pointer;
-    transition: 0.15s ease-in-out;
+.avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
 
-    &:hover {
-      transform: rotate(90deg);
+.editInfoWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 
-      path {
-        fill: var(--color-danger-500);
-        stroke: var(--color-danger-500);
-      }
+  .inputAndCancel {
+    display: flex;
+    gap: 10px;
+  }
+}
+
+.cancelIcon {
+  cursor: pointer;
+
+  position: absolute;
+  top: -25px;
+  right: 0;
+
+  margin-top: 24px;
+
+  transition: 0.15s ease-in-out;
+
+  &:hover {
+    transform: rotate(90deg);
+
+    path {
+      fill: var(--color-danger-500);
+      stroke: var(--color-danger-500);
     }
   }
 }
 
-.avatar {
-  width: 180px;
-}
-
-.editAvatarWrapper {
-  margin-top: 27px;
+.avatarCancelIcon {
+  top: 15px;
+  margin: 0;
 }
 
 .email {
@@ -80,10 +129,6 @@
   margin-top: 12px;
 }
 
-.editIcon {
-  cursor: pointer;
-
-  &:hover {
-    transform: scale(1.3);
-  }
+.fileInput {
+  margin: 40px 0;
 }
