@@ -1,7 +1,10 @@
 import { CreateNewPasswordForm } from '@/components/auth/create-new-password-form'
 import { useResetPasswordMutation } from '@/services/auth-service'
-import { useParams } from 'react-router-dom'
+import { Navigate, useParams } from 'react-router-dom'
 import { CreateNewPasswordFields } from '@/schemes/types'
+import { Icon } from '@/components/ui/icon'
+import gearIcon from '@/assets/icons/gear_preloader.svg'
+import s1 from '@/features/personal-page/PersonalPage.module.scss'
 
 export const ResetPassword = () => {
   const [resetPassword, result] = useResetPasswordMutation()
@@ -16,15 +19,11 @@ export const ResetPassword = () => {
   }
 
   if (isLoading) {
-    return <div style={{ textAlign: 'center' }}>Loading...</div>
+    return <Icon className={s1.preloader} srcIcon={gearIcon} />
   }
 
   if (isSuccess) {
-    return (
-      <h1 style={{ textAlign: 'center' }}>
-        Password has been changed successfully. Try to log in :)
-      </h1>
-    )
+    return <Navigate to={'/login'} />
   }
 
   return <CreateNewPasswordForm onSubmit={requestHandler} />

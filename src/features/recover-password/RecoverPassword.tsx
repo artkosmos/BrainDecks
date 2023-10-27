@@ -2,6 +2,9 @@ import { ForgotPasswordForm } from '@/components/auth/forgot-pasword-form'
 import { useRecoverPasswordMutation } from '@/services/auth-service'
 import { Navigate, useSearchParams } from 'react-router-dom'
 import { ForgotPasswordFields } from '@/schemes/types'
+import { Icon } from '@/components/ui/icon'
+import gearIcon from '@/assets/icons/gear_preloader.svg'
+import s1 from '@/features/personal-page/PersonalPage.module.scss'
 
 export const RecoverPassword = () => {
   const [recoverPassword, result] = useRecoverPasswordMutation()
@@ -19,7 +22,7 @@ export const RecoverPassword = () => {
   }
 
   if (isLoading) {
-    return <div style={{ textAlign: 'center' }}>Loading...</div>
+    return <Icon className={s1.preloader} srcIcon={gearIcon} />
   }
 
   if (isSuccess) {

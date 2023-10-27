@@ -39,7 +39,9 @@ import { useMeQuery } from '@/services/auth-service'
 import { cardSelectOptions, paginationSelectOptions } from '@/options'
 import dots from '@/assets/icons/dots.svg'
 import searchIcon from '@/assets/icons/input_search.svg'
+import gearIcon from '@/assets/icons/gear_preloader.svg'
 import s from './CardsPack.module.scss'
+import s1 from '@/features/personal-page/PersonalPage.module.scss'
 
 export const CardsPack = () => {
   const [question, setQuestion] = useState<string>('')
@@ -78,7 +80,7 @@ export const CardsPack = () => {
   })
 
   if (isCardsLoading || isDeckLoading) {
-    return <div style={{ textAlign: 'center' }}>Loading...</div>
+    return <Icon className={s1.preloader} srcIcon={gearIcon} />
   }
 
   if (!cardData || !deckData) {

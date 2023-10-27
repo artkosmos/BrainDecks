@@ -26,7 +26,9 @@ import { EditDeckModal } from '@/components/modals/edit-deck'
 import { DeleteDeckModal } from '@/components/modals/delete-deck'
 import { useDebounce } from '@/hooks'
 import { useMeQuery } from '@/services/auth-service'
+import gearIcon from '@/assets/icons/gear_preloader.svg'
 import s from './DeckPack.module.scss'
+import s1 from '@/features/personal-page/PersonalPage.module.scss'
 
 export const DeckPack = () => {
   const [name, setName] = useState<string>('')
@@ -99,7 +101,7 @@ export const DeckPack = () => {
   }
 
   if (isLoading) {
-    return <div style={{ textAlign: 'center' }}>Loading...</div>
+    return <Icon className={s1.preloader} srcIcon={gearIcon} />
   }
 
   if (!data) {

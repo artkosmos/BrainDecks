@@ -1,14 +1,17 @@
 import { PersonalInformation } from '@/components/ui/personalInfo/PersonalInformation.tsx'
 import { useLogOutMutation, useMeQuery, useUpdateProfileMutation } from '@/services/auth-service'
 import { UpdatePersonalInfoFields } from '@/features/personal-page/types'
+import { Icon } from '@/components/ui/icon'
+import gearIcon from '@/assets/icons/gear_preloader.svg'
+import s from './PersonalPage.module.scss'
 
 export const PersonalPage = () => {
-  const { data, isLoading } = useMeQuery()
+  const { data, isLoading, isFetching } = useMeQuery()
   const [updateProfile, { isLoading: isUpdateLoading }] = useUpdateProfileMutation()
   const [logOut] = useLogOutMutation()
 
   if (isLoading) {
-    return <div style={{ textAlign: 'center' }}>Loading...</div>
+    return <Icon className={s.preloader} srcIcon={gearIcon} />
   }
 
   if (!data) {
@@ -21,7 +24,7 @@ export const PersonalPage = () => {
 
   return (
     <PersonalInformation
-      isLoading={isUpdateLoading}
+      isLoading={isFetching || isUpdateLoading}
       userData={data}
       logOutFn={logOut}
       onSubmit={updateProfileHandler}

@@ -2,6 +2,9 @@ import { SignUp } from '@/components/auth/sign-up/SignUp.tsx'
 import { useSignUpMutation } from '@/services/auth-service'
 import { Navigate } from 'react-router-dom'
 import { CreateAccountFields } from '@/schemes/types'
+import { Icon } from '@/components/ui/icon'
+import s1 from '@/features/personal-page/PersonalPage.module.scss'
+import gearIcon from '@/assets/icons/gear_preloader.svg'
 
 export const Registration = () => {
   const [signUp, result] = useSignUpMutation()
@@ -15,7 +18,7 @@ export const Registration = () => {
   }
 
   if (isLoading) {
-    return <div style={{ textAlign: 'center' }}>Loading...</div>
+    return <Icon className={s1.preloader} srcIcon={gearIcon} />
   }
 
   if (isSuccess) {
