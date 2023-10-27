@@ -1,6 +1,7 @@
 import { SelectOptions } from '@/features/cards-pack/types'
 import { TabType } from '@/components/ui/tabSwitcher'
 import { Column } from '@/features/deck-pack/types'
+import { RadioGroupOptions } from '@/features/card-learn/types'
 
 export const paginationSelectOptions: SelectOptions = ['10', '20', '30', '50', '100']
 
@@ -53,5 +54,28 @@ export const cardTableColumns: Column[] = [
   {
     key: 'grade',
     title: 'Grade',
+  },
+]
+
+export const rating: RadioGroupOptions[] = [
+  {
+    label: 'Did not know',
+    value: '0',
+  },
+  {
+    label: 'Forgot',
+    value: '1',
+  },
+  {
+    label: 'A lot of though',
+    value: '2',
+  },
+  {
+    label: 'Confused',
+    value: '3',
+  },
+  {
+    label: 'Knew the answer',
+    value: '4',
   },
 ]
