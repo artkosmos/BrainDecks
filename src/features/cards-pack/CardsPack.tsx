@@ -42,6 +42,7 @@ import searchIcon from '@/assets/icons/input_search.svg'
 import gearIcon from '@/assets/icons/gear_preloader.svg'
 import s from './CardsPack.module.scss'
 import s1 from '@/features/personal-page/PersonalPage.module.scss'
+import { sortFn } from '@/utils/sortFn.ts'
 
 export const CardsPack = () => {
   const [question, setQuestion] = useState<string>('')
@@ -58,11 +59,7 @@ export const CardsPack = () => {
 
   const navigate = useNavigate()
 
-  const sortedString = useMemo(() => {
-    if (!sort) return null
-
-    return `${sort.key}-${sort.direction}` as GetCardsQueryParams['orderBy']
-  }, [sort])
+  const sortByTableTitle = useMemo(() => sortFn(sort), [sort])
 
   const [createCard] = useCreateCardMutation()
   const [editCard] = useEditCardMutation()
@@ -76,7 +73,7 @@ export const CardsPack = () => {
     question: debouncedInputValue,
     currentPage,
     itemsPerPage,
-    orderBy: sortedString,
+    orderBy: sortByTableTitle as GetCardsQueryParams['orderBy'],
   })
 
   if (isCardsLoading || isDeckLoading) {

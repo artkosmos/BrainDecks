@@ -14,9 +14,9 @@ import {
   useGetDecksQuery,
   useUpdateDeckMutation,
   Deck,
-  GetDeckQueryParams,
   Sort,
   CreateDeckArgs,
+  GetDeckQueryParams,
 } from '@/services/deck-service'
 import { getDeckFilterData } from '@/selectors'
 import { decksTabs, paginationSelectOptions } from '@/options'
@@ -29,6 +29,7 @@ import { useDebounce } from '@/hooks'
 import { useMeQuery } from '@/services/auth-service'
 import { AppDispatch, useAppSelector } from '@/services/store.ts'
 import { useDispatch } from 'react-redux'
+import { sortFn } from '@/utils/sortFn.ts'
 import {
   setActiveTab,
   setAuthorFilter,
@@ -50,11 +51,7 @@ export const DeckPack = () => {
 
   const deckFilterData = useAppSelector(getDeckFilterData)
 
-  const sortedString = useMemo(() => {
-    if (!deckFilterData.sort) return null
-
-    return `${deckFilterData.sort.key}-${deckFilterData.sort.direction}` as GetDeckQueryParams['orderBy']
-  }, [deckFilterData.sort])
+  const sortByTableTitle = useMemo(() => sortFn(deckFilterData.sort), [deckFilterData.sort])
 
   const debouncedInputValue = useDebounce(deckFilterData.deckName)
   const debouncedSliderValues = useDebounce(deckFilterData.sliderValues)
@@ -69,7 +66,7 @@ export const DeckPack = () => {
     itemsPerPage: deckFilterData.itemsPerPage,
     maxCardsCount: String(debouncedSliderValues[1]),
     minCardsCount: String(debouncedSliderValues[0]),
-    orderBy: sortedString,
+    orderBy: sortByTableTitle as GetDeckQueryParams['orderBy'],
     authorId: deckFilterData.authorId,
   })
 

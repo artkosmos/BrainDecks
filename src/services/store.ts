@@ -6,7 +6,7 @@ import { TypedUseSelectorHook, useSelector } from 'react-redux'
 export const store = configureStore({
   reducer: {
     [baseApi.reducerPath]: baseApi.reducer,
-    decks: deckReducer,
+    decksFilter: deckReducer,
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware().concat(baseApi.middleware),
 })
