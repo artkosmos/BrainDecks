@@ -14,6 +14,7 @@ import { CardsModals } from '@/features/cards-pack/types'
 import { cardTableColumns } from '@/options'
 import s from './CardsTable.module.scss'
 import s1 from '@/features/deck-pack/deck-table/DeckTable.module.scss'
+import { Icon } from '@/components/ui/icon'
 
 type Props = {
   onIconClick: (value: CardsModals | null, item: Card) => void
@@ -46,8 +47,14 @@ export const CardsTable = (props: Props) => {
 
           return (
             <TableRow key={item.id}>
-              <TableCell>{item.question}</TableCell>
-              <TableCell>{item.answer}</TableCell>
+              <TableCell>
+                {item.questionImg && <Icon className={s.cardImg} srcIcon={item.questionImg} />}
+                {item.question}
+              </TableCell>
+              <TableCell>
+                {item.answerImg && <Icon className={s.cardImg} srcIcon={item.answerImg} />}
+                {item.answer}
+              </TableCell>
               <TableCell>{new Date(item.updated).toLocaleDateString()}</TableCell>
               <TableCell>
                 <div className={s.starWrapper}>{rating}</div>

@@ -12,6 +12,7 @@ import { DeckModals } from '@/features/deck-pack/types'
 import { Deck, Sort } from '@/services/deck-service'
 import { useNavigate } from 'react-router-dom'
 import { deckTableColumns } from '@/options'
+import { Icon } from '@/components/ui/icon'
 import s from './DeckTable.module.scss'
 
 type Props = {
@@ -41,6 +42,7 @@ export const DeckTable = (props: Props) => {
           return (
             <TableRow key={deck.id}>
               <TableCell className={s.deckName} onClick={() => navigate(`${deck.id}/cards`)}>
+                {deck.cover && <Icon className={s.deckImg} srcIcon={deck.cover} />}
                 {deck.name}
               </TableCell>
               <TableCell>{deck.cardsCount}</TableCell>

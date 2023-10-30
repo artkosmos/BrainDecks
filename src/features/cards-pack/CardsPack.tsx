@@ -19,6 +19,7 @@ import { DeleteDeckModal } from '@/components/modals/delete-deck'
 import { Icon } from '@/components/ui/icon'
 import { PreviousPage } from '@/assets/icons/components/PreviousPage.tsx'
 import { useDebounce } from '@/hooks'
+import { sortFn } from '@/utils/sortFn.ts'
 import {
   Sort,
   useDeleteDeckMutation,
@@ -42,7 +43,6 @@ import searchIcon from '@/assets/icons/input_search.svg'
 import gearIcon from '@/assets/icons/gear_preloader.svg'
 import s from './CardsPack.module.scss'
 import s1 from '@/features/personal-page/PersonalPage.module.scss'
-import { sortFn } from '@/utils/sortFn.ts'
 
 export const CardsPack = () => {
   const [question, setQuestion] = useState<string>('')
@@ -134,9 +134,6 @@ export const CardsPack = () => {
     )
   }
 
-  const dropDownTrigger = <Icon srcIcon={dots} className={s.triggerIcon} />
-  const inputIcon = <Icon srcIcon={searchIcon} />
-
   return (
     <div className={s.packContainer}>
       <div className={s.insideContainer}>
@@ -145,33 +142,38 @@ export const CardsPack = () => {
           <Typography variant={'body2'}>Back to Deck List</Typography>
         </Button>
         <div className={s.deckNameAndButtonWrapper}>
-          <div className={s.deckNameWrapper}>
-            <Typography variant={'large'}>{deckData.name}</Typography>
-            <DropDownMenu
-              sideOffset={12}
-              alignOffset={-15}
-              trigger={dropDownTrigger}
-              triggerButtonClassName={s.triggerButton}
-            >
-              <DropDownItem className={s.dropDownMenuItem} onClick={learnDeckHandler}>
-                <PlayCardIcon width={15} height={15} />
-                Learn
-              </DropDownItem>
-              <DropDownItem
-                className={s.dropDownMenuItem}
-                onClick={() => setOpenDeckModal(DeckModals.UPDATE)}
+          <div className={s.deckNameBlockWrapper}>
+            <div className={s.deckNameWrapper}>
+              <Typography variant={'large'}>{deckData.name}</Typography>
+              <DropDownMenu
+                sideOffset={12}
+                alignOffset={-15}
+                trigger={<Icon srcIcon={dots} className={s.triggerIcon} />}
+                triggerButtonClassName={s.triggerButton}
               >
-                <EditIcon width={15} height={15} />
-                Edit
-              </DropDownItem>
-              <DropDownItem
-                className={s.dropDownMenuItem}
-                onClick={() => setOpenDeckModal(DeckModals.DELETE)}
-              >
-                <DeleteIcon width={15} height={15} />
-                Delete
-              </DropDownItem>
-            </DropDownMenu>
+                <DropDownItem className={s.dropDownMenuItem} onClick={learnDeckHandler}>
+                  <PlayCardIcon width={15} height={15} />
+                  Learn
+                </DropDownItem>
+                <DropDownItem
+                  className={s.dropDownMenuItem}
+                  onClick={() => setOpenDeckModal(DeckModals.UPDATE)}
+                >
+                  <EditIcon width={15} height={15} />
+                  Edit
+                </DropDownItem>
+                <DropDownItem
+                  className={s.dropDownMenuItem}
+                  onClick={() => setOpenDeckModal(DeckModals.DELETE)}
+                >
+                  <DeleteIcon width={15} height={15} />
+                  Delete
+                </DropDownItem>
+              </DropDownMenu>
+            </div>
+            {deckData.cover && (
+              <Icon className={s.deckImage} srcIcon={deckData.cover} alt={'deck image'} />
+            )}
           </div>
           <Button onClick={() => openModalHandler(CardsModals.CREATE)}>Add New Card</Button>
         </div>
@@ -179,7 +181,7 @@ export const CardsPack = () => {
           <Input
             className={s.input}
             placeholder={'Search question'}
-            leftSideIcon={inputIcon}
+            leftSideIcon={<Icon srcIcon={searchIcon} />}
             onChange={changeSearchValue}
             value={question}
             withoutError

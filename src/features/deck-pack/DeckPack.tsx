@@ -120,9 +120,7 @@ export const DeckPack = () => {
   }
 
   const updateDeckHandler = (data: NewDeckFields) => {
-    const { name, isPrivate } = data
-
-    updateDeck({ id: activeDeck?.id || '', name, isPrivate })
+    updateDeck({ id: activeDeck?.id || '', ...data })
   }
 
   const authorFilterHandler = (tabId: string) => {

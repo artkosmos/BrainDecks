@@ -66,8 +66,8 @@ export const EditDeckModal = ({ onSubmit, openModal, setOpenModal, activeItem }:
         <ControlledFileInput
           className={s.fileInput}
           control={control}
-          name={'name'}
-          id={'name'}
+          name={'cover'}
+          id={'cover'}
           buttonText={'Change Deck Cover'}
         />
         <ControlledInput
