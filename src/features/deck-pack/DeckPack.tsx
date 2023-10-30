@@ -32,7 +32,9 @@ import { useDispatch } from 'react-redux'
 import {
   setActiveTab,
   setAuthorFilter,
+  setCurrentPage,
   setDeckName,
+  setItemsPerPage,
   setSliderValues,
   setSort,
 } from '@/services/deck-slice.ts'
@@ -102,6 +104,14 @@ export const DeckPack = () => {
 
   const changeInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setDeckName(e.currentTarget.value))
+  }
+
+  const togglePageHandler = (page: number) => {
+    dispatch(setCurrentPage(page))
+  }
+
+  const quantityItemsOnPageHandler = (quantity: number) => {
+    dispatch(setItemsPerPage(quantity))
   }
 
   const createDeckHandler = (data: CreateDeckArgs) => {
@@ -177,6 +187,8 @@ export const DeckPack = () => {
         totalCount={data.pagination.totalItems}
         currentPage={data.pagination.currentPage}
         pageSize={data.pagination.itemsPerPage}
+        setCurrentPageFn={togglePageHandler}
+        setItemsPerPageFn={quantityItemsOnPageHandler}
       />
       <AddNewDeckModal
         openModal={openModal}

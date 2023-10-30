@@ -15,7 +15,6 @@ export const decksTabs: TabType[] = [
   {
     id: '2',
     title: 'All Decks',
-    defaultTab: true,
   },
 ]
 

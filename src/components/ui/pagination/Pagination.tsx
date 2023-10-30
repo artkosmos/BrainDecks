@@ -10,9 +10,9 @@ type Props = {
   totalCount: number
   currentPage: number
   pageSize: number
-  setCurrentPage: (value: number) => void
   className?: string
-  setItemsPerPage?: (value: number) => void
+  setItemsPerPageFn?: (quantity: number) => void
+  setCurrentPageFn?: (page: number) => void
 }
 export const Pagination = (props: Props) => {
   const {
@@ -20,10 +20,10 @@ export const Pagination = (props: Props) => {
     totalCount,
     siblingCount,
     pageSize,
-    setCurrentPage,
     className,
     options,
-    setItemsPerPage,
+    setCurrentPageFn,
+    setItemsPerPageFn,
   } = props
 
   const paginationRange = usePagination(totalCount, pageSize, currentPage, siblingCount)
@@ -33,15 +33,19 @@ export const Pagination = (props: Props) => {
   }
 
   const nextPageHandler = () => {
-    setCurrentPage(currentPage + 1)
+    setCurrentPageFn?.(currentPage + 1)
   }
 
   const previousPageHandler = () => {
-    setCurrentPage(currentPage - 1)
+    setCurrentPageFn?.(currentPage - 1)
+  }
+
+  const currentPageHandler = (page: number) => {
+    setCurrentPageFn?.(page)
   }
 
   const changeSelectFilterHandler = (value: string) => {
-    setItemsPerPage?.(Number(value))
+    setItemsPerPageFn?.(Number(value))
   }
 
   const lastPage = paginationRange[paginationRange.length - 1]
@@ -69,7 +73,7 @@ export const Pagination = (props: Props) => {
       <li
         key={index}
         className={itemClassName}
-        onClick={() => setCurrentPage(Number(page))}
+        onClick={() => currentPageHandler(Number(page))}
         role={'button'}
         aria-label={`page ${page}`}
       >

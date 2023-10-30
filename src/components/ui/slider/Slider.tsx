@@ -26,6 +26,7 @@ export const Slider = forwardRef<ElementRef<typeof SliderRadix.Root>, Props>((pr
           </Typography>
         </div>
         <SliderRadix.Root
+          minStepsBetweenThumbs={1}
           ref={ref}
           max={max}
           min={min}

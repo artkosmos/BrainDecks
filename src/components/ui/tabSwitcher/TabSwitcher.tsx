@@ -5,25 +5,29 @@ import s from './TabSwitcher.module.scss'
 export type TabType = {
   id: string
   title: string
-  titleClassname?: string
   disabledTab?: boolean
-  defaultTab?: boolean
+  titleClassname?: string
 }
 
 export type TabSwitcherProps = {
   label?: string
   orientation?: 'vertical' | 'horizontal'
   tabs: TabType[]
+  activeTab?: string
   setActiveTab?: (id: string) => void
 }
 
 export const TabSwitcher = (props: TabSwitcherProps) => {
-  const { orientation = 'horizontal', tabs, setActiveTab, label } = props
-
-  const defaultTab = tabs.find(tab => tab.defaultTab)
+  const { orientation = 'horizontal', tabs, setActiveTab, label, activeTab } = props
 
   return (
-    <Tabs.Root className={s.root} defaultValue={defaultTab?.id} orientation={orientation}>
+    <Tabs.Root
+      value={activeTab}
+      onValueChange={setActiveTab}
+      className={s.root}
+      defaultValue={activeTab}
+      orientation={orientation}
+    >
       <Typography className={s.label} variant={'body2'}>
         {label}
       </Typography>
@@ -41,7 +45,6 @@ export const TabSwitcher = (props: TabSwitcherProps) => {
               key={tab.id}
               value={tab.id}
               className={finalClassName}
-              onClick={setActiveTab ? () => setActiveTab(tab.id) : undefined}
               disabled={tab.disabledTab}
             >
               <Typography variant={'body1'}>{tab.title}</Typography>

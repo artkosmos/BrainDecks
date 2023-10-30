@@ -204,8 +204,8 @@ export const CardsPack = () => {
         pageSize={cardData.pagination.itemsPerPage}
         totalCount={cardData.pagination.totalItems}
         options={paginationSelectOptions}
-        setItemsPerPage={setItemsPerPage}
-        setCurrentPage={setCurrentPage}
+        setItemsPerPageFn={setItemsPerPage}
+        setCurrentPageFn={setCurrentPage}
       />
       <AddNewCardModal
         openModal={openCardModal}

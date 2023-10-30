@@ -7,9 +7,7 @@ import gearIcon from '@/assets/icons/gear_preloader.svg'
 import s1 from '@/features/personal-page/PersonalPage.module.scss'
 
 export const RecoverPassword = () => {
-  const [recoverPassword, result] = useRecoverPasswordMutation()
-
-  const { isSuccess, isLoading } = result
+  const [recoverPassword, { isSuccess, isLoading }] = useRecoverPasswordMutation()
 
   let [searchParams, setSearchParams] = useSearchParams()
 
