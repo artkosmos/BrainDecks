@@ -19,6 +19,15 @@ export const DecksService = baseApi.injectEndpoints({
           }
         },
         providesTags: ['Decks'],
+        // async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        //   try {
+        //     const { data } = await queryFulfilled
+        //
+        //     dispatch(setMaxCardCount(data.maxCardsCount))
+        //   } catch (error) {
+        //     return
+        //   }
+        // },
       }),
       getDeck: builder.query<Deck, { id: string | undefined }>({
         query: ({ id }) => {

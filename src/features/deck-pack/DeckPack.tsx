@@ -6,7 +6,7 @@ import { Slider } from '@/components/ui/slider'
 import { Icon } from '@/components/ui/icon'
 import deleteIcon from '@/assets/icons/delete_icon.svg'
 import { DeckTable } from '@/features/deck-pack/deck-table'
-import { useMemo, useState } from 'react'
+import { ChangeEvent, useMemo, useState } from 'react'
 import { Pagination } from '@/components/ui/pagination'
 import {
   useCreateDeckMutation,
@@ -18,6 +18,7 @@ import {
   Sort,
   CreateDeckArgs,
 } from '@/services/deck-service'
+import { getDeckFilterData } from '@/selectors'
 import { decksTabs, paginationSelectOptions } from '@/options'
 import { DeckModals, NewDeckFields } from '@/features/deck-pack/types'
 import { AddNewDeckModal } from '@/components/modals/add-new-deck'
@@ -26,30 +27,35 @@ import { EditDeckModal } from '@/components/modals/edit-deck'
 import { DeleteDeckModal } from '@/components/modals/delete-deck'
 import { useDebounce } from '@/hooks'
 import { useMeQuery } from '@/services/auth-service'
+import { AppDispatch, useAppSelector } from '@/services/store.ts'
+import { useDispatch } from 'react-redux'
+import {
+  setActiveTab,
+  setAuthorFilter,
+  setDeckName,
+  setSliderValues,
+  setSort,
+} from '@/services/deck-slice.ts'
 import gearIcon from '@/assets/icons/gear_preloader.svg'
 import s from './DeckPack.module.scss'
 import s1 from '@/features/personal-page/PersonalPage.module.scss'
 
 export const DeckPack = () => {
-  const [name, setName] = useState<string>('')
-  const [currentPage, setCurrentPage] = useState<number>(1)
   const [activeDeck, setActiveDeck] = useState<Deck | undefined>()
-  const [itemsPerPage, setItemsPerPage] = useState<number>(10)
-  const [sliderValues, setSliderValues] = useState<number[]>([0, 61])
   const [openModal, setOpenModal] = useState<DeckModals | null>(null)
-  const [sort, setSort] = useState<Sort | null>(null)
-  const [authorId, setAuthorId] = useState<string | undefined>(undefined)
 
-  const inputIcon = <Icon srcIcon={searchIcon} />
+  const dispatch = useDispatch<AppDispatch>()
+
+  const deckFilterData = useAppSelector(getDeckFilterData)
 
   const sortedString = useMemo(() => {
-    if (!sort) return null
+    if (!deckFilterData.sort) return null
 
-    return `${sort.key}-${sort.direction}` as GetDeckQueryParams['orderBy']
-  }, [sort])
+    return `${deckFilterData.sort.key}-${deckFilterData.sort.direction}` as GetDeckQueryParams['orderBy']
+  }, [deckFilterData.sort])
 
-  const debouncedInputValue = useDebounce(name)
-  const debouncedSliderValues = useDebounce(sliderValues)
+  const debouncedInputValue = useDebounce(deckFilterData.deckName)
+  const debouncedSliderValues = useDebounce(deckFilterData.sliderValues)
 
   const [createDeck] = useCreateDeckMutation()
   const [deleteDeck] = useDeleteDeckMutation()
@@ -57,17 +63,28 @@ export const DeckPack = () => {
   const { data: userData } = useMeQuery()
   const { isLoading, data } = useGetDecksQuery({
     name: debouncedInputValue,
-    currentPage,
-    itemsPerPage,
+    currentPage: deckFilterData.currentPage,
+    itemsPerPage: deckFilterData.itemsPerPage,
     maxCardsCount: String(debouncedSliderValues[1]),
     minCardsCount: String(debouncedSliderValues[0]),
     orderBy: sortedString,
-    authorId,
+    authorId: deckFilterData.authorId,
   })
 
+  if (isLoading) {
+    return <Icon className={s1.preloader} srcIcon={gearIcon} />
+  }
+
+  if (!data) {
+    return <div style={{ textAlign: 'center' }}>NO DATA RECEIVED</div>
+  }
+
   const clearFilterHandler = () => {
-    setName('')
-    setSliderValues([0, 61])
+    dispatch(setSliderValues([0, data.maxCardsCount]))
+    dispatch(setDeckName)
+    dispatch(setAuthorFilter(undefined))
+    dispatch(setActiveTab('2'))
+    dispatch(setSort(null))
   }
 
   const openModalHandler = (value: DeckModals | null, item?: Deck) => {
@@ -79,8 +96,20 @@ export const DeckPack = () => {
     deleteDeck({ id: activeDeck?.id })
   }
 
+  const columnSortHandler = (value: Sort | null) => {
+    dispatch(setSort(value))
+  }
+
+  const changeInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch(setDeckName(e.currentTarget.value))
+  }
+
   const createDeckHandler = (data: CreateDeckArgs) => {
     createDeck(data)
+  }
+
+  const changeSliderHandler = (values: number[]) => {
+    dispatch(setSliderValues(values))
   }
 
   const updateDeckHandler = (data: NewDeckFields) => {
@@ -89,23 +118,16 @@ export const DeckPack = () => {
     updateDeck({ id: activeDeck?.id || '', name, isPrivate })
   }
 
-  const filterByAuthorHandler = (tabId: string) => {
+  const authorFilterHandler = (tabId: string) => {
     if (tabId === '1') {
       if (userData) {
-        setAuthorId(userData.id)
+        dispatch(setAuthorFilter(userData.id))
       }
     }
     if (tabId === '2') {
-      setAuthorId(undefined)
+      dispatch(setAuthorFilter(undefined))
     }
-  }
-
-  if (isLoading) {
-    return <Icon className={s1.preloader} srcIcon={gearIcon} />
-  }
-
-  if (!data) {
-    return <div style={{ textAlign: 'center' }}>NO DATA</div>
+    dispatch(setActiveTab(tabId))
   }
 
   return (
@@ -118,23 +140,25 @@ export const DeckPack = () => {
       </div>
       <div className={s.tableSettings}>
         <Input
-          value={name}
+          value={deckFilterData.deckName}
           placeholder={'Search'}
           className={s.searchInput}
-          leftSideIcon={inputIcon}
+          leftSideIcon={<Icon srcIcon={searchIcon} />}
           withoutError
-          onChange={e => setName(e.currentTarget.value)}
+          onChange={changeInputHandler}
         />
         <TabSwitcher
+          activeTab={deckFilterData.activeTab}
           label={'Show decks cards'}
-          setActiveTab={filterByAuthorHandler}
+          setActiveTab={authorFilterHandler}
           tabs={decksTabs}
         />
         <Slider
+          defaultValue={[0, data.maxCardsCount]}
           label={'Number of cards'}
           max={data.maxCardsCount}
-          onValueChange={setSliderValues}
-          value={sliderValues}
+          onValueChange={changeSliderHandler}
+          value={deckFilterData.sliderValues}
         />
         <Button variant={'secondary'} onClick={clearFilterHandler}>
           <Icon srcIcon={deleteIcon} />
@@ -144,8 +168,8 @@ export const DeckPack = () => {
       <DeckTable
         data={data.items}
         onIconClick={openModalHandler}
-        sort={sort}
-        setSort={setSort}
+        sort={deckFilterData.sort}
+        setSort={columnSortHandler}
         currentUserId={userData?.id}
       />
       <Pagination
@@ -153,8 +177,6 @@ export const DeckPack = () => {
         totalCount={data.pagination.totalItems}
         currentPage={data.pagination.currentPage}
         pageSize={data.pagination.itemsPerPage}
-        setCurrentPage={setCurrentPage}
-        setItemsPerPage={setItemsPerPage}
       />
       <AddNewDeckModal
         openModal={openModal}
