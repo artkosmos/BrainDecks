@@ -14,13 +14,15 @@
   text-align: center;
 }
 
-.question {
+.questionWrapper {
+  display: flex;
+  flex-direction: column;
   margin-top: 5px;
   word-break: break-word;
 }
 
 .attempts {
-  margin-bottom: 35px;
+  margin-top: 5px;
   color: var(--color-dark-100);
 }
 
@@ -28,9 +30,28 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+
+  margin-top: 10px;
+
   word-break: break-word;
 }
 
 .button {
   margin-top: 30px;
+}
+
+.image {
+  align-self: flex-start;
+  width: auto;
+  max-height: 100px;
+  object-fit: contain;
+}
+
+.question {
+  margin-bottom: 5px;
+}
+
+.preloader {
+  width: 50px;
+  margin: 0 auto;
 }

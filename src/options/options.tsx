@@ -66,7 +66,7 @@ export const rating: RadioGroupOptions[] = [
     value: '2',
   },
   {
-    label: 'A lot of though',
+    label: 'A lot of thoughts',
     value: '3',
   },
   {

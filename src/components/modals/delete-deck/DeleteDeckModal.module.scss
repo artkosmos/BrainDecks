@@ -1,8 +1,11 @@
 .modal {
   display: flex;
   flex-direction: column;
+
   width: 100%;
   max-width: 542px;
+
+  word-break: break-word;
 
   &::before {
     content: '';

@@ -43,6 +43,7 @@ export const AddNewCardModal = ({ openModal, setOpenModal, onSubmit, selectOptio
   })
 
   const closeModalHandler = () => {
+    setCardType('text')
     setOpenModal(null)
     reset({ question: '', answer: '' })
   }
