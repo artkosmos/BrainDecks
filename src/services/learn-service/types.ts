@@ -18,3 +18,9 @@ export type GetRandomCardArgs = {
   deckId: string | undefined
   previousCardId?: string
 }
+
+export type UpdateGradeArgs = {
+  deckId: string | undefined
+  cardId: string | undefined
+  grade: number | undefined
+}

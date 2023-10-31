@@ -1,4 +1,7 @@
-import { useGetRandomCardWithQuery } from '@/services/learn-service/learn.service.ts'
+import {
+  useGetRandomCardQuery,
+  useSaveCardGradeMutation,
+} from '@/services/learn-service/learn.service.ts'
 import { rating } from '@/options'
 import { Card } from '@/components/ui/card'
 import { Typography } from '@/components/ui/typography'
@@ -13,22 +16,22 @@ import s1 from '@/features/personal-page/PersonalPage.module.scss'
 
 export const LearnCard = () => {
   const [isShowAnswer, setIsShowAnswer] = useState<boolean>(false)
-  const [previousCardId, setPreviousCardId] = useState<string | undefined>()
+  const [grade, setGrade] = useState<string | undefined>()
 
   const { deckId } = useParams<{ deckId: string }>()
   const location = useLocation()
 
-  const { data, isLoading } = useGetRandomCardWithQuery({
-    deckId,
-    previousCardId,
-  })
+  const { data, isLoading } = useGetRandomCardQuery({ deckId })
+  const [saveGrade] = useSaveCardGradeMutation()
 
   const onShowAnswer = () => {
     setIsShowAnswer(true)
   }
 
   const nextQuestion = () => {
-    setPreviousCardId(data?.id)
+    saveGrade({ deckId, cardId: data?.id, grade: Number(grade) })
+    setIsShowAnswer(false)
+    setGrade(undefined)
   }
 
   if (isLoading) {
@@ -42,7 +45,7 @@ export const LearnCard = () => {
           Learn &quot;{location.state.name}&quot;
         </Typography>
         <div className={s.question}>
-          <Typography htmlTag={'h3'} variant={'body1'}>
+          <Typography className={s.question} htmlTag={'h3'} variant={'body1'}>
             {data?.question}
           </Typography>
           <Typography htmlTag={'p'} variant={'body2'} className={s.attempts}>
@@ -57,7 +60,8 @@ export const LearnCard = () => {
             <Typography variant={'body1'} htmlTag={'p'}>
               <b>Rate yourself:</b>
             </Typography>
-            <RadioGroup options={rating} />
+            <form></form>
+            <RadioGroup options={rating} value={grade} onValueChange={setGrade} />
           </div>
         )}
         <Button fullWidth onClick={isShowAnswer ? nextQuestion : onShowAnswer}>

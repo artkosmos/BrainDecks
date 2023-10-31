@@ -1,20 +1,35 @@
 import { baseApi } from '@/services/api.ts'
-import { CardResponse, GetRandomCardArgs } from '@/services/learn-service'
+import { CardResponse, GetRandomCardArgs, UpdateGradeArgs } from '@/services/learn-service'
 
 export const learnService = baseApi.injectEndpoints({
   endpoints: builder => ({
-    getRandomCard: builder.query<CardResponse, string>({
-      query: deckId => `v1/decks/${deckId}/learn`,
+    getRandomCard: builder.query<CardResponse, GetRandomCardArgs>({
+      query: params => `v1/decks/${params.deckId}/learn`,
       providesTags: ['RandomCard'],
     }),
-    getRandomCardWith: builder.query<CardResponse, GetRandomCardArgs>({
-      query: (arg: GetRandomCardArgs) =>
-        `v1/decks/${arg.deckId}/learn${
-          arg.previousCardId ? `?previousCardId=${arg.previousCardId}` : ''
-        }`,
-      providesTags: ['RandomCard'],
+    saveCardGrade: builder.mutation<void, UpdateGradeArgs>({
+      query: params => {
+        return {
+          url: `v1/decks/${params.deckId}/learn`,
+          method: 'POST',
+          body: { cardId: params.cardId, grade: params.grade },
+        }
+      },
+      async onQueryStarted({ deckId }, { dispatch, queryFulfilled }) {
+        try {
+          const response = await queryFulfilled
+
+          dispatch(
+            learnService.util.updateQueryData('getRandomCard', { deckId }, () => {
+              return response.data
+            })
+          )
+        } catch (e) {
+          console.log(e)
+        }
+      },
     }),
   }),
 })
 
-export const { useGetRandomCardWithQuery } = learnService
+export const { useGetRandomCardQuery, useSaveCardGradeMutation } = learnService
