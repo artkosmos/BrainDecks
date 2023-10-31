@@ -1,4 +1,4 @@
-import headerLogo from '@/assets/icons/cardsLogo.png'
+import appLogo from '@/assets/flash-card.png'
 import { Button } from '@/components/ui/button'
 import { Typography } from '@/components/ui/typography'
 import { Icon } from '@/components/ui/icon'
@@ -32,7 +32,7 @@ export const Header = ({ isAuth, userData }: HeaderPropsType) => {
       <div className={s.container}>
         <div onClick={() => navigate('/')} className={s.iconAndNameWrapper}>
           <Icon
-            srcIcon={headerLogo}
+            srcIcon={appLogo}
             className={s.logo}
             alt={'app_logo'}
             aria-label={'logo of application, tap to move to packs page'}
