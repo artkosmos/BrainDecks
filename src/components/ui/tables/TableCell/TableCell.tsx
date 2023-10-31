@@ -1,5 +1,6 @@
 import { ComponentPropsWithoutRef, forwardRef } from 'react'
 import { clsx } from 'clsx'
+import { Typography } from '@/components/ui/typography'
 import s from './TableCell.module.scss'
 
 type Props = ComponentPropsWithoutRef<'td'>
@@ -10,7 +11,7 @@ export const TableCell = forwardRef<HTMLTableCellElement, Props>((props, ref) =>
 
   return (
     <td className={cellClassName} ref={ref} {...rest}>
-      {children}
+      <Typography variant={'body2'}>{children}</Typography>
     </td>
   )
 })

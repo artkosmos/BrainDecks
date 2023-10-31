@@ -8,13 +8,13 @@ import { DeleteIcon } from '@/assets/icons/components/DeleteIcon.tsx'
 import { TableHead } from '@/components/ui/tables/TableHead'
 import { TableHeadCellWithSort } from '@/components/ui/tables/SortTableHeader'
 import { TableHeadCell } from '@/components/ui/tables/TableHeadCell'
+import { Icon } from '@/components/ui/icon'
 import { Card } from '@/services/card-service'
 import { Sort } from '@/services/deck-service'
 import { CardsModals } from '@/features/cards-pack/types'
 import { cardTableColumns } from '@/options'
 import s from './CardsTable.module.scss'
 import s1 from '@/features/deck-pack/deck-table/DeckTable.module.scss'
-import { Icon } from '@/components/ui/icon'
 
 type Props = {
   onIconClick: (value: CardsModals | null, item: Card) => void
@@ -47,11 +47,11 @@ export const CardsTable = (props: Props) => {
 
           return (
             <TableRow key={item.id}>
-              <TableCell>
+              <TableCell className={s.question}>
                 {item.questionImg && <Icon className={s.cardImg} srcIcon={item.questionImg} />}
                 {item.question}
               </TableCell>
-              <TableCell>
+              <TableCell className={s.answer}>
                 {item.answerImg && <Icon className={s.cardImg} srcIcon={item.answerImg} />}
                 {item.answer}
               </TableCell>

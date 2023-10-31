@@ -59,22 +59,22 @@ export const cardTableColumns: Column[] = [
 export const rating: RadioGroupOptions[] = [
   {
     label: 'Did not know',
-    value: '0',
-  },
-  {
-    label: 'Forgot',
     value: '1',
   },
   {
-    label: 'A lot of though',
+    label: 'Forgot',
     value: '2',
   },
   {
-    label: 'Confused',
+    label: 'A lot of though',
     value: '3',
   },
   {
-    label: 'Knew the answer',
+    label: 'Confused',
     value: '4',
+  },
+  {
+    label: 'Knew the answer',
+    value: '5',
   },
 ]

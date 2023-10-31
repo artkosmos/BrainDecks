@@ -41,30 +41,27 @@ export const LearnCard = () => {
   return (
     <div className={s.wrapper}>
       <Card className={s.card}>
-        <Typography htmlTag={'h2'} variant={'h1'} className={s.title}>
+        <Typography variant={'large'} className={s.title}>
           Learn &quot;{location.state.name}&quot;
         </Typography>
         <div className={s.question}>
-          <Typography className={s.question} htmlTag={'h3'} variant={'body1'}>
-            {data?.question}
-          </Typography>
-          <Typography htmlTag={'p'} variant={'body2'} className={s.attempts}>
-            количество попыток ответа на вопрос: 10
+          <Typography className={s.question} variant={'subtitle1'}>
+            Question: <Typography variant={'body1'}>{data?.question}</Typography>
           </Typography>
         </div>
+        <Typography variant={'body2'} className={s.attempts}>
+          Number of attempts to answer a question: <b>10</b>
+        </Typography>
         {isShowAnswer && (
           <div className={s.rating}>
-            <Typography variant={'body1'} htmlTag={'p'}>
-              <b>Answer:</b> {data?.answer}
+            <Typography variant={'subtitle1'}>
+              Answer: <Typography variant={'body1'}>{data?.answer}</Typography>
             </Typography>
-            <Typography variant={'body1'} htmlTag={'p'}>
-              <b>Rate yourself:</b>
-            </Typography>
-            <form></form>
+            <Typography variant={'subtitle1'}>Rate yourself:</Typography>
             <RadioGroup options={rating} value={grade} onValueChange={setGrade} />
           </div>
         )}
-        <Button fullWidth onClick={isShowAnswer ? nextQuestion : onShowAnswer}>
+        <Button className={s.button} fullWidth onClick={isShowAnswer ? nextQuestion : onShowAnswer}>
           <Typography variant={'subtitle2'}>
             {isShowAnswer ? 'Next Question' : 'Show Answer'}
           </Typography>

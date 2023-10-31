@@ -102,9 +102,7 @@ export const CardsPack = () => {
   }
 
   const updateDeckHandler = (data: NewDeckFields) => {
-    const { name, isPrivate } = data
-
-    updateDeck({ id: deckData.id || '', name, isPrivate })
+    updateDeck({ id: deckData.id || '', ...data })
   }
 
   const deleteCardHandler = () => {

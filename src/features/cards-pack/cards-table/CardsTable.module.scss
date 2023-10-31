@@ -29,3 +29,8 @@
   object-fit: contain;
   border-radius: 5px;
 }
+
+.question,
+.answer {
+  vertical-align: baseline;
+}
