@@ -5,7 +5,6 @@ import { RadioGroup } from '@/components/ui/radioGroup'
 const meta = {
   title: 'Components/RadioGroup',
   component: RadioGroup,
-  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
   },

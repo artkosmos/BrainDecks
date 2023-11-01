@@ -6,7 +6,6 @@ import { BrowserRouter } from 'react-router-dom'
 const meta = {
   title: 'Auth/ForgotPasswordForm',
   component: ForgotPasswordForm,
-  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
   },

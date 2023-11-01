@@ -8,7 +8,6 @@ import s from '@/features/cards-pack/CardsPack.module.scss'
 const meta = {
   title: 'Components/DropDownMenu',
   component: DropDownMenu,
-  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
   },

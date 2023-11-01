@@ -5,7 +5,6 @@ import { Header } from '@/features/header/Header.tsx'
 const meta = {
   title: 'Components/Header',
   component: Header,
-  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
   },

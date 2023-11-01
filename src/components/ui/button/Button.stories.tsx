@@ -5,7 +5,6 @@ import { Button } from './'
 const meta = {
   title: 'Components/Button',
   component: Button,
-  tags: ['autodocs'],
   argTypes: {
     variant: {
       options: ['primary', 'secondary', 'tertiary', 'link'],

@@ -11,7 +11,6 @@ import { Card } from '@/components/ui/card'
 const meta = {
   title: 'Auth/CheckEmailCard',
   component: CheckEmailCard,
-  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
   },

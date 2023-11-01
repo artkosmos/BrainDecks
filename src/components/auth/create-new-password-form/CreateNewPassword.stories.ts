@@ -5,7 +5,6 @@ import { CreateNewPasswordForm } from '@/components/auth/create-new-password-for
 const meta = {
   title: 'Auth/CreateNewPasswordForm',
   component: CreateNewPasswordForm,
-  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
   },

@@ -38,7 +38,6 @@ const tabs = [
 const meta = {
   title: 'Components/TabSwitcher',
   component: TabSwitcher,
-  tags: ['autodocs'],
   argTypes: {
     orientation: {
       options: ['vertical', 'horizontal'],

@@ -11,7 +11,6 @@ import { Typography } from '@/components/ui/typography'
 const meta = {
   title: 'Components/LearnCard',
   component: Card,
-  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
   },

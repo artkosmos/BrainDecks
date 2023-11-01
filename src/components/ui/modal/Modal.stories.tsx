@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button'
 const meta = {
   title: 'Components/Modal',
   component: Modal,
-  tags: ['autodocs'],
   argTypes: {
     open: {
       description: 'Value for show or not modal',
