@@ -1,7 +1,10 @@
 # React + TypeScript + Vite
-# Project: Brain Decks
+# Brain Decks
 
 #### Vercel deploy link: https://brain-decks.vercel.app
+#### Storybook UI Kit: https://brain-decks-9p6vzi7db-artems-projects-238ffcfa.vercel.app
+
+### About Project
 
 This app is a deck of cards that can be sorted, edited, added, or viewed by other users. It includes features such as:
 

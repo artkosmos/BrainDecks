@@ -6,7 +6,6 @@ import { BrowserRouter } from 'react-router-dom'
 const meta = {
   title: 'Auth/SignUp',
   component: SignUp,
-  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
   },

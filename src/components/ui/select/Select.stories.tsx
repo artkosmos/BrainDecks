@@ -5,7 +5,6 @@ import { Selector } from '@/components/ui/select/Select.tsx'
 const meta = {
   title: 'Components/Selector',
   component: Selector,
-  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
   },
