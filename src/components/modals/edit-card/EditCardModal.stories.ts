@@ -5,7 +5,6 @@ import { EditCardModal } from '@/components/modals/edit-card'
 const meta = {
   title: 'Modals/EditCard',
   component: EditCardModal,
-  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
   },

@@ -6,7 +6,6 @@ import { CardsModals } from '@/features/cards-pack/types'
 const meta = {
   title: 'Modals/AddNewCard',
   component: AddNewCardModal,
-  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
   },

@@ -25,10 +25,6 @@ const meta = {
       description:
         'Represents the min number of page buttons to be shown on each side of the current page button (default = 1)',
     },
-    onChange: {
-      description:
-        'Callback function that invoked with the updated page value when the page is changed.',
-    },
   },
 } satisfies Meta<typeof Pagination>
 
@@ -54,8 +50,8 @@ const RenderPagination = () => {
       totalCount={totalCount}
       currentPage={page}
       pageSize={pageSize}
-      selectFilterChange={setPageSize}
-      onChange={setPage}
+      setItemsPerPageFn={setPageSize}
+      setCurrentPageFn={setPage}
     />
   )
 }

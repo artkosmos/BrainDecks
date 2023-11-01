@@ -1,12 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react'
-
 import { AddNewDeckModal } from './AddNewDeckModal.tsx'
-import { DeckModals } from '@/features/deck-pack'
+import { DeckModals } from '@/features/deck-pack/types'
 
 const meta = {
   title: 'Modals/AddNewDeck',
   component: AddNewDeckModal,
-  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
   },

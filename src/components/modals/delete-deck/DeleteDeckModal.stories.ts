@@ -1,11 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { DeleteDeckModal } from '@/components/modals/delete-deck/DeleteDeckModal.tsx'
-import { DeckModals } from '@/features/deck-pack'
+import { DeckModals } from '@/features/deck-pack/types'
 
 const meta = {
   title: 'Modals/DeleteDeck',
   component: DeleteDeckModal,
-  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
   },

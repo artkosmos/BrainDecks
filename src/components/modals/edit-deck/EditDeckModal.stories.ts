@@ -1,11 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { EditDeckModal } from '@/components/modals/edit-deck'
-import { DeckModals } from '@/features/deck-pack'
+import { DeckModals } from '@/features/deck-pack/types'
 
 const meta = {
   title: 'Modals/EditDeck',
   component: EditDeckModal,
-  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
   },

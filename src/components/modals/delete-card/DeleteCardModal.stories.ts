@@ -5,7 +5,6 @@ import { DeleteCardModal } from '@/components/modals/delete-card'
 const meta = {
   title: 'Modals/DeleteCard',
   component: DeleteCardModal,
-  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
   },

@@ -1,9 +1,6 @@
 import { useState } from 'react'
-
 import { Meta, StoryObj } from '@storybook/react'
-
 import { Modal } from './'
-
 import { Button } from '@/components/ui/button'
 
 const meta = {
@@ -41,7 +38,7 @@ const PreviewModal = () => {
   return (
     <div>
       <Button onClick={openModal}>Click me</Button>
-      <Modal open={isShow} onOpenChange={onOpenChange}>
+      <Modal open={isShow} onOpenChange={onOpenChange} closeCallBack={() => {}}>
         Hello world
       </Modal>
     </div>
