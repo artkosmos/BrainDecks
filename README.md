@@ -2,7 +2,7 @@
 # Brain Decks
 
 #### Vercel deploy link: https://brain-decks-lc6rzfu8v-artems-projects-238ffcfa.vercel.app
-#### Storybook UI Kit: https://brain-decks-9p6vzi7db-artems-projects-238ffcfa.vercel.app
+#### Storybook UI Kit: https://brain-decks-ntvoyfkna-artems-projects-238ffcfa.vercel.app
 
 ### About Project
 
