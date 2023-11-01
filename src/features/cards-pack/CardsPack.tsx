@@ -20,6 +20,7 @@ import { Icon } from '@/components/ui/icon'
 import { PreviousPage } from '@/assets/icons/components/PreviousPage.tsx'
 import { useDebounce } from '@/hooks'
 import { sortFn } from '@/utils/sortFn.ts'
+import LinearProgress from '@mui/material/LinearProgress'
 import {
   Sort,
   useDeleteDeckMutation,
@@ -61,9 +62,9 @@ export const CardsPack = () => {
 
   const sortByTableTitle = useMemo(() => sortFn(sort), [sort])
 
-  const [createCard] = useCreateCardMutation()
-  const [editCard] = useEditCardMutation()
-  const [deleteCard] = useDeleteCardMutation()
+  const [createCard, { isLoading: isCreating }] = useCreateCardMutation()
+  const [editCard, { isLoading: isEditing }] = useEditCardMutation()
+  const [deleteCard, { isLoading: isDeleting }] = useDeleteCardMutation()
   const [deleteDeck] = useDeleteDeckMutation()
   const [updateDeck] = useUpdateDeckMutation()
   const { data: deckData, isLoading: isDeckLoading } = useGetDeckQuery({ id: deckId })
@@ -75,6 +76,8 @@ export const CardsPack = () => {
     itemsPerPage,
     orderBy: sortByTableTitle as GetCardsQueryParams['orderBy'],
   })
+
+  const isTableUpdating = isCreating || isDeleting || isEditing
 
   if (isCardsLoading || isDeckLoading) {
     return <Icon className={s1.preloader} srcIcon={gearIcon} />
@@ -185,8 +188,10 @@ export const CardsPack = () => {
             withoutError
           />
         </div>
+        <div className={s.tablePreloader}>
+          {isTableUpdating && <LinearProgress color={'inherit'} />}
+        </div>
         <CardsTable
-          className={s.table}
           onIconClick={openModalHandler}
           data={cardData.items}
           sort={sort}

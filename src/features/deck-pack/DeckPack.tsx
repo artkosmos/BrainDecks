@@ -30,6 +30,7 @@ import { useMeQuery } from '@/services/auth-service'
 import { AppDispatch, useAppSelector } from '@/services/store.ts'
 import { useDispatch } from 'react-redux'
 import { sortFn } from '@/utils/sortFn.ts'
+import LinearProgress from '@mui/material/LinearProgress'
 import {
   setActiveTab,
   setAuthorFilter,
@@ -56,9 +57,9 @@ export const DeckPack = () => {
   const debouncedInputValue = useDebounce(deckFilterData.deckName)
   const debouncedSliderValues = useDebounce(deckFilterData.sliderValues)
 
-  const [createDeck] = useCreateDeckMutation()
-  const [deleteDeck] = useDeleteDeckMutation()
-  const [updateDeck] = useUpdateDeckMutation()
+  const [createDeck, { isLoading: isCreating }] = useCreateDeckMutation()
+  const [deleteDeck, { isLoading: isDeleting }] = useDeleteDeckMutation()
+  const [editDeck, { isLoading: isEditing }] = useUpdateDeckMutation()
   const { data: userData } = useMeQuery()
   const { isLoading, data } = useGetDecksQuery({
     name: debouncedInputValue,
@@ -69,6 +70,8 @@ export const DeckPack = () => {
     orderBy: sortByTableTitle as GetDeckQueryParams['orderBy'],
     authorId: deckFilterData.authorId,
   })
+
+  const isTableUpdating = isCreating || isDeleting || isEditing
 
   if (isLoading) {
     return <Icon className={s1.preloader} srcIcon={gearIcon} />
@@ -120,7 +123,7 @@ export const DeckPack = () => {
   }
 
   const updateDeckHandler = (data: NewDeckFields) => {
-    updateDeck({ id: activeDeck?.id || '', ...data })
+    editDeck({ id: activeDeck?.id || '', ...data })
   }
 
   const authorFilterHandler = (tabId: string) => {
@@ -169,6 +172,9 @@ export const DeckPack = () => {
           <Icon srcIcon={deleteIcon} />
           <Typography variant={'subtitle2'}>Clear filter</Typography>
         </Button>
+      </div>
+      <div className={s.tablePreloader}>
+        {isTableUpdating && <LinearProgress color={'inherit'} />}
       </div>
       <DeckTable
         data={data.items}
