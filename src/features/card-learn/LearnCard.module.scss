@@ -22,7 +22,6 @@
 }
 
 .attempts {
-  margin-top: 5px;
   color: var(--color-dark-100);
 }
 
@@ -42,13 +41,12 @@
 
 .image {
   align-self: flex-start;
+
   width: auto;
   max-height: 100px;
-  object-fit: contain;
-}
+  margin: 5px 0;
 
-.question {
-  margin-bottom: 5px;
+  object-fit: contain;
 }
 
 .preloader {
