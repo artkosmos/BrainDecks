@@ -1,8 +1,13 @@
 # React + TypeScript + Vite
 # Brain Decks
 
-#### Vercel deploy link: https://brain-decks.vercel.app
-#### Storybook UI Kit: https://brain-decks-9p6vzi7db-artems-projects-238ffcfa.vercel.app
+#### Vercel deploy link: https://brain-decks-kklfhyq65-artems-projects-238ffcfa.vercel.app
+#### Storybook UI Kit: -
+
+### Start Project
+
+- install dependencies - ```pnpm install```
+- start project - ```pnpm run dev```
 
 ### About Project
 
