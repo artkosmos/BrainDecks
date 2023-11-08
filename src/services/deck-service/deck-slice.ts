@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Sort } from '@/services/deck-service'
+import { Sort } from '@/services/deck-service/index.ts'
 
 export type DeckFilterState = {
   authorId: string | undefined
@@ -24,7 +24,7 @@ const initialState: DeckFilterState = {
 }
 
 const slice = createSlice({
-  name: 'tasks',
+  name: 'decks',
   initialState,
   reducers: {
     setCurrentPage: (state, action: PayloadAction<number>) => {

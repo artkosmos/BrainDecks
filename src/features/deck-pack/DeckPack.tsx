@@ -39,7 +39,7 @@ import {
   setItemsPerPage,
   setSliderValues,
   setSort,
-} from '@/services/deck-slice.ts'
+} from '@/services/deck-service/deck-slice.ts'
 import gearIcon from '@/assets/icons/gear_preloader.svg'
 import s from './DeckPack.module.scss'
 import s1 from '@/features/personal-page/PersonalPage.module.scss'

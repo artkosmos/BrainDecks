@@ -1,16 +1,33 @@
 import { LoginForm } from '@/components/auth/login-form'
-import { useLogInMutation, useMeQuery } from '@/services/auth-service'
+import { ErrorLogInResponse, useLogInMutation, useMeQuery } from '@/services/auth-service'
 import { Navigate } from 'react-router-dom'
 import { Icon } from '@/components/ui/icon'
-import s1 from '@/features/personal-page/PersonalPage.module.scss'
 import gearIcon from '@/assets/icons/gear_preloader.svg'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from '@/services/store.ts'
+import { setErrorMessage } from '@/services/auth-service/auth-slice.ts'
+import { AlertBar } from '@/components/ui/errorBar'
+import s1 from '@/features/personal-page/PersonalPage.module.scss'
 
 export const Login = () => {
-  const { isError, isLoading } = useMeQuery()
-  const [logIn] = useLogInMutation()
+  const { isError, isLoading, isFetching } = useMeQuery()
+  const [logIn, { isError: isLoginError, error }] = useLogInMutation()
 
-  if (isLoading) {
+  const dispatch = useDispatch<AppDispatch>()
+
+  if (isLoading || isFetching) {
     return <Icon className={s1.preloader} srcIcon={gearIcon} />
+  }
+
+  if (isLoginError) {
+    const errorResponse = error as ErrorLogInResponse
+    const message = errorResponse.data.message || 'Unknown error :('
+
+    if (message === 'Invalid credentials') {
+      dispatch(setErrorMessage('User is not found'))
+    } else {
+      dispatch(setErrorMessage(message))
+    }
   }
 
   const isAuthorized = !isError
@@ -19,5 +36,10 @@ export const Login = () => {
     return <Navigate to={'/'} replace={true} />
   }
 
-  return <LoginForm onSubmit={logIn} />
+  return (
+    <>
+      <LoginForm onSubmit={logIn} />
+      <AlertBar />
+    </>
+  )
 }
