@@ -37,7 +37,7 @@ export const Header = ({ isAuth, userData }: HeaderPropsType) => {
             alt={'app_logo'}
             aria-label={'logo of application, tap to move to packs page'}
           />
-          <Typography variant={'h1'}>Flashcards</Typography>
+          <Typography variant={'h1'}>BrainDecks</Typography>
         </div>
         <label className={s.userContainer}>
           {isAuth ? (
