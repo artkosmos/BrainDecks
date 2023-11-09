@@ -1,5 +1,8 @@
 import { baseApi } from '@/services/api.ts'
 import {
+  ErrorData1,
+  ErrorData2,
+  ErrorState,
   GetMeQueryResponseData,
   LoginArgs,
   LogInResponseData,
@@ -10,6 +13,7 @@ import {
   UpdateProfileResponseData,
 } from '@/services/auth-service'
 import { ResetPasswordArgs } from '@/services/deck-service'
+import { setErrorMessage } from '@/services/auth-service/auth-slice.ts'
 
 export const authService = baseApi.injectEndpoints({
   endpoints: builder => {
@@ -30,6 +34,20 @@ export const authService = baseApi.injectEndpoints({
             body,
           }
         },
+        async onQueryStarted(_, { dispatch, queryFulfilled }) {
+          try {
+            await queryFulfilled
+          } catch (e) {
+            const error = e as ErrorState<ErrorData1>
+            const errorMessage = error.error.data.message
+
+            if (errorMessage === 'Invalid credentials') {
+              dispatch(setErrorMessage('User is not found'))
+            } else {
+              dispatch(setErrorMessage(errorMessage))
+            }
+          }
+        },
         invalidatesTags: ['Me'],
       }),
       logOut: builder.mutation<void, void>({
@@ -47,6 +65,15 @@ export const authService = baseApi.injectEndpoints({
             url: `/v1/auth/sign-up`,
             method: 'POST',
             body,
+          }
+        },
+        async onQueryStarted(_, { dispatch, queryFulfilled }) {
+          try {
+            await queryFulfilled
+          } catch (e) {
+            const error = e as ErrorState<ErrorData2>
+
+            dispatch(setErrorMessage(error.error.data.errorMessages[0]))
           }
         },
       }),

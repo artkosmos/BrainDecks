@@ -1,30 +1,26 @@
 import Snackbar from '@mui/material/Snackbar'
 import { useDispatch } from 'react-redux'
-import { AppDispatch, useAppSelector } from '@/services/store.ts'
-import { getErrorMessage } from '@/selectors'
+import { AppDispatch } from '@/services/store.ts'
 import { SyntheticEvent } from 'react'
-import { setErrorMessage } from '@/services/auth-service/auth-slice.ts'
+import { setErrorMessage, setSuccessMessage } from '@/services/auth-service/auth-slice.ts'
 import Alert from '@mui/material/Alert'
 import s from './AlertBar.module.scss'
 
 type Props = {
-  alertType?: 'error' | 'success' | 'warning'
+  alertType: 'error' | 'success' | 'warning'
+  message: string | null
 }
 
-export function AlertBar({ alertType = 'error' }: Props) {
+export function AlertBar({ alertType, message }: Props) {
   const dispatch = useDispatch<AppDispatch>()
 
-  const error = useAppSelector(getErrorMessage)
-
-  const handleClose = (_event?: SyntheticEvent | Event, reason?: string) => {
-    if (reason === 'clickaway') {
-      return
-    }
+  const handleClose = (_event?: SyntheticEvent | Event) => {
     dispatch(setErrorMessage(null))
+    dispatch(setSuccessMessage(null))
   }
 
   return (
-    <Snackbar open={!!error} autoHideDuration={2000} onClose={handleClose}>
+    <Snackbar open={!!message} autoHideDuration={3000} onClose={handleClose}>
       <Alert
         className={s.alert}
         variant={'outlined'}
@@ -32,7 +28,7 @@ export function AlertBar({ alertType = 'error' }: Props) {
         severity={alertType}
         data-severity={alertType}
       >
-        {error}
+        {message}
       </Alert>
     </Snackbar>
   )

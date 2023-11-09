@@ -53,21 +53,24 @@ export type UpdateProfileResponseData = {
   updated: string
 }
 
-export type ErrorLogInResponse = {
-  data: {
-    statusCode: number
-    message: string
-    timestamp: string
-    path: string
-  }
-  status: number
+export type ErrorData1 = {
+  statusCode: number
+  message: string
+  timestamp: string
+  path: string
 }
 
-export type ErrorSignUpResponse = {
-  data: {
-    errorMessages: string[]
+export type ErrorData2 = {
+  errorMessages: string[]
+}
+
+export type ErrorState<T> = {
+  error: {
+    data: T
+    status: number
   }
-  status: number
+  isUnhandledError: boolean
+  meta: any
 }
 
 export type UpdateProfileArgs = { email: string; name: string; avatar?: File }
