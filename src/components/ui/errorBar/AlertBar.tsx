@@ -2,7 +2,7 @@ import Snackbar from '@mui/material/Snackbar'
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from '@/services/store.ts'
 import { SyntheticEvent } from 'react'
-import { setErrorMessage, setSuccessMessage } from '@/services/auth-service/auth-slice.ts'
+import { setAuthErrorMessage, setAuthSuccessMessage } from '@/services/auth-service/auth-slice.ts'
 import Alert from '@mui/material/Alert'
 import s from './AlertBar.module.scss'
 
@@ -15,8 +15,8 @@ export function AlertBar({ alertType, message }: Props) {
   const dispatch = useDispatch<AppDispatch>()
 
   const handleClose = (_event?: SyntheticEvent | Event) => {
-    dispatch(setErrorMessage(null))
-    dispatch(setSuccessMessage(null))
+    dispatch(setAuthErrorMessage(null))
+    dispatch(setAuthSuccessMessage(null))
   }
 
   return (

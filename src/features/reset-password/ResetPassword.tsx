@@ -5,11 +5,14 @@ import { CreateNewPasswordFields } from '@/schemes/types'
 import { Icon } from '@/components/ui/icon'
 import gearIcon from '@/assets/icons/gear_preloader.svg'
 import s1 from '@/features/personal-page/PersonalPage.module.scss'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from '@/services/store.ts'
+import { setAuthSuccessMessage } from '@/services/auth-service/auth-slice.ts'
 
 export const ResetPassword = () => {
-  const [resetPassword, result] = useResetPasswordMutation()
+  const [resetPassword, { isLoading, isSuccess }] = useResetPasswordMutation()
 
-  const { isLoading, isSuccess } = result
+  const dispatch = useDispatch<AppDispatch>()
 
   const { token } = useParams()
 
@@ -23,6 +26,8 @@ export const ResetPassword = () => {
   }
 
   if (isSuccess) {
+    dispatch(setAuthSuccessMessage('Password was changed successfully'))
+
     return <Navigate to={'/login'} />
   }
 

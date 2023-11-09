@@ -13,7 +13,7 @@ import {
   UpdateProfileResponseData,
 } from '@/services/auth-service'
 import { ResetPasswordArgs } from '@/services/deck-service'
-import { setErrorMessage } from '@/services/auth-service/auth-slice.ts'
+import { setAuthErrorMessage } from '@/services/auth-service/auth-slice.ts'
 
 export const authService = baseApi.injectEndpoints({
   endpoints: builder => {
@@ -42,9 +42,9 @@ export const authService = baseApi.injectEndpoints({
             const errorMessage = error.error.data.message
 
             if (errorMessage === 'Invalid credentials') {
-              dispatch(setErrorMessage('User is not found'))
+              dispatch(setAuthErrorMessage('User is not found'))
             } else {
-              dispatch(setErrorMessage(errorMessage))
+              dispatch(setAuthErrorMessage(errorMessage))
             }
           }
         },
@@ -73,7 +73,7 @@ export const authService = baseApi.injectEndpoints({
           } catch (e) {
             const error = e as ErrorState<ErrorData2>
 
-            dispatch(setErrorMessage(error.error.data.errorMessages[0]))
+            dispatch(setAuthErrorMessage(error.error.data.errorMessages[0]))
           }
         },
       }),

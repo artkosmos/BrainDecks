@@ -6,7 +6,7 @@ import { Icon } from '@/components/ui/icon'
 import { useDispatch } from 'react-redux'
 import { AppDispatch, useAppSelector } from '@/services/store.ts'
 import gearIcon from '@/assets/icons/gear_preloader.svg'
-import { setSuccessMessage } from '@/services/auth-service/auth-slice.ts'
+import { setAuthSuccessMessage } from '@/services/auth-service/auth-slice.ts'
 import { AlertBar } from '@/components/ui/errorBar'
 import { getErrorMessage } from '@/selectors'
 import s1 from '@/features/personal-page/PersonalPage.module.scss'
@@ -29,7 +29,7 @@ export const Registration = () => {
   }
 
   if (isSuccess) {
-    dispatch(setSuccessMessage('Registration passed successfully'))
+    dispatch(setAuthSuccessMessage('Registration passed successfully'))
 
     return <Navigate to={'/login'} />
   }

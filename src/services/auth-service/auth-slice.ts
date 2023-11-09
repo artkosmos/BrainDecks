@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export type AuthState = {
-  error: string | null | unknown
+  error: string | null
   success: string | null
 }
 
@@ -14,10 +14,10 @@ const slice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setErrorMessage: (state, action: PayloadAction<string | null | unknown>) => {
+    setAuthErrorMessage: (state, action: PayloadAction<string | null>) => {
       state.error = action.payload
     },
-    setSuccessMessage: (state, action: PayloadAction<string | null>) => {
+    setAuthSuccessMessage: (state, action: PayloadAction<string | null>) => {
       state.success = action.payload
     },
   },
@@ -25,4 +25,4 @@ const slice = createSlice({
 
 export const authReducer = slice.reducer
 
-export const { setErrorMessage, setSuccessMessage } = slice.actions
+export const { setAuthErrorMessage, setAuthSuccessMessage } = slice.actions
