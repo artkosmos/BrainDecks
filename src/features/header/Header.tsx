@@ -8,9 +8,11 @@ import { DropDownMenu } from '@/components/ui/dropDownMenu'
 import { DropDownItem } from '@/components/ui/dropDownMenu/dropDownItem'
 import { PersonIcon } from '@/assets/icons/components/PersonIcon.tsx'
 import { SignOutIcon } from '@/assets/icons/components/SignOutIcon.tsx'
+import Switch from '@mui/material/Switch'
 import userIcon from '@/assets/icons/unknown.svg'
 import s from './Header.module.scss'
 import s1 from '@/features/cards-pack/CardsPack.module.scss'
+import { useI18N } from '@/hooks/useI18n.ts'
 
 type HeaderPropsType = {
   isAuth: boolean
@@ -20,6 +22,8 @@ type HeaderPropsType = {
 export const Header = ({ isAuth, userData }: HeaderPropsType) => {
   const [logOut] = useLogOutMutation()
   const navigate = useNavigate()
+
+  const { t, handleChangeLanguage } = useI18N()
 
   const dropDownTrigger = userData?.avatar ? (
     <Icon className={`${s.userAvatar} ${s.headerAvatar}`} srcIcon={userData.avatar} />
@@ -38,6 +42,11 @@ export const Header = ({ isAuth, userData }: HeaderPropsType) => {
             aria-label={'logo of application, tap to move to packs page'}
           />
           <Typography variant={'h1'}>BrainDecks</Typography>
+        </div>
+        <div>
+          EN
+          <Switch onChange={handleChangeLanguage} />
+          RU
         </div>
         <label className={s.userContainer}>
           {isAuth ? (
@@ -74,7 +83,7 @@ export const Header = ({ isAuth, userData }: HeaderPropsType) => {
             </>
           ) : (
             <Button onClick={() => navigate('/login')} aria-label={'login button'}>
-              <Typography variant={'subtitle2'}>Sign In</Typography>
+              <Typography variant={'subtitle2'}>{t('logIn')}</Typography>
             </Button>
           )}
         </label>
