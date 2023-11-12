@@ -4,10 +4,12 @@ import { Card } from '@/components/ui/card'
 import { Icon } from '@/components/ui/icon'
 import { Typography } from '@/components/ui/typography'
 import { Link, useLocation } from 'react-router-dom'
+import { useI18N } from '@/hooks/useI18n.ts'
 import s from './CheckEmailCard.module.scss'
 
 export const CheckEmailCard = () => {
   const location = useLocation()
+  const { t } = useI18N()
 
   return (
     <Card
@@ -15,11 +17,11 @@ export const CheckEmailCard = () => {
       aria-label={'Checking email address for access to the registration'}
     >
       <Typography className={s.title} variant={'large'}>
-        Check Email
+        {t('checkEmail')}
       </Typography>
       <Icon srcIcon={letter} />
       <Typography className={s.subtitle} variant={'body2'}>
-        We’ve sent an Email with instructions to {location.state.email}
+        {t('checkEmailInstruction', { email: location.state.email })}
       </Typography>
       <Button
         as={Link}
@@ -29,7 +31,7 @@ export const CheckEmailCard = () => {
         fullWidth={true}
         aria-label={'back to sign in button'}
       >
-        <Typography variant={'subtitle2'}>Back to Sign In</Typography>
+        <Typography variant={'subtitle2'}>{t('backToLogIn')}</Typography>
       </Button>
     </Card>
   )

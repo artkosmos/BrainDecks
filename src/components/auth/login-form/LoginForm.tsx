@@ -5,13 +5,14 @@ import { Button } from '../../ui/button'
 import { Card } from '@/components/ui/card'
 import { ControlledInput } from '@/components/ui/controlled/controlledInput/ControlledInput.tsx'
 import { Typography } from '@/components/ui/typography'
+import { ControlledCheckbox } from '@/components/ui/controlled/controlledCheckbox'
+import { useI18N } from '@/hooks/useI18n.ts'
 import { logInSchema } from '@/schemes'
 import { Icon } from '@/components/ui/icon'
 import crossedEye from '@/assets/icons/eye_crossed.svg'
 import eye from '@/assets/icons/eye.svg'
 import { LogInFields } from '@/schemes/types'
 import { Link } from 'react-router-dom'
-import { ControlledCheckbox } from '@/components/ui/controlled/controlledCheckbox'
 import s from './LoginForm.module.scss'
 
 type Props = {
@@ -29,6 +30,7 @@ export const LoginForm = ({ onSubmit }: Props) => {
   })
 
   const [showPassword, setShowPassword] = useState<boolean>(false)
+  const { t } = useI18N()
 
   const onSubmitHandler = handleSubmit(data => {
     onSubmit?.(data)
@@ -39,24 +41,24 @@ export const LoginForm = ({ onSubmit }: Props) => {
   return (
     <Card className={s.logInCard} aria-label={'login form'}>
       <Typography className={s.title} variant={'h1'} color={'light'}>
-        Sign In
+        {t('logIn')}
       </Typography>
       <form onSubmit={onSubmitHandler} className={s.form}>
         <ControlledInput
           aria-label={'enter your email'}
           name={'email'}
           control={control}
-          label={'Email'}
-          placeholder={'Enter your email'}
+          label={t('email')}
+          placeholder={t('placeholderEmail')}
           errorMessage={errors.email?.message}
         />
         <ControlledInput
           aria-label={'enter your password'}
           type={showPassword ? 'text' : 'password'}
           name={'password'}
-          placeholder={'Enter your password'}
+          placeholder={t('placeholderPassword')}
           control={control}
-          label={'Password'}
+          label={t('password')}
           rightSideIcon={inputEyeIcon}
           callBack={setShowPassword}
           callBackValue={showPassword}
@@ -66,7 +68,7 @@ export const LoginForm = ({ onSubmit }: Props) => {
           <ControlledCheckbox
             aria-label={'remember me'}
             control={control}
-            label={'Remember Me'}
+            label={t('remember')}
             name={'rememberMe'}
           />
         </div>
@@ -77,13 +79,13 @@ export const LoginForm = ({ onSubmit }: Props) => {
           variant={'body2'}
           className={s.forgotTypography}
         >
-          Forgot Password?
+          {t('forgotPassword')}
         </Typography>
         <Button aria-label={'login button'} type="submit" fullWidth={true} className={s.button}>
-          <Typography variant={'subtitle2'}>Sign In</Typography>
+          <Typography variant={'subtitle2'}>{t('logIn')}</Typography>
         </Button>
         <Typography className={s.question} variant={'body2'}>
-          Don&apos;t have an account?
+          {t('noAccount')}
         </Typography>
 
         <Button
@@ -94,7 +96,7 @@ export const LoginForm = ({ onSubmit }: Props) => {
           variant={'link'}
         >
           <Typography className={s.signUpText} variant={'subtitle2'}>
-            Sign up
+            {t('register')}
           </Typography>
         </Button>
       </form>

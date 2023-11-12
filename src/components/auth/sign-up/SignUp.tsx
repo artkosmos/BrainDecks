@@ -11,6 +11,7 @@ import eye from '@/assets/icons/eye.svg'
 import { Icon } from '@/components/ui/icon'
 import { CreateAccountFields } from '@/schemes/types'
 import { Link } from 'react-router-dom'
+import { useI18N } from '@/hooks/useI18n.ts'
 import s from './SignUp.module.scss'
 
 type Props = {
@@ -19,6 +20,7 @@ type Props = {
 
 export const SignUp = ({ onSubmit }: Props) => {
   const [showPassword, setShowPassword] = useState<boolean>(false)
+  const { t } = useI18N()
 
   const {
     handleSubmit,
@@ -38,24 +40,24 @@ export const SignUp = ({ onSubmit }: Props) => {
   return (
     <Card aria-label={'registration form'} className={s.signInCard}>
       <Typography variant={'h1'} className={s.title}>
-        Sign Up
+        {t('logIn')}
       </Typography>
       <form className={s.form} onSubmit={onSubmitHandler}>
         <ControlledInput
           aria-label={'enter your email'}
           name={'email'}
           control={control}
-          label={'Email'}
+          label={t('email')}
           className={s.input}
-          placeholder={'Enter your email'}
+          placeholder={t('placeholderEmail')}
           errorMessage={errors?.email?.message}
         />
         <ControlledInput
           aria-label={'enter your nick name'}
           name={'name'}
           control={control}
-          label={'Nickname'}
-          placeholder={'Enter desired nickname'}
+          label={t('nickName')}
+          placeholder={t('placeholderNickname')}
           errorMessage={errors?.name?.message}
         />
         <ControlledInput
@@ -63,8 +65,8 @@ export const SignUp = ({ onSubmit }: Props) => {
           type={showPassword ? 'text' : 'password'}
           name={'password'}
           control={control}
-          label={'Password'}
-          placeholder={'Enter your password'}
+          label={t('password')}
+          placeholder={t('placeholderPassword')}
           callBack={setShowPassword}
           callBackValue={showPassword}
           rightSideIcon={inputEyeIcon}
@@ -74,17 +76,16 @@ export const SignUp = ({ onSubmit }: Props) => {
           aria-label={'confirm your password'}
           type={showPassword ? 'text' : 'password'}
           name={'confirmPassword'}
-          placeholder={'Confirm your password'}
+          placeholder={t('placeholderConfirmPassword')}
           control={control}
-          label={'Confirm password'}
+          label={t('confirmPassword')}
           callBack={setShowPassword}
           callBackValue={showPassword}
           rightSideIcon={inputEyeIcon}
           errorMessage={errors?.confirm?.message}
         />
         <Typography variant={'caption'} className={s.prompt}>
-          Password must be at least 8 characters and includes at least one digit, one letter and one
-          special symbol
+          {t('passwordRequirements')}
         </Typography>
         <Button
           aria-label={'commit registration'}
@@ -92,10 +93,10 @@ export const SignUp = ({ onSubmit }: Props) => {
           fullWidth={true}
           className={s.button}
         >
-          <Typography variant={'subtitle2'}>Sign Up</Typography>
+          <Typography variant={'subtitle2'}> {t('register')}</Typography>
         </Button>
         <Typography className={s.question} variant={'body2'}>
-          Already have an account?
+          {t('existAccount')}
         </Typography>
         <Button
           as={Link}
@@ -105,7 +106,7 @@ export const SignUp = ({ onSubmit }: Props) => {
           variant={'link'}
         >
           <Typography className={s.signInText} variant={'subtitle2'}>
-            Sign In
+            {t('logIn')}
           </Typography>
         </Button>
       </form>

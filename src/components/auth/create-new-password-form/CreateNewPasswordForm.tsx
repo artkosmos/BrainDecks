@@ -8,6 +8,7 @@ import { Card } from '@/components/ui/card'
 import { ControlledInput } from '@/components/ui/controlled/controlledInput'
 import { Icon } from '@/components/ui/icon'
 import { Typography } from '@/components/ui/typography'
+import { useI18N } from '@/hooks/useI18n.ts'
 import { createNewPasswordSchema } from '@/schemes'
 import { CreateNewPasswordFields } from '@/schemes/types'
 import s from './CreateNewPassword.module.scss'
@@ -20,6 +21,7 @@ export const CreateNewPasswordForm = (props: Props) => {
   const { onSubmit } = props
 
   const [showPassword, setShowPassword] = useState<boolean>(false)
+  const { t } = useI18N()
 
   const {
     control,
@@ -36,7 +38,6 @@ export const CreateNewPasswordForm = (props: Props) => {
   })
 
   const icon = showPassword ? <Icon srcIcon={crossedEye} /> : <Icon srcIcon={eye} />
-
   const inputType = showPassword ? 'text' : 'password'
 
   return (
@@ -48,22 +49,22 @@ export const CreateNewPasswordForm = (props: Props) => {
     >
       <form className={s.form} onSubmit={onSubmitHandler}>
         <Typography className={s.title} variant={'large'}>
-          Create new password
+          {t('createNewPassword')}
         </Typography>
         <ControlledInput
           aria-label={'enter new password'}
           type={inputType}
-          placeholder={'Enter your password'}
+          placeholder={t('placeholderPassword')}
           control={control}
           name={'password'}
-          label={'Password'}
+          label={t('password')}
           errorMessage={errors.password?.message}
           rightSideIcon={icon}
           callBack={setShowPassword}
           callBackValue={showPassword}
         />
         <Typography className={s.subtitle} variant={'body2'}>
-          Create new password and we will send you further instructions to email
+          {t('createNewPasswordInstructions')}
         </Typography>
         <Button
           type={'submit'}
@@ -71,7 +72,7 @@ export const CreateNewPasswordForm = (props: Props) => {
           fullWidth={true}
           aria-label={'submit password changing'}
         >
-          <Typography variant={'subtitle2'}>Create New Password</Typography>
+          <Typography variant={'subtitle2'}>{t('createNewPassword')}</Typography>
         </Button>
       </form>
     </Card>

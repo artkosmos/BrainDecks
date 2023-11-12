@@ -3,9 +3,7 @@ import { useLogInMutation, useMeQuery } from '@/services/auth-service'
 import { Navigate } from 'react-router-dom'
 import { Icon } from '@/components/ui/icon'
 import gearIcon from '@/assets/icons/gear_preloader.svg'
-
 import { useAppSelector } from '@/services/store.ts'
-
 import { getErrorMessage, getSuccessMessage } from '@/selectors'
 import { AlertBar } from '@/components/ui/errorBar'
 import s1 from '@/features/personal-page/PersonalPage.module.scss'

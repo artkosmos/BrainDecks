@@ -1,0 +1,29 @@
+{
+  "translation": {
+    "logIn": "Sign In",
+    "email": "Email",
+    "password": "Password",
+    "remember": "Remember Me",
+    "noAccount": "Don't have an account?",
+    "register": "Sign up",
+    "placeholderPassword": "Enter your password",
+    "placeholderEmail": "Enter your email",
+    "forgotPassword": "Forgot password?",
+    "nickName": "Nickname",
+    "placeholderNickname": "Enter desired nickname",
+    "passwordRequirements": "Password must be at least 8 characters and includes at least one digit, one letter and one special symbol",
+    "existAccount": "Already have an account?",
+    "confirmPassword": "Confirm password",
+    "placeholderConfirmPassword": "Confirm your password",
+    "forgotYourPassword": "Forgot your password?",
+    "forgotPasswordInstructions": "Enter your email address and we will send you further instructions",
+    "sendInstructions": "Send Instructions",
+    "rememberPassword": "Did you remember your password?",
+    "tryLogIn": "Try logging in",
+    "checkEmail": "Check Email",
+    "checkEmailInstruction": "We’ve sent an Email with instructions to {{email}}",
+    "backToLogIn": "Back to Sign In",
+    "createNewPassword": "Create new password",
+    "createNewPasswordInstructions": "Create new password and we will send you further instructions to email"
+  }
+}

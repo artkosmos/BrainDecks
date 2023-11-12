@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { ControlledInput } from '@/components/ui/controlled/controlledInput'
 import { Typography } from '@/components/ui/typography'
+import { useI18N } from '@/hooks/useI18n.ts'
 import { forgotPasswordSchema } from '@/schemes'
 import { ForgotPasswordFields } from '@/schemes/types'
 import { Link } from 'react-router-dom'
@@ -15,6 +16,8 @@ type Props = {
 
 export const ForgotPasswordForm = (props: Props) => {
   const { onSubmit } = props
+
+  const { t } = useI18N()
 
   const {
     control,
@@ -34,19 +37,19 @@ export const ForgotPasswordForm = (props: Props) => {
     <Card className={s.forgotCard}>
       <form className={s.form} onSubmit={onSubmitHandler}>
         <Typography className={s.title} variant={'large'}>
-          Forgot your password?
+          {t('forgotYourPassword')}
         </Typography>
         <ControlledInput
           aria-label={'enter your email to recover yours password'}
           className={s.input}
           control={control}
           name={'email'}
-          label={'Email'}
+          label={t('email')}
           errorMessage={errors.email?.message}
-          placeholder={'Enter your email'}
+          placeholder={t('placeholderEmail')}
         />
         <Typography className={s.subtitle_1} variant={'body2'}>
-          Enter your email address and we will send you further instructions
+          {t('forgotPasswordInstructions')}
         </Typography>
         <Button
           aria-label={'submit password recovering'}
@@ -55,10 +58,10 @@ export const ForgotPasswordForm = (props: Props) => {
           variant={'primary'}
           fullWidth={true}
         >
-          <Typography variant={'subtitle1'}>Send Instructions</Typography>
+          <Typography variant={'subtitle1'}>{t('sendInstructions')}</Typography>
         </Button>
         <Typography className={s.subtitle_2} variant={'body2'}>
-          Did you remember your password?
+          {t('rememberPassword')}
         </Typography>
         <Button
           as={Link}
@@ -68,7 +71,7 @@ export const ForgotPasswordForm = (props: Props) => {
           variant={'link'}
         >
           <Typography className={s.link} variant={'subtitle2'}>
-            Try logging in
+            {t('tryLogIn')}
           </Typography>
         </Button>
       </form>

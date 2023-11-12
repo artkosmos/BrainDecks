@@ -1,0 +1,29 @@
+{
+  "translation": {
+    "logIn": "Войти",
+    "email": "Почта",
+    "password": "Пароль",
+    "remember": "Запомнить меня",
+    "noAccount": "Еще нету аккаунта?",
+    "register": "Зарегистрироваться",
+    "placeholderPassword": "Введите ваш пароль",
+    "placeholderEmail": "Введите вашу почту",
+    "forgotPassword": "Забыли пароль?",
+    "nickName": "Никнейм",
+    "placeholderNickname": "Введите желаемый никнейм",
+    "passwordRequirements": "Пароль должен содержать хотя бы 8 символов, а также включать хотя бы одно число, одну букву и один символ",
+    "existAccount": "Уже есть аккаунт?",
+    "confirmPassword": "Подтвердите пароль",
+    "placeholderConfirmPassword": "Подтвердите ваш пароль",
+    "forgotYourPassword": "Забыли свой пароль?",
+    "forgotPasswordInstructions": "Введите свою почту и мы отправим дальнейшие инструкции",
+    "sendInstructions": "Отправить Инструкции",
+    "rememberPassword": "Вспомнили пароль?",
+    "tryLogIn": "Пробуйте войти",
+    "checkEmail": "Проверьте Почту",
+    "checkEmailInstruction": "Мы отправили сообщение с инструкциями на {{email}}",
+    "backToLogIn": "Вернуться",
+    "createNewPassword": "Создать новый пароль",
+    "createNewPasswordInstructions": "Создайте новый пароль и мы отправим дальнейшие инструкции на почту"
+  }
+}
