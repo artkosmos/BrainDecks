@@ -95,6 +95,9 @@ dependencies:
   zod:
     specifier: ^3.22.2
     version: 3.22.4
+  zod-i18n-map:
+    specifier: ^2.21.0
+    version: 2.21.0(i18next@23.7.3)(zod@3.22.4)
 
 devDependencies:
   '@hookform/devtools':
@@ -10994,6 +10997,16 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: true
+
+  /zod-i18n-map@2.21.0(i18next@23.7.3)(zod@3.22.4):
+    resolution: {integrity: sha512-5yyL8m6GDfaNH2u9GC7QE3U8XTPYOGjXMFgxhXzK8N/HCTZHyBQR5X0Y76n4AscbHNmBfxLKXLwkjWXpx6JZaw==}
+    peerDependencies:
+      i18next: '>=21.3.0'
+      zod: '>=3.17.0'
+    dependencies:
+      i18next: 23.7.3
+      zod: 3.22.4
+    dev: false
 
   /zod@3.22.4:
     resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
