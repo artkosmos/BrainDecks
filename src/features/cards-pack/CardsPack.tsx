@@ -18,7 +18,7 @@ import { DeleteIcon } from '@/assets/icons/components/DeleteIcon.tsx'
 import { DeleteDeckModal } from '@/components/modals/delete-deck'
 import { Icon } from '@/components/ui/icon'
 import { PreviousPage } from '@/assets/icons/components/PreviousPage.tsx'
-import { useDebounce } from '@/hooks'
+import { useDebounce, useI18N } from '@/hooks'
 import { sortFn } from '@/utils/sortFn.ts'
 import LinearProgress from '@mui/material/LinearProgress'
 import {
@@ -55,6 +55,7 @@ export const CardsPack = () => {
   const [sort, setSort] = useState<Sort | null>(null)
 
   const debouncedInputValue = useDebounce(question)
+  const { t } = useI18N()
 
   const { deckId } = useParams<{ deckId: string }>()
 
@@ -140,7 +141,7 @@ export const CardsPack = () => {
       <div className={s.insideContainer}>
         <Button as={Link} to={'/'} variant={'link'} className={s.previousPage}>
           <PreviousPage className={s.arrow} />
-          <Typography variant={'body2'}>Back to Deck List</Typography>
+          <Typography variant={'body2'}>{t('previousPage')}</Typography>
         </Button>
         <div className={s.deckNameAndButtonWrapper}>
           <div className={s.deckNameBlockWrapper}>
@@ -154,21 +155,21 @@ export const CardsPack = () => {
               >
                 <DropDownItem className={s.dropDownMenuItem} onClick={learnDeckHandler}>
                   <PlayCardIcon width={15} height={15} />
-                  Learn
+                  {t('learnDropDown')}
                 </DropDownItem>
                 <DropDownItem
                   className={s.dropDownMenuItem}
                   onClick={() => setOpenDeckModal(DeckModals.UPDATE)}
                 >
                   <EditIcon width={15} height={15} />
-                  Edit
+                  {t('editDropDown')}
                 </DropDownItem>
                 <DropDownItem
                   className={s.dropDownMenuItem}
                   onClick={() => setOpenDeckModal(DeckModals.DELETE)}
                 >
                   <DeleteIcon width={15} height={15} />
-                  Delete
+                  {t('deleteDropDown')}
                 </DropDownItem>
               </DropDownMenu>
             </div>
@@ -176,12 +177,14 @@ export const CardsPack = () => {
               <Icon className={s.deckImage} srcIcon={deckData.cover} alt={'deck image'} />
             )}
           </div>
-          <Button onClick={() => openModalHandler(CardsModals.CREATE)}>Add New Card</Button>
+          <Button onClick={() => openModalHandler(CardsModals.CREATE)}>
+            <Typography variant={'subtitle2'}>{t('addNewCard')}</Typography>
+          </Button>
         </div>
         <div className={s.searchContainer}>
           <Input
             className={s.input}
-            placeholder={'Search question'}
+            placeholder={t('searchQuestion')}
             leftSideIcon={<Icon srcIcon={searchIcon} />}
             onChange={changeSearchValue}
             value={question}

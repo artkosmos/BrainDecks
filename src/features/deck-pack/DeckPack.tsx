@@ -18,14 +18,14 @@ import {
   CreateDeckArgs,
   GetDeckQueryParams,
 } from '@/services/deck-service'
-import { getDeckFilterData } from '@/selectors'
-import { decksTabs, paginationSelectOptions } from '@/options'
+import { getCurrentLanguage, getDeckFilterData } from '@/selectors'
+import { decksTabsEN, decksTabsRU, paginationSelectOptions } from '@/options'
 import { DeckModals, NewDeckFields } from '@/features/deck-pack/types'
 import { AddNewDeckModal } from '@/components/modals/add-new-deck'
 import searchIcon from '@/assets/icons/input_search.svg'
 import { EditDeckModal } from '@/components/modals/edit-deck'
 import { DeleteDeckModal } from '@/components/modals/delete-deck'
-import { useDebounce } from '@/hooks'
+import { useDebounce, useI18N } from '@/hooks'
 import { useMeQuery } from '@/services/auth-service'
 import { AppDispatch, useAppSelector } from '@/services/store.ts'
 import { useDispatch } from 'react-redux'
@@ -51,11 +51,13 @@ export const DeckPack = () => {
   const dispatch = useDispatch<AppDispatch>()
 
   const deckFilterData = useAppSelector(getDeckFilterData)
+  const currentLanguage = useAppSelector(getCurrentLanguage)
 
   const sortByTableTitle = useMemo(() => sortFn(deckFilterData.sort), [deckFilterData.sort])
 
   const debouncedInputValue = useDebounce(deckFilterData.deckName)
   const debouncedSliderValues = useDebounce(deckFilterData.sliderValues)
+  const { t } = useI18N()
 
   const [createDeck, { isLoading: isCreating }] = useCreateDeckMutation()
   const [deleteDeck, { isLoading: isDeleting }] = useDeleteDeckMutation()
@@ -141,15 +143,15 @@ export const DeckPack = () => {
   return (
     <div className={s.contentWrapper}>
       <div className={s.deckNameAndButton}>
-        <Typography variant={'large'}>Deck&apos;s list</Typography>
+        <Typography variant={'large'}>{t('decksList')}</Typography>
         <Button onClick={() => openModalHandler(DeckModals.CREATE)}>
-          <Typography variant={'subtitle2'}>Add new deck</Typography>
+          <Typography variant={'subtitle2'}>{t('addNewDeck')}</Typography>
         </Button>
       </div>
       <div className={s.tableSettings}>
         <Input
           value={deckFilterData.deckName}
-          placeholder={'Search'}
+          placeholder={t('search')}
           className={s.searchInput}
           leftSideIcon={<Icon srcIcon={searchIcon} />}
           withoutError
@@ -157,20 +159,20 @@ export const DeckPack = () => {
         />
         <TabSwitcher
           activeTab={deckFilterData.activeTab}
-          label={'Show decks cards'}
+          label={t('showDecksCards')}
           setActiveTab={authorFilterHandler}
-          tabs={decksTabs}
+          tabs={currentLanguage === 'en' ? decksTabsEN : decksTabsRU}
         />
         <Slider
           defaultValue={[0, data.maxCardsCount]}
-          label={'Number of cards'}
+          label={t('numberOfCards')}
           max={data.maxCardsCount}
           onValueChange={changeSliderHandler}
           value={deckFilterData.sliderValues}
         />
         <Button variant={'secondary'} onClick={clearFilterHandler}>
           <Icon srcIcon={deleteIcon} />
-          <Typography variant={'subtitle2'}>Clear filter</Typography>
+          <Typography variant={'subtitle2'}>{t('clearFilter')}</Typography>
         </Button>
       </div>
       <div className={s.tablePreloader}>

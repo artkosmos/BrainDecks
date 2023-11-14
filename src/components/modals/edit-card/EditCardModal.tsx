@@ -8,6 +8,7 @@ import { addNewCardSchema } from '@/schemes'
 import { useEffect, useState } from 'react'
 import { Selector } from '@/components/ui/select'
 import { ControlledFileInput } from '@/components/ui/controlled/controlledFileInput'
+import { useI18N } from '@/hooks'
 import { Card } from '@/services/card-service'
 import { CardsModals, NewCardFields } from '@/features/cards-pack/types'
 import s from './EditCardModal.module.scss'
@@ -25,6 +26,7 @@ export const EditCardModal = (props: Props) => {
   const { openModal, setOpenModal, onSubmit, activeCard, selectOptions } = props
 
   const [cardType, setCardType] = useState('text')
+  const { t } = useI18N()
 
   const {
     control,
@@ -71,14 +73,14 @@ export const EditCardModal = (props: Props) => {
       closeCallBack={closeModalHandler}
     >
       <Typography className={s1.title} variant={'h2'}>
-        Edit Card
+        {t('editCard')}
       </Typography>
       <form className={s1.form} onSubmit={onSubmitHandler}>
         <Selector
           className={s.selector}
           value={cardType}
           setSelectedValue={setCardType}
-          label={'Chose a question format'}
+          label={t('questionFormat')}
           selectData={selectOptions}
         />
         {cardType === 'picture' && (
@@ -87,13 +89,13 @@ export const EditCardModal = (props: Props) => {
             control={control}
             name={'questionImg'}
             id={'questionImg'}
-            buttonText={'Change Question Cover'}
+            buttonText={t('questionCover')}
           />
         )}
         <ControlledInput
           className={s.questionInput}
           name={'question'}
-          label={'Question'}
+          label={t('question')}
           control={control}
           errorMessage={errors.question?.message}
           autoFocus
@@ -104,22 +106,22 @@ export const EditCardModal = (props: Props) => {
             control={control}
             name={'answerImg'}
             id={'answerImg'}
-            buttonText={'Change Answer Cover'}
+            buttonText={t('answerCover')}
           />
         )}
         <ControlledInput
           className={s.answerInput}
           name={'answer'}
-          label={'Answer'}
+          label={t('answer')}
           control={control}
           errorMessage={errors.answer?.message}
         />
         <div className={s1.buttonArea}>
           <Button variant={'secondary'} type={'button'} onClick={closeModalHandler}>
-            <Typography variant={'subtitle2'}>Cancel</Typography>
+            <Typography variant={'subtitle2'}>{t('cancel')}</Typography>
           </Button>
           <Button type={'submit'} variant={'primary'}>
-            <Typography variant={'subtitle2'}>Save Changes</Typography>
+            <Typography variant={'subtitle2'}>{t('saveChanges')}</Typography>
           </Button>
         </div>
       </form>

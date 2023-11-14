@@ -6,7 +6,6 @@ export type TabType = {
   id: string
   title: string
   disabledTab?: boolean
-  titleClassname?: string
 }
 
 export type TabSwitcherProps = {
@@ -15,10 +14,11 @@ export type TabSwitcherProps = {
   tabs: TabType[]
   activeTab?: string
   setActiveTab?: (id: string) => void
+  tabClassName?: string
 }
 
 export const TabSwitcher = (props: TabSwitcherProps) => {
-  const { orientation = 'horizontal', tabs, setActiveTab, label, activeTab } = props
+  const { orientation = 'horizontal', tabs, setActiveTab, label, activeTab, tabClassName } = props
 
   return (
     <Tabs.Root
@@ -37,7 +37,7 @@ export const TabSwitcher = (props: TabSwitcherProps) => {
                      + ' ' + ${index === 0 ? s.firstTab : ''}
                      + ' ' + ${index === tabs.length - 1 ? s.lastTab : ''}
                      + ' ' + ${tabs.length === 1 ? s.singleTab : ''}
-                     + ' ' + ${tab.titleClassname}
+                     + ' ' + ${tabClassName}
                      `
 
           return (

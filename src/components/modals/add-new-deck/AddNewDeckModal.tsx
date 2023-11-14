@@ -7,6 +7,7 @@ import { ControlledFileInput } from '@/components/ui/controlled/controlledFileIn
 import { Button } from '@/components/ui/button'
 import { Typography } from '@/components/ui/typography'
 import { Modal } from '@/components/ui/modal'
+import { useI18N } from '@/hooks'
 import { DeckModals, NewDeckFields } from '@/features/deck-pack/types'
 import s from './AddNewDeckModal.module.scss'
 
@@ -17,6 +18,8 @@ type Props = {
 }
 
 export const AddNewDeckModal = ({ onSubmit, openModal, setOpenModal }: Props) => {
+  const { t } = useI18N()
+
   const {
     control,
     handleSubmit,
@@ -45,36 +48,36 @@ export const AddNewDeckModal = ({ onSubmit, openModal, setOpenModal }: Props) =>
       closeCallBack={cancelModalHandler}
     >
       <Typography className={s.title} variant={'h2'}>
-        Add New Deck
+        {t('addNewDeck')}
       </Typography>
       <form onSubmit={onSubmitHandler} className={s.form}>
         <ControlledFileInput
           className={s.fileInput}
           control={control}
           name={'cover'}
-          buttonText={'Cover Image'}
+          buttonText={t('coverImage')}
           id={'cover'}
         />
         <ControlledInput
           aria-label={'enter new deck name'}
           control={control}
           name={'name'}
-          label={'Name Deck'}
+          label={t('nameDeck')}
           errorMessage={errors.name?.message}
           autoFocus
         />
         <ControlledCheckbox
           className={s.checkbox}
-          label={'Private deck'}
+          label={t('privateDeck')}
           control={control}
           name={'isPrivate'}
         />
         <div className={s.buttonArea}>
           <Button onClick={cancelModalHandler} type={'button'} variant={'secondary'}>
-            <Typography variant={'subtitle2'}>Cancel</Typography>
+            <Typography variant={'subtitle2'}>{t('cancel')}</Typography>
           </Button>
           <Button type={'submit'}>
-            <Typography variant={'subtitle2'}>Add Deck</Typography>
+            <Typography variant={'subtitle2'}>{t('addDeck')}</Typography>
           </Button>
         </div>
       </form>

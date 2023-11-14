@@ -1,6 +1,6 @@
 import { Selector } from '@/components/ui/select'
 import { Typography } from '@/components/ui/typography'
-import { usePagination } from '@/hooks'
+import { useI18N, usePagination } from '@/hooks'
 import { clsx } from 'clsx'
 import s from './Pagination.module.scss'
 
@@ -27,6 +27,7 @@ export const Pagination = (props: Props) => {
   } = props
 
   const paginationRange = usePagination(totalCount, pageSize, currentPage, siblingCount)
+  const { t } = useI18N()
 
   if (currentPage === 0 || paginationRange.length < 1) {
     return null
@@ -105,7 +106,7 @@ export const Pagination = (props: Props) => {
       </li>
       <div className={s.settings} role={'settings'} aria-label={'pagination page filter'}>
         <Typography variant={'body2'} className={s.textColorLight}>
-          Show
+          {t('show')}
         </Typography>
         <Selector
           className={s.trigger}
@@ -114,7 +115,7 @@ export const Pagination = (props: Props) => {
           selectData={options}
         />
         <Typography variant={'body2'} className={s.textColorLight}>
-          items per page
+          {t('itemsPerPage')}
         </Typography>
       </div>
     </ul>

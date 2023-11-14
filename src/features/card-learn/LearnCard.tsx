@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react'
 import { Icon } from '@/components/ui/icon'
 import { useLocation, useParams } from 'react-router-dom'
 import { RateForm } from '@/components/ui/rateForm'
+import { useI18N } from '@/hooks'
 import { GradeField } from '@/schemes/types'
 import gearIcon from '@/assets/icons/gear_preloader.svg'
 import s from './LearnCard.module.scss'
@@ -20,6 +21,7 @@ export const LearnCard = () => {
 
   const { deckId } = useParams<{ deckId: string }>()
   const location = useLocation()
+  const { t } = useI18N()
 
   const { data: cardData, isLoading } = useGetRandomCardQuery({ deckId })
   const [saveGrade, { isLoading: isUpdating, isSuccess }] = useSaveCardGradeMutation()
@@ -46,30 +48,30 @@ export const LearnCard = () => {
     <div className={s.wrapper}>
       <Card className={s.card}>
         <Typography variant={'large'} className={s.title}>
-          Learn &quot;{location.state.name}&quot;
+          {t('learn', { deck: location.state.name })}
         </Typography>
         <div className={s.questionWrapper}>
           <Typography variant={'subtitle1'}>
-            Question: <Typography variant={'body1'}>{cardData?.question}</Typography>
+            {t('question')}: <Typography variant={'body1'}>{cardData?.question}</Typography>
           </Typography>
           {cardData?.questionImg && <Icon className={s.image} srcIcon={cardData.questionImg} />}
         </div>
         <Typography variant={'body2'} className={s.attempts}>
-          Number of attempts to answer a question: <b>10</b>
+          {t('numberOfAttempts')}: <b>10</b>
         </Typography>
         {isShowAnswer && (
           <div className={s.rating}>
             <Typography variant={'subtitle1'}>
-              Answer: <Typography variant={'body1'}>{cardData?.answer}</Typography>
+              {t('answer')}: <Typography variant={'body1'}>{cardData?.answer}</Typography>
             </Typography>
             {cardData?.answerImg && <Icon className={s.image} srcIcon={cardData.answerImg} />}
-            <Typography variant={'subtitle1'}>Rate yourself:</Typography>
+            <Typography variant={'subtitle1'}>{t('rateYourself')}:</Typography>
             <RateForm onSubmit={nextQuestionHandler} options={rating} isUpdating={isUpdating} />
           </div>
         )}
         {!isShowAnswer && (
           <Button className={s.button} fullWidth onClick={onShowAnswer}>
-            <Typography variant={'subtitle2'}>Show Answer</Typography>
+            <Typography variant={'subtitle2'}>{t('showAnswer')}</Typography>
           </Button>
         )}
       </Card>

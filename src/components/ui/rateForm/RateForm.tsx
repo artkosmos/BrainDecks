@@ -6,6 +6,7 @@ import { ComponentPropsWithoutRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { GradeField } from '@/schemes/types'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useI18N } from '@/hooks'
 import { saveGradeSchema } from '@/schemes'
 import { RadioGroupOptions } from '@/features/card-learn/types'
 import s from './RateForm.module.scss'
@@ -17,6 +18,8 @@ type Props = Omit<ComponentPropsWithoutRef<'form'>, 'onSubmit'> & {
 }
 
 export const RateForm = ({ onSubmit, isUpdating, options, ...rest }: Props) => {
+  const { t } = useI18N()
+
   const {
     control,
     handleSubmit,
@@ -42,7 +45,7 @@ export const RateForm = ({ onSubmit, isUpdating, options, ...rest }: Props) => {
       <div className={s.buttonWrapper}>
         {isUpdating && <LinearProgress color={'success'} />}
         <Button fullWidth>
-          <Typography variant={'subtitle2'}>Next Question</Typography>
+          <Typography variant={'subtitle2'}>{t('nextQuestion')}</Typography>
         </Button>
       </div>
     </form>

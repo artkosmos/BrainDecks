@@ -1,6 +1,7 @@
 import { Modal } from '@/components/ui/modal'
 import { Typography } from '@/components/ui/typography'
 import { Button } from '@/components/ui/button'
+import { useI18N } from '@/hooks'
 import { DeckModals } from '@/features/deck-pack/types'
 import s from './DeleteDeckModal.module.scss'
 
@@ -11,6 +12,8 @@ type Props = {
   deleteCallBack: () => void
 }
 export const DeleteDeckModal = ({ openModal, setOpenModal, deleteCallBack, deckName }: Props) => {
+  const { t } = useI18N()
+
   const cancelModalHandler = () => {
     setOpenModal(null)
   }
@@ -27,18 +30,18 @@ export const DeleteDeckModal = ({ openModal, setOpenModal, deleteCallBack, deckN
       closeCallBack={cancelModalHandler}
     >
       <Typography className={s.title} variant={'h2'}>
-        Delete Deck
+        {t('deleteDeck')}
       </Typography>
       <Typography variant={'body1'}>
-        Do you really want to remove <Typography variant={'subtitle1'}>{deckName}</Typography>?
+        {t('wantRemove')} <Typography variant={'subtitle1'}>{deckName}</Typography>?
       </Typography>
-      <Typography className={s.subtitle}>All cards will be deleted.</Typography>
+      <Typography className={s.subtitle}>{t('allCardsWillDelete')}</Typography>
       <div className={s.buttonArea}>
         <Button onClick={cancelModalHandler} variant={'secondary'}>
-          <Typography variant={'subtitle2'}>Cancel</Typography>
+          <Typography variant={'subtitle2'}>{t('cancel')}</Typography>
         </Button>
         <Button onClick={onDelete}>
-          <Typography variant={'subtitle2'}>Delete Deck</Typography>
+          <Typography variant={'subtitle2'}>{t('deleteDeck')}</Typography>
         </Button>
       </div>
     </Modal>

@@ -19,7 +19,7 @@ const initialState: DeckFilterState = {
   activeTab: '2',
   error: null,
   deckName: '',
-  sliderValues: [0, 61],
+  sliderValues: [0, 100],
   sort: null,
 }
 

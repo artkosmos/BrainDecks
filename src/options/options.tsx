@@ -7,7 +7,18 @@ export const paginationSelectOptions: SelectOptions = ['10', '20', '30', '50', '
 
 export const cardSelectOptions: SelectOptions = ['text', 'picture']
 
-export const decksTabs: TabType[] = [
+export const languageTabs: TabType[] = [
+  {
+    id: '1',
+    title: 'EN 🇺🇸',
+  },
+  {
+    id: '2',
+    title: 'RU 🇷🇺',
+  },
+]
+
+export const decksTabsEN: TabType[] = [
   {
     id: '1',
     title: 'My Decks',
@@ -15,6 +26,17 @@ export const decksTabs: TabType[] = [
   {
     id: '2',
     title: 'All Decks',
+  },
+]
+
+export const decksTabsRU: TabType[] = [
+  {
+    id: '1',
+    title: 'Мои',
+  },
+  {
+    id: '2',
+    title: 'Все',
   },
 ]
 

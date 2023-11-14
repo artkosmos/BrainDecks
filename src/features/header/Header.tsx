@@ -8,11 +8,16 @@ import { DropDownMenu } from '@/components/ui/dropDownMenu'
 import { DropDownItem } from '@/components/ui/dropDownMenu/dropDownItem'
 import { PersonIcon } from '@/assets/icons/components/PersonIcon.tsx'
 import { SignOutIcon } from '@/assets/icons/components/SignOutIcon.tsx'
-import Switch from '@mui/material/Switch'
+import { TabSwitcher } from '@/components/ui/tabSwitcher'
+import { useI18N } from '@/hooks/useI18n.ts'
 import userIcon from '@/assets/icons/unknown.svg'
+import { languageTabs } from '@/options'
+import { AppDispatch, useAppSelector } from '@/services/store.ts'
+import { getLanguageTab } from '@/selectors'
+import { useDispatch } from 'react-redux'
+import { setActiveLanguageTab } from '@/services/app-service/app-slice.ts'
 import s from './Header.module.scss'
 import s1 from '@/features/cards-pack/CardsPack.module.scss'
-import { useI18N } from '@/hooks/useI18n.ts'
 
 type HeaderPropsType = {
   isAuth: boolean
@@ -22,14 +27,21 @@ type HeaderPropsType = {
 export const Header = ({ isAuth, userData }: HeaderPropsType) => {
   const [logOut] = useLogOutMutation()
   const navigate = useNavigate()
-
+  const dispatch = useDispatch<AppDispatch>()
   const { t, handleChangeLanguage } = useI18N()
+
+  const activeTab = useAppSelector(getLanguageTab)
 
   const dropDownTrigger = userData?.avatar ? (
     <Icon className={`${s.userAvatar} ${s.headerAvatar}`} srcIcon={userData.avatar} />
   ) : (
     <Icon width={46} srcIcon={userIcon} />
   )
+
+  const setLanguageHandler = (tabId: string) => {
+    dispatch(setActiveLanguageTab(tabId))
+    handleChangeLanguage()
+  }
 
   return (
     <header className={s.header}>
@@ -43,11 +55,12 @@ export const Header = ({ isAuth, userData }: HeaderPropsType) => {
           />
           <Typography variant={'h1'}>BrainDecks</Typography>
         </div>
-        <div>
-          EN
-          <Switch onChange={handleChangeLanguage} />
-          RU
-        </div>
+        <TabSwitcher
+          tabs={languageTabs}
+          activeTab={activeTab}
+          setActiveTab={setLanguageHandler}
+          tabClassName={s.languageTab}
+        />
         <label className={s.userContainer}>
           {isAuth ? (
             <>
@@ -73,11 +86,11 @@ export const Header = ({ isAuth, userData }: HeaderPropsType) => {
                 </DropDownItem>
                 <DropDownItem onClick={() => navigate('/user')} className={s1.dropDownMenuItem}>
                   <PersonIcon />
-                  My Profile
+                  {t('profileDropDown')}
                 </DropDownItem>
                 <DropDownItem onClick={() => logOut()} className={s1.dropDownMenuItem}>
                   <SignOutIcon />
-                  Sign Out
+                  {t('signOutDropDown')}
                 </DropDownItem>
               </DropDownMenu>
             </>

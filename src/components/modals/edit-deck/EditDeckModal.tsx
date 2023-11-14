@@ -8,6 +8,7 @@ import { Typography } from '@/components/ui/typography'
 import { Modal } from '@/components/ui/modal'
 import { useEffect } from 'react'
 import { ControlledFileInput } from '@/components/ui/controlled/controlledFileInput'
+import { useI18N } from '@/hooks'
 import { DeckModals, NewDeckFields } from '@/features/deck-pack/types'
 import { Deck } from '@/services/deck-service'
 import s from './EditDeckModal.module.scss'
@@ -20,6 +21,8 @@ type Props = {
 }
 
 export const EditDeckModal = ({ onSubmit, openModal, setOpenModal, activeItem }: Props) => {
+  const { t } = useI18N()
+
   const {
     control,
     handleSubmit,
@@ -60,7 +63,7 @@ export const EditDeckModal = ({ onSubmit, openModal, setOpenModal, activeItem }:
       closeCallBack={cancelModalHandler}
     >
       <Typography className={s.title} variant={'h2'}>
-        Edit Deck
+        {t('editDeck')}
       </Typography>
       <form onSubmit={onSubmitHandler} className={s.form}>
         <ControlledFileInput
@@ -68,28 +71,28 @@ export const EditDeckModal = ({ onSubmit, openModal, setOpenModal, activeItem }:
           control={control}
           name={'cover'}
           id={'cover'}
-          buttonText={'Change Deck Cover'}
+          buttonText={t('deckCover')}
         />
         <ControlledInput
           aria-label={'enter new deck name'}
           control={control}
           name={'name'}
-          label={'Name Deck'}
+          label={t('nameDeck')}
           errorMessage={errors.name?.message}
           autoFocus
         />
         <ControlledCheckbox
           className={s.checkbox}
-          label={'Private deck'}
+          label={t('privateDeck')}
           control={control}
           name={'isPrivate'}
         />
         <div className={s.buttonArea}>
           <Button onClick={cancelModalHandler} type={'button'} variant={'secondary'}>
-            <Typography variant={'subtitle2'}>Cancel</Typography>
+            <Typography variant={'subtitle2'}>{t('cancel')}</Typography>
           </Button>
           <Button type={'submit'}>
-            <Typography variant={'subtitle2'}>Save Changes</Typography>
+            <Typography variant={'subtitle2'}>{t('saveChanges')}</Typography>
           </Button>
         </div>
       </form>

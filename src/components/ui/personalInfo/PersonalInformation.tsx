@@ -15,6 +15,7 @@ import { EditIcon } from '@/assets/icons/components/EditIcon.tsx'
 import { CancelIcon } from '@/assets/icons/components/CancelIcon.tsx'
 import { ControlledFileInput } from '@/components/ui/controlled/controlledFileInput'
 import { PersonalInfoSkeleton } from '@/components/ui/personalInfoSkeleton'
+import { useI18N } from '@/hooks'
 import s from './PersonalInfo.module.scss'
 
 type Props = {
@@ -27,6 +28,7 @@ type Props = {
 export const PersonalInformation = ({ onSubmit, userData, logOutFn, isLoading }: Props) => {
   const [editInfo, setEditInfo] = useState<boolean>(false)
   const [editAvatar, setEditAvatar] = useState<boolean>(false)
+  const { t } = useI18N()
 
   const {
     control,
@@ -57,7 +59,7 @@ export const PersonalInformation = ({ onSubmit, userData, logOutFn, isLoading }:
 
   return (
     <Card className={s.container} aria-label={'profile information'}>
-      <Typography variant={'h1'}>Personal Information</Typography>
+      <Typography variant={'h1'}>{t('personalInfo')}</Typography>
       {!isLoading ? (
         <form onSubmit={onSubmitHandler} className={s.form}>
           {editAvatar ? (
@@ -67,7 +69,7 @@ export const PersonalInformation = ({ onSubmit, userData, logOutFn, isLoading }:
                 control={control}
                 name={'avatar'}
                 id={'avatar'}
-                buttonText={'Choose New Photo'}
+                buttonText={t('newAvatar')}
               />
               <CancelIcon
                 className={`${s.cancelIcon} ${s.avatarCancelIcon}`}
@@ -94,7 +96,7 @@ export const PersonalInformation = ({ onSubmit, userData, logOutFn, isLoading }:
                   control={control}
                   name={'name'}
                   errorMessage={errors.name?.message}
-                  label={'Nick Name'}
+                  label={t('nickName')}
                   autoFocus
                 />
                 <CancelIcon className={s.cancelIcon} onClick={() => cancelHandler('name')} />
@@ -103,7 +105,7 @@ export const PersonalInformation = ({ onSubmit, userData, logOutFn, isLoading }:
                 control={control}
                 name={'email'}
                 errorMessage={errors.email?.message}
-                label={'Email'}
+                label={t('email')}
               />
             </div>
           ) : (
@@ -126,7 +128,7 @@ export const PersonalInformation = ({ onSubmit, userData, logOutFn, isLoading }:
               variant={'primary'}
               fullWidth={true}
             >
-              <Typography variant={'subtitle2'}>Save Changes</Typography>
+              <Typography variant={'subtitle2'}>{t('saveChanges')}</Typography>
             </Button>
           )}
         </form>
@@ -144,7 +146,7 @@ export const PersonalInformation = ({ onSubmit, userData, logOutFn, isLoading }:
           onClick={() => logOutFn?.()}
         >
           <SignOutIcon />
-          <Typography variant={'subtitle2'}>Logout</Typography>
+          <Typography variant={'subtitle2'}>{t('logOut')}</Typography>
         </Button>
       )}
     </Card>
