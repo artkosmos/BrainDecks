@@ -1,8 +1,16 @@
-# React + TypeScript + Vite
 # Brain Decks
+#### React + TypeScript + Vite
 
-#### Vercel deploy link: https://brain-decks-kklfhyq65-artems-projects-238ffcfa.vercel.app
-#### Storybook UI Kit: -
+![Project preview](https://github.com/artkosmos/BrainDecks/raw/main/public/brain_decks_preview.png)
+
+### Vercel deploy link: https://brain-decks.vercel.app/
+
+### Test Account
+
+- **Email:** derinbedemci1994@gmail.com
+- **Password:** Derin123#
+
+You can use the provided test account to check out the app or can sign up on your own :)
 
 ### Start Project
 
@@ -34,10 +42,3 @@ Users can study\guess the cards evaluate them. This makes a rating of cards.
 - Change email
 - Change nickname
 - Change avatar
-
-### Test Account
-
-- **Email:** derinbedemci1994@gmail.com
-- **Password:** Derin123#
-
-You can use the provided test account to check out the app or can sign up on your own :)
