@@ -1,5 +1,6 @@
 import * as Tabs from '@radix-ui/react-tabs'
 import { Typography } from '@/components/ui/typography'
+import { clsx } from 'clsx'
 import s from './TabSwitcher.module.scss'
 
 export type TabType = {
@@ -15,16 +16,25 @@ export type TabSwitcherProps = {
   activeTab?: string
   setActiveTab?: (id: string) => void
   tabClassName?: string
+  className?: string
 }
 
 export const TabSwitcher = (props: TabSwitcherProps) => {
-  const { orientation = 'horizontal', tabs, setActiveTab, label, activeTab, tabClassName } = props
+  const {
+    orientation = 'horizontal',
+    tabs,
+    setActiveTab,
+    label,
+    activeTab,
+    tabClassName,
+    className,
+  } = props
 
   return (
     <Tabs.Root
       value={activeTab}
       onValueChange={setActiveTab}
-      className={s.root}
+      className={clsx(s.root, className)}
       defaultValue={activeTab}
       orientation={orientation}
     >

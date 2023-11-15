@@ -56,10 +56,12 @@ export const Header = ({ isAuth, userData }: HeaderPropsType) => {
           <Typography variant={'h1'}>BrainDecks</Typography>
         </div>
         <TabSwitcher
+          orientation={'vertical'}
           tabs={languageTabs}
           activeTab={activeTab}
           setActiveTab={setLanguageHandler}
           tabClassName={s.languageTab}
+          className={s.tabSwitcher}
         />
         <label className={s.userContainer}>
           {isAuth ? (
