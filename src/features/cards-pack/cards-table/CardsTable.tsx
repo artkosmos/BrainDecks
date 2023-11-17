@@ -8,11 +8,13 @@ import { DeleteIcon } from '@/assets/icons/components/DeleteIcon.tsx'
 import { TableHead } from '@/components/ui/tables/TableHead'
 import { TableHeadCellWithSort } from '@/components/ui/tables/SortTableHeader'
 import { TableHeadCell } from '@/components/ui/tables/TableHeadCell'
+import { useAppSelector } from '@/services/store.ts'
+import { getCurrentLanguage } from '@/selectors'
 import { Icon } from '@/components/ui/icon'
 import { Card } from '@/services/card-service'
 import { Sort } from '@/services/deck-service'
 import { CardsModals } from '@/features/cards-pack/types'
-import { cardTableColumns } from '@/options'
+import { cardTableColumnsEN, cardTableColumnsRU } from '@/options'
 import s from './CardsTable.module.scss'
 import s1 from '@/features/deck-pack/deck-table/DeckTable.module.scss'
 
@@ -29,6 +31,8 @@ type Props = {
 export const CardsTable = (props: Props) => {
   const { data, sort, setSort, onIconClick, className, currentUserId, currentDeckAuthor } = props
 
+  const currentLanguage = useAppSelector(getCurrentLanguage)
+
   const isMyCards = currentUserId === currentDeckAuthor
 
   return (
@@ -36,7 +40,11 @@ export const CardsTable = (props: Props) => {
       <Table className={className}>
         <TableHead>
           <TableRow>
-            <TableHeadCellWithSort columns={cardTableColumns} sort={sort} onSort={setSort} />
+            <TableHeadCellWithSort
+              columns={currentLanguage === 'en' ? cardTableColumnsEN : cardTableColumnsRU}
+              sort={sort}
+              onSort={setSort}
+            />
             {isMyCards && <TableHeadCell />}
           </TableRow>
         </TableHead>

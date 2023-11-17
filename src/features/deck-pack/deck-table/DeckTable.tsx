@@ -11,8 +11,10 @@ import { TableHeadCell } from '@/components/ui/tables/TableHeadCell'
 import { DeckModals } from '@/features/deck-pack/types'
 import { Deck, Sort } from '@/services/deck-service'
 import { useNavigate } from 'react-router-dom'
-import { deckTableColumns } from '@/options'
+import { deckTableColumnsEN, deckTableColumnsRU } from '@/options'
 import { Icon } from '@/components/ui/icon'
+import { useAppSelector } from '@/services/store.ts'
+import { getCurrentLanguage } from '@/selectors'
 import s from './DeckTable.module.scss'
 
 type Props = {
@@ -27,6 +29,8 @@ type Props = {
 export const DeckTable = (props: Props) => {
   const { data, className, onIconClick, sort, setSort, currentUserId } = props
 
+  const currentLanguage = useAppSelector(getCurrentLanguage)
+
   const navigate = useNavigate()
 
   return (
@@ -34,7 +38,11 @@ export const DeckTable = (props: Props) => {
       <Table className={className}>
         <TableHead>
           <TableRow>
-            <TableHeadCellWithSort columns={deckTableColumns} sort={sort} onSort={setSort} />
+            <TableHeadCellWithSort
+              columns={currentLanguage === 'en' ? deckTableColumnsEN : deckTableColumnsRU}
+              sort={sort}
+              onSort={setSort}
+            />
             <TableHeadCell />
           </TableRow>
         </TableHead>

@@ -40,7 +40,7 @@ export const decksTabsRU: TabType[] = [
   },
 ]
 
-export const deckTableColumns: Column[] = [
+export const deckTableColumnsEN: Column[] = [
   {
     key: 'name',
     title: 'Name',
@@ -59,7 +59,26 @@ export const deckTableColumns: Column[] = [
   },
 ]
 
-export const cardTableColumns: Column[] = [
+export const deckTableColumnsRU: Column[] = [
+  {
+    key: 'name',
+    title: 'Название',
+  },
+  {
+    key: 'cardsCount',
+    title: 'Карточки',
+  },
+  {
+    key: 'updated',
+    title: 'Было обновлено',
+  },
+  {
+    key: 'created',
+    title: 'Автор',
+  },
+]
+
+export const cardTableColumnsEN: Column[] = [
   {
     key: 'question',
     title: 'Question',
@@ -78,7 +97,26 @@ export const cardTableColumns: Column[] = [
   },
 ]
 
-export const rating: RadioGroupOptions[] = [
+export const cardTableColumnsRU: Column[] = [
+  {
+    key: 'question',
+    title: 'Вопрос',
+  },
+  {
+    key: 'answer',
+    title: 'Ответ',
+  },
+  {
+    key: 'updated',
+    title: 'Было обновлено',
+  },
+  {
+    key: 'grade',
+    title: 'Рейтинг',
+  },
+]
+
+export const ratingEN: RadioGroupOptions[] = [
   {
     label: 'Did not know',
     value: '1',
@@ -97,6 +135,29 @@ export const rating: RadioGroupOptions[] = [
   },
   {
     label: 'Knew the answer',
+    value: '5',
+  },
+]
+
+export const ratingRU: RadioGroupOptions[] = [
+  {
+    label: 'Не знал(а)',
+    value: '1',
+  },
+  {
+    label: 'Забыл(а)',
+    value: '2',
+  },
+  {
+    label: 'Много мыслей',
+    value: '3',
+  },
+  {
+    label: 'Смущен(а)',
+    value: '4',
+  },
+  {
+    label: 'Знал(а) ответ',
     value: '5',
   },
 ]

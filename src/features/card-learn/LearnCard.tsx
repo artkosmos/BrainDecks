@@ -2,7 +2,7 @@ import {
   useGetRandomCardQuery,
   useSaveCardGradeMutation,
 } from '@/services/learn-service/learn.service.ts'
-import { rating } from '@/options'
+import { ratingEN, ratingRU } from '@/options'
 import { Card } from '@/components/ui/card'
 import { Typography } from '@/components/ui/typography'
 import { Button } from '@/components/ui/button'
@@ -13,6 +13,8 @@ import { RateForm } from '@/components/ui/rateForm'
 import { useI18N } from '@/hooks'
 import { GradeField } from '@/schemes/types'
 import gearIcon from '@/assets/icons/gear_preloader.svg'
+import { useAppSelector } from '@/services/store.ts'
+import { getCurrentLanguage } from '@/selectors'
 import s from './LearnCard.module.scss'
 import s1 from '@/features/personal-page/PersonalPage.module.scss'
 
@@ -22,6 +24,8 @@ export const LearnCard = () => {
   const { deckId } = useParams<{ deckId: string }>()
   const location = useLocation()
   const { t } = useI18N()
+
+  const currentLanguage = useAppSelector(getCurrentLanguage)
 
   const { data: cardData, isLoading } = useGetRandomCardQuery({ deckId })
   const [saveGrade, { isLoading: isUpdating, isSuccess }] = useSaveCardGradeMutation()
@@ -66,7 +70,11 @@ export const LearnCard = () => {
             </Typography>
             {cardData?.answerImg && <Icon className={s.image} srcIcon={cardData.answerImg} />}
             <Typography variant={'subtitle1'}>{t('rateYourself')}:</Typography>
-            <RateForm onSubmit={nextQuestionHandler} options={rating} isUpdating={isUpdating} />
+            <RateForm
+              onSubmit={nextQuestionHandler}
+              options={currentLanguage === 'en' ? ratingEN : ratingRU}
+              isUpdating={isUpdating}
+            />
           </div>
         )}
         {!isShowAnswer && (
