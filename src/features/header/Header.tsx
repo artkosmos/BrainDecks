@@ -14,7 +14,7 @@ import userIcon from '@/assets/icons/unknown.svg'
 import { languageTabs } from '@/options'
 import { AppDispatch, useAppSelector } from '@/services/store.ts'
 import { getLanguageTab } from '@/selectors'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { setActiveLanguageTab } from '@/services/app-service/app-slice.ts'
 import s from './Header.module.scss'
@@ -32,6 +32,22 @@ export const Header = ({ isAuth, userData }: HeaderPropsType) => {
   const dispatch = useDispatch<AppDispatch>()
   const { t, handleChangeLanguage } = useI18N()
 
+  useEffect(() => {
+    function setAttributeBasedOnWidth() {
+      if (window.matchMedia('(max-width: 1280px)').matches) {
+        setIsDesktop(false)
+      } else {
+        setIsDesktop(true)
+      }
+    }
+
+    window.addEventListener('resize', setAttributeBasedOnWidth)
+
+    return () => {
+      window.removeEventListener('resize', setAttributeBasedOnWidth)
+    }
+  }, [])
+
   const activeTab = useAppSelector(getLanguageTab)
 
   const dropDownTrigger = userData?.avatar ? (
@@ -44,16 +60,6 @@ export const Header = ({ isAuth, userData }: HeaderPropsType) => {
     dispatch(setActiveLanguageTab(tabId))
     handleChangeLanguage()
   }
-
-  function setAttributeBasedOnWidth() {
-    if (window.matchMedia('(max-width: 1280px)').matches) {
-      setIsDesktop(false)
-    } else {
-      setIsDesktop(true)
-    }
-  }
-
-  window.addEventListener('resize', setAttributeBasedOnWidth)
 
   return (
     <header className={s.header}>

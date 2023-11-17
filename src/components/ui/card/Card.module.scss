@@ -12,6 +12,6 @@
 
 @media (width <= 500px) {
   .card {
-    width: 340px;
+    width: calc(300px + (420 - 300) * ((100vw - 320px) / (500 - 320)));
   }
 }
