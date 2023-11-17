@@ -150,6 +150,7 @@ export const DeckPack = () => {
       dispatch(setAuthorFilter(undefined))
     }
     dispatch(setActiveTab(tabId))
+    dispatch(setCurrentPage(1))
   }
 
   return (
