@@ -1,3 +1,9 @@
+.tableContainer {
+  position: relative;
+  overflow: auto;
+  width: 100%;
+}
+
 .iconsCell {
   width: min-content;
   text-align: end;

@@ -30,44 +30,46 @@ export const DeckTable = (props: Props) => {
   const navigate = useNavigate()
 
   return (
-    <Table className={className}>
-      <TableHead>
-        <TableRow>
-          <TableHeadCellWithSort columns={deckTableColumns} sort={sort} onSort={setSort} />
-          <TableHeadCell />
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {data.map(deck => {
-          return (
-            <TableRow key={deck.id}>
-              <TableCell className={s.deckName} onClick={() => navigate(`${deck.id}/cards`)}>
-                {deck.cover && <Icon className={s.deckImg} srcIcon={deck.cover} />}
-                {deck.name}
-              </TableCell>
-              <TableCell>{deck.cardsCount}</TableCell>
-              <TableCell>{new Date(deck.updated).toLocaleDateString()}</TableCell>
-              <TableCell>{deck.author.name}</TableCell>
-              <TableCell className={s.iconsCell}>
-                <div className={s.iconsWrapper}>
-                  <PlayCardIcon
-                    className={s.icon}
-                    onClick={() => navigate(`${deck.id}/learn`, { state: { name: deck.name } })}
-                  />
-                  <EditIcon
-                    onClick={() => onIconClick(DeckModals.UPDATE, deck)}
-                    className={currentUserId === deck.author.id ? s.icon : s.disableIcon}
-                  />
-                  <DeleteIcon
-                    onClick={() => onIconClick(DeckModals.DELETE, deck)}
-                    className={currentUserId === deck.author.id ? s.icon : s.disableIcon}
-                  />
-                </div>
-              </TableCell>
-            </TableRow>
-          )
-        })}
-      </TableBody>
-    </Table>
+    <div className={s.tableContainer}>
+      <Table className={className}>
+        <TableHead>
+          <TableRow>
+            <TableHeadCellWithSort columns={deckTableColumns} sort={sort} onSort={setSort} />
+            <TableHeadCell />
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {data.map(deck => {
+            return (
+              <TableRow key={deck.id}>
+                <TableCell className={s.deckName} onClick={() => navigate(`${deck.id}/cards`)}>
+                  {deck.cover && <Icon className={s.deckImg} srcIcon={deck.cover} />}
+                  {deck.name}
+                </TableCell>
+                <TableCell>{deck.cardsCount}</TableCell>
+                <TableCell>{new Date(deck.updated).toLocaleDateString()}</TableCell>
+                <TableCell>{deck.author.name}</TableCell>
+                <TableCell className={s.iconsCell}>
+                  <div className={s.iconsWrapper}>
+                    <PlayCardIcon
+                      className={s.icon}
+                      onClick={() => navigate(`${deck.id}/learn`, { state: { name: deck.name } })}
+                    />
+                    <EditIcon
+                      onClick={() => onIconClick(DeckModals.UPDATE, deck)}
+                      className={currentUserId === deck.author.id ? s.icon : s.disableIcon}
+                    />
+                    <DeleteIcon
+                      onClick={() => onIconClick(DeckModals.DELETE, deck)}
+                      className={currentUserId === deck.author.id ? s.icon : s.disableIcon}
+                    />
+                  </div>
+                </TableCell>
+              </TableRow>
+            )
+          })}
+        </TableBody>
+      </Table>
+    </div>
   )
 }

@@ -3,7 +3,14 @@
 .paginationContainer {
   @include flex-row-center(12px);
 
+  padding: 0;
   list-style-type: none;
+
+  .pages {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+  }
 
   .paginationArrow {
     @include flex-row-center;
@@ -102,4 +109,11 @@
 
 .trigger {
   width: 65px;
+}
+
+@media (width < 730px) {
+  .paginationContainer {
+    flex-direction: column;
+    gap: 15px;
+  }
 }

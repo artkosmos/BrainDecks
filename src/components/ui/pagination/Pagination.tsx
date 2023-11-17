@@ -87,23 +87,25 @@ export const Pagination = (props: Props) => {
 
   return (
     <ul className={containerClassName} role={'navigation'} aria-label={'pagination'}>
-      <li
-        className={leftArrowClassName}
-        onClick={previousPageHandler}
-        role={'button'}
-        aria-label={'previous page'}
-      >
-        <div className={`${s.arrow} ${s.leftArrow}`} />
-      </li>
-      {mappedPages}
-      <li
-        className={rightArrowClassName}
-        onClick={nextPageHandler}
-        role={'button'}
-        aria-label={'next page'}
-      >
-        <div className={`${s.arrow} ${s.rightArrow}`} />
-      </li>
+      <div className={s.pages}>
+        <li
+          className={leftArrowClassName}
+          onClick={previousPageHandler}
+          role={'button'}
+          aria-label={'previous page'}
+        >
+          <div className={`${s.arrow} ${s.leftArrow}`} />
+        </li>
+        {mappedPages}
+        <li
+          className={rightArrowClassName}
+          onClick={nextPageHandler}
+          role={'button'}
+          aria-label={'next page'}
+        >
+          <div className={`${s.arrow} ${s.rightArrow}`} />
+        </li>
+      </div>
       <div className={s.settings} role={'settings'} aria-label={'pagination page filter'}>
         <Typography variant={'body2'} className={s.textColorLight}>
           {t('show')}

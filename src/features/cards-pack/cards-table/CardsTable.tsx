@@ -32,51 +32,53 @@ export const CardsTable = (props: Props) => {
   const isMyCards = currentUserId === currentDeckAuthor
 
   return (
-    <Table className={className}>
-      <TableHead>
-        <TableRow>
-          <TableHeadCellWithSort columns={cardTableColumns} sort={sort} onSort={setSort} />
-          {isMyCards && <TableHeadCell />}
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {data.map(item => {
-          const rating = Array.from({ length: 5 }, (_, index) => (
-            <RatingStar key={index} selected={item.grade > index} />
-          ))
+    <div className={s.tableContainer}>
+      <Table className={className}>
+        <TableHead>
+          <TableRow>
+            <TableHeadCellWithSort columns={cardTableColumns} sort={sort} onSort={setSort} />
+            {isMyCards && <TableHeadCell />}
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {data.map(item => {
+            const rating = Array.from({ length: 5 }, (_, index) => (
+              <RatingStar key={index} selected={item.grade > index} />
+            ))
 
-          return (
-            <TableRow key={item.id}>
-              <TableCell className={s.question}>
-                {item.questionImg && <Icon className={s.cardImg} srcIcon={item.questionImg} />}
-                {item.question}
-              </TableCell>
-              <TableCell className={s.answer}>
-                {item.answerImg && <Icon className={s.cardImg} srcIcon={item.answerImg} />}
-                {item.answer}
-              </TableCell>
-              <TableCell>{new Date(item.updated).toLocaleDateString()}</TableCell>
-              <TableCell>
-                <div className={s.starWrapper}>{rating}</div>
-              </TableCell>
-              {isMyCards && (
-                <TableCell className={s.actions}>
-                  <div className={s1.iconsWrapper}>
-                    <EditIcon
-                      onClick={() => onIconClick(CardsModals.UPDATE, item)}
-                      className={s1.icon}
-                    />
-                    <DeleteIcon
-                      onClick={() => onIconClick(CardsModals.DELETE, item)}
-                      className={s1.icon}
-                    />
-                  </div>
+            return (
+              <TableRow key={item.id}>
+                <TableCell className={s.question}>
+                  {item.questionImg && <Icon className={s.cardImg} srcIcon={item.questionImg} />}
+                  {item.question}
                 </TableCell>
-              )}
-            </TableRow>
-          )
-        })}
-      </TableBody>
-    </Table>
+                <TableCell className={s.answer}>
+                  {item.answerImg && <Icon className={s.cardImg} srcIcon={item.answerImg} />}
+                  {item.answer}
+                </TableCell>
+                <TableCell>{new Date(item.updated).toLocaleDateString()}</TableCell>
+                <TableCell>
+                  <div className={s.starWrapper}>{rating}</div>
+                </TableCell>
+                {isMyCards && (
+                  <TableCell className={s.actions}>
+                    <div className={s1.iconsWrapper}>
+                      <EditIcon
+                        onClick={() => onIconClick(CardsModals.UPDATE, item)}
+                        className={s1.icon}
+                      />
+                      <DeleteIcon
+                        onClick={() => onIconClick(CardsModals.DELETE, item)}
+                        className={s1.icon}
+                      />
+                    </div>
+                  </TableCell>
+                )}
+              </TableRow>
+            )
+          })}
+        </TableBody>
+      </Table>
+    </div>
   )
 }

@@ -6,7 +6,7 @@ import { Slider } from '@/components/ui/slider'
 import { Icon } from '@/components/ui/icon'
 import deleteIcon from '@/assets/icons/delete_icon.svg'
 import { DeckTable } from '@/features/deck-pack/deck-table'
-import { ChangeEvent, useMemo, useState } from 'react'
+import { ChangeEvent, useEffect, useMemo, useState } from 'react'
 import { Pagination } from '@/components/ui/pagination'
 import {
   useCreateDeckMutation,
@@ -25,6 +25,7 @@ import { AddNewDeckModal } from '@/components/modals/add-new-deck'
 import searchIcon from '@/assets/icons/input_search.svg'
 import { EditDeckModal } from '@/components/modals/edit-deck'
 import { DeleteDeckModal } from '@/components/modals/delete-deck'
+import { BurgerMenu } from '@/components/ui/burgerMenu'
 import { useDebounce, useI18N } from '@/hooks'
 import { useMeQuery } from '@/services/auth-service'
 import { AppDispatch, useAppSelector } from '@/services/store.ts'
@@ -47,17 +48,28 @@ import s1 from '@/features/personal-page/PersonalPage.module.scss'
 export const DeckPack = () => {
   const [activeDeck, setActiveDeck] = useState<Deck | undefined>()
   const [openModal, setOpenModal] = useState<DeckModals | null>(null)
-
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth)
+  const { t } = useI18N()
   const dispatch = useDispatch<AppDispatch>()
 
   const deckFilterData = useAppSelector(getDeckFilterData)
   const currentLanguage = useAppSelector(getCurrentLanguage)
 
   const sortByTableTitle = useMemo(() => sortFn(deckFilterData.sort), [deckFilterData.sort])
-
   const debouncedInputValue = useDebounce(deckFilterData.deckName)
   const debouncedSliderValues = useDebounce(deckFilterData.sliderValues)
-  const { t } = useI18N()
+
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth)
+    }
+
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
 
   const [createDeck, { isLoading: isCreating }] = useCreateDeckMutation()
   const [deleteDeck, { isLoading: isDeleting }] = useDeleteDeckMutation()
@@ -84,8 +96,8 @@ export const DeckPack = () => {
   }
 
   const clearFilterHandler = () => {
-    dispatch(setSliderValues([0, data.maxCardsCount]))
-    dispatch(setDeckName)
+    dispatch(setSliderValues([0, 100]))
+    dispatch(setDeckName(''))
     dispatch(setAuthorFilter(undefined))
     dispatch(setActiveTab('2'))
     dispatch(setSort(null))
@@ -157,23 +169,26 @@ export const DeckPack = () => {
           withoutError
           onChange={changeInputHandler}
         />
-        <TabSwitcher
-          activeTab={deckFilterData.activeTab}
-          label={t('showDecksCards')}
-          setActiveTab={authorFilterHandler}
-          tabs={currentLanguage === 'en' ? decksTabsEN : decksTabsRU}
-        />
-        <Slider
-          defaultValue={[0, data.maxCardsCount]}
-          label={t('numberOfCards')}
-          max={data.maxCardsCount}
-          onValueChange={changeSliderHandler}
-          value={deckFilterData.sliderValues}
-        />
-        <Button variant={'secondary'} onClick={clearFilterHandler}>
-          <Icon srcIcon={deleteIcon} />
-          <Typography variant={'subtitle2'}>{t('clearFilter')}</Typography>
-        </Button>
+        {screenWidth > 1060 && (
+          <>
+            <TabSwitcher
+              activeTab={deckFilterData.activeTab}
+              label={t('showDecksCards')}
+              setActiveTab={authorFilterHandler}
+              tabs={currentLanguage === 'en' ? decksTabsEN : decksTabsRU}
+            />
+            <Slider
+              label={t('numberOfCards')}
+              onValueChange={changeSliderHandler}
+              value={deckFilterData.sliderValues}
+            />
+            <Button variant={'secondary'} onClick={clearFilterHandler}>
+              <Icon srcIcon={deleteIcon} />
+              <Typography variant={'subtitle2'}>{t('clearFilter')}</Typography>
+            </Button>
+          </>
+        )}
+        {screenWidth <= 1060 && <BurgerMenu />}
       </div>
       <div className={s.tablePreloader}>
         {isTableUpdating && <LinearProgress color={'inherit'} />}

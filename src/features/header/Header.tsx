@@ -14,6 +14,7 @@ import userIcon from '@/assets/icons/unknown.svg'
 import { languageTabs } from '@/options'
 import { AppDispatch, useAppSelector } from '@/services/store.ts'
 import { getLanguageTab } from '@/selectors'
+import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { setActiveLanguageTab } from '@/services/app-service/app-slice.ts'
 import s from './Header.module.scss'
@@ -25,6 +26,7 @@ type HeaderPropsType = {
 }
 
 export const Header = ({ isAuth, userData }: HeaderPropsType) => {
+  const [isDesktop, setIsDesktop] = useState<boolean>(true)
   const [logOut] = useLogOutMutation()
   const navigate = useNavigate()
   const dispatch = useDispatch<AppDispatch>()
@@ -43,6 +45,16 @@ export const Header = ({ isAuth, userData }: HeaderPropsType) => {
     handleChangeLanguage()
   }
 
+  function setAttributeBasedOnWidth() {
+    if (window.matchMedia('(max-width: 1280px)').matches) {
+      setIsDesktop(false)
+    } else {
+      setIsDesktop(true)
+    }
+  }
+
+  window.addEventListener('resize', setAttributeBasedOnWidth)
+
   return (
     <header className={s.header}>
       <div className={s.container}>
@@ -56,7 +68,7 @@ export const Header = ({ isAuth, userData }: HeaderPropsType) => {
           <Typography variant={'h1'}>BrainDecks</Typography>
         </div>
         <TabSwitcher
-          orientation={'vertical'}
+          orientation={isDesktop ? 'vertical' : 'horizontal'}
           tabs={languageTabs}
           activeTab={activeTab}
           setActiveTab={setLanguageHandler}

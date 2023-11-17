@@ -34,3 +34,9 @@
 .subtitle {
   margin-bottom: 28px;
 }
+
+@media (width <= 600px) {
+  .modal {
+    width: calc(300px + (542 - 300) * ((100vw - 320px) / (600 - 320)));
+  }
+}

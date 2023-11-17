@@ -6,8 +6,10 @@
   align-items: center;
   justify-content: center;
 
-  width: 1006px;
+  width: 100%;
+  max-width: 1086px;
   margin-top: 36px;
+  padding: 0 30px;
 }
 
 .deckNameAndButton {
@@ -21,7 +23,7 @@
 
 .tableSettings {
   display: flex;
-  flex-flow: row wrap;
+  flex-direction: row;
   align-items: flex-end;
   justify-content: space-between;
 
@@ -37,4 +39,27 @@
   width: 100%;
   height: 4px;
   color: var(--color-accent-500);
+}
+
+@media (width <= 1060px) {
+  .tableSettings {
+    margin-top: 24px;
+  }
+}
+
+@media (width <= 800px) {
+  .contentWrapper {
+    padding: 0 20px;
+  }
+}
+
+@media (width <= 500px) {
+  .contentWrapper {
+    padding: 0 15px;
+  }
+
+  .tableSettings {
+    gap: 30px;
+    margin-bottom: 24px;
+  }
 }

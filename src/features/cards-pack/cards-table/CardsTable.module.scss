@@ -1,5 +1,4 @@
 .actionTableCell {
-  width: 100px;
   padding: 0;
 }
 
@@ -33,4 +32,10 @@
 .question,
 .answer {
   vertical-align: baseline;
+}
+
+.tableContainer {
+  position: relative;
+  overflow: auto;
+  width: 100%;
 }
