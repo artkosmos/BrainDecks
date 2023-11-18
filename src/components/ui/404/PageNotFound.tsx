@@ -9,7 +9,7 @@ import { Icon } from '@/components/ui/icon'
 export const PageNotFound = () => {
   return (
     <div className={s.container}>
-      <Icon srcIcon={image} alt={'page not found'} />
+      <Icon width={'100%'} srcIcon={image} alt={'page not found'} />
       <Typography variant={'body1'} htmlTag={'h2'}>
         Sorry! Page not found!
       </Typography>

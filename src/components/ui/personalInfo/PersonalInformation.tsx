@@ -59,7 +59,9 @@ export const PersonalInformation = ({ onSubmit, userData, logOutFn, isLoading }:
 
   return (
     <Card className={s.container} aria-label={'profile information'}>
-      <Typography variant={'h1'}>{t('personalInfo')}</Typography>
+      <Typography className={s.title} variant={'h1'}>
+        {t('personalInfo')}
+      </Typography>
       {!isLoading ? (
         <form onSubmit={onSubmitHandler} className={s.form}>
           {editAvatar ? (
