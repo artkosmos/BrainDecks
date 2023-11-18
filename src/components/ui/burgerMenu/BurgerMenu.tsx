@@ -14,6 +14,7 @@ import { getCurrentLanguage, getDeckFilterData, getLanguageTab } from '@/selecto
 import { setActiveLanguageTab } from '@/services/app-service/app-slice.ts'
 import { useDispatch } from 'react-redux'
 import s from './BurgerMenu.module.scss'
+import { CancelIcon } from '@/assets/icons/components/CancelIcon.tsx'
 
 type Props = {
   setAuthorTab?: (tabId: string) => void
@@ -46,6 +47,7 @@ export const BurgerMenu = ({ setAuthorTab, setSliderValues, setDefault }: Props)
         onClose={() => setState(false)} //function that is called when the drawer should close
       >
         <div className={s.burgerContent}>
+          <CancelIcon className={s.closeButton} onClick={() => setState(false)} />
           <div className={s.block}>
             <Typography>{t('chooseLanguage')}:</Typography>
             <TabSwitcher

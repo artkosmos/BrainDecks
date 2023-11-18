@@ -1,4 +1,6 @@
 .burgerContent {
+  position: relative;
+
   display: flex;
   flex-direction: column;
   gap: 40px;
@@ -6,7 +8,7 @@
 
   max-width: 290px;
   height: 100%;
-  padding: 40px 20px;
+  padding: 0 20px;
 
   background-color: var(--color-dark-700);
 }
@@ -19,6 +21,10 @@
   justify-content: center;
 
   color: var(--color-light-100);
+
+  &:first-of-type {
+    margin-top: 50px;
+  }
 }
 
 .burgerTabs {
@@ -27,4 +33,11 @@
 
 .cleanButton {
   margin-top: 40px;
+}
+
+.closeButton {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  transform: scale(1.2);
 }
