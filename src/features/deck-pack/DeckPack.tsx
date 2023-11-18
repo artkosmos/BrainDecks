@@ -189,7 +189,13 @@ export const DeckPack = () => {
             </Button>
           </>
         )}
-        {screenWidth <= 1060 && <BurgerMenu />}
+        {screenWidth <= 1060 && (
+          <BurgerMenu
+            setDefault={clearFilterHandler}
+            setSliderValues={changeSliderHandler}
+            setAuthorTab={authorFilterHandler}
+          />
+        )}
       </div>
       <div className={s.tablePreloader}>
         {isTableUpdating && <LinearProgress color={'inherit'} />}

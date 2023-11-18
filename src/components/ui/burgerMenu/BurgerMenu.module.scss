@@ -1,0 +1,30 @@
+.burgerContent {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+
+  max-width: 290px;
+  height: 100%;
+  padding: 40px 20px;
+
+  background-color: var(--color-dark-700);
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--color-light-100);
+}
+
+.burgerTabs {
+  background-color: transparent;
+}
+
+.cleanButton {
+  margin-top: 40px;
+}

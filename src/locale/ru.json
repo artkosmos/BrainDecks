@@ -78,6 +78,9 @@
     "signOutDropDown": "Выйти из аккаунта",
     "logOut": "Выйти из аккаунта",
     "personalInfo": "Персональная Информация",
-    "newAvatar": "Выберите фотографию"
+    "newAvatar": "Выберите фотографию",
+    "chooseLanguage": "Выберите язык",
+    "chooseDecksByAuthor": "Выберите колоды по автору",
+    "chooseDesiredAmountCards": "Выберите желаемое количество карточек"
   }
 }

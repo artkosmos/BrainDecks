@@ -13,8 +13,15 @@ import { AppDispatch, useAppSelector } from '@/services/store.ts'
 import { getCurrentLanguage, getDeckFilterData, getLanguageTab } from '@/selectors'
 import { setActiveLanguageTab } from '@/services/app-service/app-slice.ts'
 import { useDispatch } from 'react-redux'
+import s from './BurgerMenu.module.scss'
 
-export const BurgerMenu = () => {
+type Props = {
+  setAuthorTab?: (tabId: string) => void
+  setSliderValues?: (values: number[]) => void
+  setDefault?: () => void
+}
+
+export const BurgerMenu = ({ setAuthorTab, setSliderValues, setDefault }: Props) => {
   const [open, setState] = useState(false)
   const { t, handleChangeLanguage } = useI18N()
   const dispatch = useDispatch<AppDispatch>()
@@ -38,34 +45,30 @@ export const BurgerMenu = () => {
         open={open} //if open is true, drawer is shown
         onClose={() => setState(false)} //function that is called when the drawer should close
       >
-        <div
-          style={{
-            backgroundColor: 'var(--color-dark-700)',
-            height: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '20px',
-            padding: '20px 40px',
-          }}
-        >
-          <TabSwitcher
-            tabs={languageTabs}
-            activeTab={activeTab}
-            setActiveTab={setLanguageHandler}
-          />
-          <TabSwitcher
-            activeTab={deckFilterData.activeTab}
-            label={t('showDecksCards')}
-            setActiveTab={() => {}}
-            tabs={currentLanguage === 'en' ? decksTabsEN : decksTabsRU}
-          />
-          <Slider
-            label={t('numberOfCards')}
-            onValueChange={() => {}}
-            value={deckFilterData.sliderValues}
-          />
-          <Button variant={'secondary'} onClick={() => {}}>
+        <div className={s.burgerContent}>
+          <div className={s.block}>
+            <Typography>{t('chooseLanguage')}:</Typography>
+            <TabSwitcher
+              tabs={languageTabs}
+              activeTab={activeTab}
+              setActiveTab={setLanguageHandler}
+              tabClassName={s.burgerTabs}
+            />
+          </div>
+          <div className={s.block}>
+            <Typography>{t('chooseDecksByAuthor')}:</Typography>
+            <TabSwitcher
+              activeTab={deckFilterData.activeTab}
+              setActiveTab={setAuthorTab}
+              tabs={currentLanguage === 'en' ? decksTabsEN : decksTabsRU}
+              tabClassName={s.burgerTabs}
+            />
+          </div>
+          <div className={s.block}>
+            <Typography>{t('chooseDesiredAmountCards')}:</Typography>
+            <Slider onValueChange={setSliderValues} value={deckFilterData.sliderValues} />
+          </div>
+          <Button fullWidth className={s.cleanButton} variant={'secondary'} onClick={setDefault}>
             <Icon srcIcon={deleteIcon} />
             <Typography variant={'subtitle2'}>{t('clearFilter')}</Typography>
           </Button>

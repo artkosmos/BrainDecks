@@ -52,3 +52,11 @@
     text-decoration-line: underline;
   }
 }
+
+@media (width <= 400px) {
+  .logInCard .forgotTypography {
+    align-self: flex-start;
+    margin-top: 20px;
+    margin-left: 8px;
+  }
+}

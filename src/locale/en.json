@@ -79,6 +79,9 @@
     "signOutDropDown": "Sign Out",
     "logOut": "Log Out",
     "personalInfo": "Personal Information",
-    "newAvatar": "Choose New Photo"
+    "newAvatar": "Choose New Photo",
+    "chooseLanguage": "Choose language",
+    "chooseDecksByAuthor": "Choose decks by author",
+    "chooseDesiredAmountCards": "Choose desired amount of cards"
   }
 }
